@@ -1912,6 +1912,26 @@
             height: 16px;
             margin-left: 5px;
         }
+        
+        /* استایل‌های جدید برای بخش فاکتور */
+        .invoice-section {
+            margin-top: 20px;
+        }
+        
+        .invoice-section .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .invoice-section .invoice-item-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .invoice-section .invoice-item-row .form-group {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -1988,6 +2008,10 @@
                     <div class="nav-item" data-tab="inventory">
                         <i class="fas fa-warehouse"></i>
                         <span class="nav-item-text">انبار</span>
+                    </div>
+                    <div class="nav-item" data-tab="invoice">
+                        <i class="fas fa-receipt"></i>
+                        <span class="nav-item-text">فاکتور</span>
                     </div>
                     <div class="nav-item" data-tab="accounts">
                         <i class="fas fa-wallet"></i>
@@ -2558,9 +2582,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="section-divider"></div>
-                            
+                        </div>
+                        
+                        <div id="invoice-tab" class="tab-content hidden">
                             <div class="invoice-section">
                                 <h3 class="section-title">
                                     <i class="fas fa-receipt"></i>
@@ -2906,7 +2930,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 10; // افزایش نسخه برای تغییرات جدید
+        const DB_VERSION = 11; // افزایش نسخه برای تغییرات جدید
         
         // نام جداول
         const STORE_NAMES = {
@@ -3246,8 +3270,13 @@
                     updateSubsidiaryLedger(subsidiaryLedgerAccountSelect.value);
                 }
                 
-                // اگر تب انبار انتخاب شده، لیست کالاها و فاکتورها را به‌روزرسانی کن
+                // اگر تب انبار انتخاب شده، لیست کالاها را به‌روزرسانی کن
                 if (tabId === 'inventory') {
+                    updateInventoryList();
+                }
+                
+                // اگر تب فاکتور انتخاب شده، لیست کالاها و فاکتورها را به‌روزرسانی کن
+                if (tabId === 'invoice') {
                     updateInventoryList();
                     updateInvoicePartySelect();
                     updateInvoiceProductSelect();
@@ -4151,9 +4180,14 @@
                     formTitle: 'مدیریت حقوق'
                 },
                 'inventory': {
-                    title: 'انبار و فاکتورها',
-                    description: 'در این بخش می‌توانید کالاها را مدیریت و فاکتور صادر کنید',
+                    title: 'انبار',
+                    description: 'در این بخش می‌توانید کالاها را مدیریت کنید',
                     formTitle: 'مدیریت انبار'
+                },
+                'invoice': {
+                    title: 'فاکتور فروش/خدمات',
+                    description: 'در این بخش می‌توانید فاکتور صادر کنید',
+                    formTitle: 'فاکتور فروش/خدمات'
                 },
                 'accounts': {
                     title: 'مدیریت حساب‌ها',
@@ -4182,6 +4216,7 @@
                 'reports': 'chart-bar',
                 'salary': 'money-bill-wave',
                 'inventory': 'warehouse',
+                'invoice': 'receipt',
                 'accounts': 'wallet',
                 'dashboard': 'user'
             };
