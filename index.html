@@ -1705,10 +1705,12 @@
         .invoice-standard-info-label {
             font-weight: 600;
             width: 120px;
+            font-size: 0.7rem;
         }
         
         .invoice-standard-info-value {
             flex: 1;
+            font-size: 0.7rem;
         }
         
         .invoice-standard-table {
@@ -1850,10 +1852,12 @@
         .invoice-detail-label {
             font-weight: 600;
             width: 120px;
+            font-size: 0.7rem;
         }
         
         .invoice-detail-value {
             flex: 1;
+            font-size: 0.7rem;
         }
         
         .invoice-summary-section {
@@ -1931,6 +1935,28 @@
         
         .invoice-section .invoice-item-row .form-group {
             margin-bottom: 0;
+        }
+        
+        /* استایل‌های جدید برای بخش انبار */
+        .inventory-update-notice {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid var(--warning);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .inventory-update-notice i {
+            color: var(--warning);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .inventory-update-notice p {
+            color: var(--dark);
+            font-weight: 600;
+            margin: 0;
         }
     </style>
 </head>
@@ -2546,6 +2572,11 @@
                         </div>
                         
                         <div id="inventory-tab" class="tab-content hidden">
+                            <div class="inventory-update-notice">
+                                <i class="fas fa-info-circle"></i>
+                                <p>در آپدیت های آینده این بخش تکمیل خواهد شد</p>
+                            </div>
+                            
                             <div class="inventory-section">
                                 <h3 class="section-title">
                                     <i class="fas fa-plus"></i>
@@ -2585,6 +2616,45 @@
                         </div>
                         
                         <div id="invoice-tab" class="tab-content hidden">
+                            <div class="inventory-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-plus"></i>
+                                    افزودن مشخصات کالا/خدمات
+                                </h3>
+                                <div class="inventory-form">
+                                    <div class="form-group">
+                                        <label for="product-code" class="form-label">کد کالا/خدمات</label>
+                                        <input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="product-name" class="form-label">نام کالا/خدمات</label>
+                                        <input type="text" id="product-name" class="form-control" placeholder="نام کالا/خدمات">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="product-price" class="form-label">بهای واحد</label>
+                                        <div class="amount-input-container">
+                                            <span class="currency-symbol">﷼</span>
+                                            <input type="text" id="product-price" class="form-control amount-input" placeholder="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="add-product" class="btn btn-success">
+                                            <i class="fas fa-plus"></i>
+                                            افزودن کالا/خدمات
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="inventory-list" id="inventory-list">
+                                    <div class="empty-state">
+                                        <i class="fas fa-boxes"></i>
+                                        <p>هیچ کالا/خدماتی ثبت نشده است</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="section-divider"></div>
+                            
                             <div class="invoice-section">
                                 <h3 class="section-title">
                                     <i class="fas fa-receipt"></i>
@@ -2592,7 +2662,7 @@
                                 </h3>
                                 <div class="invoice-form">
                                     <div class="form-group">
-                                        <label for="invoice-date" class="form-label">تاریخ</label>
+                                        <label for="invoice-date" class="form-label">تاریخ فاکتور</label>
                                         <input type="text" id="invoice-date" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵">
                                     </div>
                                     <div class="form-group">
@@ -2607,7 +2677,7 @@
                                     <h4>موارد فاکتور</h4>
                                     <div class="invoice-item-row">
                                         <div class="form-group">
-                                            <label class="form-label">کد کالا</label>
+                                            <label class="form-label">کد کالا/خدمات</label>
                                             <select class="form-control invoice-product">
                                                 <option value="">انتخاب کنید</option>
                                             </select>
@@ -7330,8 +7400,8 @@
                 <div class="invoice-standard-preview-content">
                     <div class="invoice-standard-header">
                         <div class="invoice-standard-title">فاکتور فروش/خدمات</div>
-                        <div class="invoice-standard-number">شماره: ${toPersianNumbers(invoiceCounter)}</div>
-                        <div class="invoice-standard-date">تاریخ: ${date}</div>
+                        <div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div>
+                        <div class="invoice-standard-date">تاریخ فاکتور: ${date}</div>
                     </div>
                     
                     <div class="invoice-horizontal-details">
@@ -7648,9 +7718,11 @@
                         .invoice-detail-label {
                             font-weight: 600;
                             width: 120px;
+                            font-size: 0.7rem;
                         }
                         .invoice-detail-value {
                             flex: 1;
+                            font-size: 0.7rem;
                         }
                         .invoice-small-font {
                             font-size: 0.7rem;
@@ -7802,9 +7874,11 @@
                         .invoice-detail-label {
                             font-weight: 600;
                             width: 120px;
+                            font-size: 0.7rem;
                         }
                         .invoice-detail-value {
                             flex: 1;
+                            font-size: 0.7rem;
                         }
                         .invoice-small-font {
                             font-size: 0.7rem;
@@ -7868,8 +7942,8 @@
                     <div class="invoice-standard-preview-content">
                         <div class="invoice-standard-header">
                             <div class="invoice-standard-title">فاکتور فروش/خدمات</div>
-                            <div class="invoice-standard-number">شماره: ${toPersianNumbers(invoice.number)}</div>
-                            <div class="invoice-standard-date">تاریخ: ${invoice.date}</div>
+                            <div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div>
+                            <div class="invoice-standard-date">تاریخ فاکتور: ${invoice.date}</div>
                         </div>
                         
                         <div class="invoice-horizontal-details">
@@ -8014,4 +8088,3 @@
     </script>
 </body>
 </html>
-
