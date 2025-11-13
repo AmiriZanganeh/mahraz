@@ -1705,12 +1705,10 @@
         .invoice-standard-info-label {
             font-weight: 600;
             width: 120px;
-            font-size: 0.7rem;
         }
         
         .invoice-standard-info-value {
             flex: 1;
-            font-size: 0.7rem;
         }
         
         .invoice-standard-table {
@@ -1852,12 +1850,10 @@
         .invoice-detail-label {
             font-weight: 600;
             width: 120px;
-            font-size: 0.7rem;
         }
         
         .invoice-detail-value {
             flex: 1;
-            font-size: 0.7rem;
         }
         
         .invoice-summary-section {
@@ -1936,27 +1932,23 @@
         .invoice-section .invoice-item-row .form-group {
             margin-bottom: 0;
         }
-        
+
         /* استایل‌های جدید برای بخش انبار */
         .inventory-update-notice {
             background: rgba(255, 193, 7, 0.1);
             border: 1px solid var(--warning);
             border-radius: var(--border-radius);
             padding: 15px;
-            margin-bottom: 20px;
+            margin-top: 20px;
             text-align: center;
+            color: var(--dark);
+            font-weight: 600;
         }
         
         .inventory-update-notice i {
             color: var(--warning);
-            font-size: 1.2rem;
             margin-bottom: 10px;
-        }
-        
-        .inventory-update-notice p {
-            color: var(--dark);
-            font-weight: 600;
-            margin: 0;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -2573,93 +2565,59 @@
                         
                         <div id="inventory-tab" class="tab-content hidden">
                             <div class="inventory-update-notice">
-                                <i class="fas fa-info-circle"></i>
+                                <i class="fas fa-tools"></i>
                                 <p>در آپدیت های آینده این بخش تکمیل خواهد شد</p>
-                            </div>
-                            
-                            <div class="inventory-section">
-                                <h3 class="section-title">
-                                    <i class="fas fa-plus"></i>
-                                    افزودن مشخصات کالا
-                                </h3>
-                                <div class="inventory-form">
-                                    <div class="form-group">
-                                        <label for="product-code" class="form-label">کد کالا</label>
-                                        <input type="text" id="product-code" class="form-control" placeholder="کد کالا">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="product-name" class="form-label">نام کالا</label>
-                                        <input type="text" id="product-name" class="form-control" placeholder="نام کالا">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="product-price" class="form-label">بهای واحد هر عدد کالا</label>
-                                        <div class="amount-input-container">
-                                            <span class="currency-symbol">﷼</span>
-                                            <input type="text" id="product-price" class="form-control amount-input" placeholder="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" id="add-product" class="btn btn-success">
-                                            <i class="fas fa-plus"></i>
-                                            افزودن کالا
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <div class="inventory-list" id="inventory-list">
-                                    <div class="empty-state">
-                                        <i class="fas fa-boxes"></i>
-                                        <p>هیچ کالایی ثبت نشده است</p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         
                         <div id="invoice-tab" class="tab-content hidden">
-                            <div class="inventory-section">
-                                <h3 class="section-title">
-                                    <i class="fas fa-plus"></i>
-                                    افزودن مشخصات کالا/خدمات
-                                </h3>
-                                <div class="inventory-form">
-                                    <div class="form-group">
-                                        <label for="product-code" class="form-label">کد کالا/خدمات</label>
-                                        <input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="product-name" class="form-label">نام کالا/خدمات</label>
-                                        <input type="text" id="product-name" class="form-control" placeholder="نام کالا/خدمات">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="product-price" class="form-label">بهای واحد</label>
-                                        <div class="amount-input-container">
-                                            <span class="currency-symbol">﷼</span>
-                                            <input type="text" id="product-price" class="form-control amount-input" placeholder="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" id="add-product" class="btn btn-success">
-                                            <i class="fas fa-plus"></i>
-                                            افزودن کالا/خدمات
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <div class="inventory-list" id="inventory-list">
-                                    <div class="empty-state">
-                                        <i class="fas fa-boxes"></i>
-                                        <p>هیچ کالا/خدماتی ثبت نشده است</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="section-divider"></div>
-                            
                             <div class="invoice-section">
                                 <h3 class="section-title">
                                     <i class="fas fa-receipt"></i>
                                     فاکتور فروش/خدمات
                                 </h3>
+                                
+                                <!-- بخش افزودن مشخصات کالا/خدمات -->
+                                <div class="inventory-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-plus"></i>
+                                        افزودن مشخصات کالا/خدمات
+                                    </h3>
+                                    <div class="inventory-form">
+                                        <div class="form-group">
+                                            <label for="product-code" class="form-label">کد کالا/خدمات</label>
+                                            <input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-name" class="form-label">نام کالا/خدمات</label>
+                                            <input type="text" id="product-name" class="form-control" placeholder="نام کالا/خدمات">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-price" class="form-label">بهای واحد</label>
+                                            <div class="amount-input-container">
+                                                <span class="currency-symbol">﷼</span>
+                                                <input type="text" id="product-price" class="form-control amount-input" placeholder="0">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="add-product" class="btn btn-success">
+                                                <i class="fas fa-plus"></i>
+                                                افزودن کالا/خدمات
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="inventory-list" id="inventory-list">
+                                        <div class="empty-state">
+                                            <i class="fas fa-boxes"></i>
+                                            <p>هیچ کالا/خدماتی ثبت نشده است</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="section-divider"></div>
+                                
+                                <!-- بخش اصلی فاکتور -->
                                 <div class="invoice-form">
                                     <div class="form-group">
                                         <label for="invoice-date" class="form-label">تاریخ فاکتور</label>
@@ -4721,7 +4679,7 @@
                 inventoryList.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-boxes"></i>
-                        <p>هیچ کالایی ثبت نشده است</p>
+                        <p>هیچ کالا/خدماتی ثبت نشده است</p>
                     </div>
                 `;
                 return;
@@ -4733,7 +4691,7 @@
                     <div class="inventory-item">
                         <div>
                             <div>${product.name}</div>
-                            <small class="text-muted">کد کالا: ${product.code} | بهای واحد: ${formatCurrency(product.price)}</small>
+                            <small class="text-muted">کد کالا/خدمات: ${product.code} | بهای واحد: ${formatCurrency(product.price)}</small>
                         </div>
                         <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">
                             <i class="fas fa-trash"></i>
@@ -6831,7 +6789,7 @@
                             <div class="empty-state">
                                 <i class="fas fa-file-alt"></i>
                                 <p>پس از ثبت معامله، سند حسابداری در اینجا نمایش داده می‌شود</p>
-                            </div>
+                        </div>
                         `;
                         
                         showNotification('تمامی داده‌ها با موفقیت بازنشانی شدند!', 'success');
@@ -7189,12 +7147,12 @@
             const price = parseAmount(productPriceInput.value) || 0;
             
             if (!code || !name) {
-                showNotification('لطفاً کد و نام کالا را وارد کنید!', 'error');
+                showNotification('لطفاً کد و نام کالا/خدمات را وارد کنید!', 'error');
                 return;
             }
             
             if (price <= 0) {
-                showNotification('لطفاً بهای واحد کالا را وارد کنید!', 'error');
+                showNotification('لطفاً بهای واحد کالا/خدمات را وارد کنید!', 'error');
                 return;
             }
             
@@ -7222,7 +7180,7 @@
             productPriceInput.value = '';
             
             // نمایش پیام موفقیت
-            showNotification('کالای جدید با موفقیت افزوده شد!', 'success');
+            showNotification('کالا/خدمات جدید با موفقیت افزوده شد!', 'success');
         }
         
         // تابع افزودن ردیف فاکتور
@@ -7231,13 +7189,13 @@
             const quantity = parseAmount(invoiceQuantityInput.value) || 0;
             
             if (!productId || quantity <= 0) {
-                showNotification('لطفاً کالا و مقدار را وارد کنید!', 'error');
+                showNotification('لطفاً کالا/خدمات و مقدار را وارد کنید!', 'error');
                 return;
             }
             
             const product = inventory.find(p => p.id == productId);
             if (!product) {
-                showNotification('کالای انتخاب شده معتبر نیست!', 'error');
+                showNotification('کالا/خدمات انتخاب شده معتبر نیست!', 'error');
                 return;
             }
             
@@ -7291,7 +7249,7 @@
                         <div class="invoice-item-info">
                             <div class="invoice-item-name">${item.productName}</div>
                             <div class="invoice-item-details">
-                                <span>کد کالا: ${item.productCode}</span>
+                                <span>کد کالا/خدمات: ${item.productCode}</span>
                                 <span>مقدار: ${toPersianNumbers(item.quantity)}</span>
                                 <span>بهای واحد: ${formatCurrency(item.unitPrice)}</span>
                                 <span>بهای کل: ${formatCurrency(item.totalPrice)}</span>
@@ -7718,11 +7676,9 @@
                         .invoice-detail-label {
                             font-weight: 600;
                             width: 120px;
-                            font-size: 0.7rem;
                         }
                         .invoice-detail-value {
                             flex: 1;
-                            font-size: 0.7rem;
                         }
                         .invoice-small-font {
                             font-size: 0.7rem;
@@ -7874,11 +7830,9 @@
                         .invoice-detail-label {
                             font-weight: 600;
                             width: 120px;
-                            font-size: 0.7rem;
                         }
                         .invoice-detail-value {
                             flex: 1;
-                            font-size: 0.7rem;
                         }
                         .invoice-small-font {
                             font-size: 0.7rem;
