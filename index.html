@@ -1850,10 +1850,12 @@
         .invoice-detail-label {
             font-weight: 600;
             width: 120px;
+            font-size: 0.7rem; /* کاهش اندازه متن برچسب‌ها */
         }
         
         .invoice-detail-value {
             flex: 1;
+            font-size: 0.7rem; /* کاهش اندازه متن مقادیر */
         }
         
         .invoice-summary-section {
@@ -1949,6 +1951,17 @@
             color: var(--warning);
             margin-bottom: 10px;
             font-size: 1.5rem;
+        }
+
+        /* استایل‌های جدید برای گزارش سود و زیان */
+        .negative-profit {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .positive-profit {
+            color: var(--success);
+            font-weight: bold;
         }
     </style>
 </head>
@@ -2577,46 +2590,6 @@
                                     فاکتور فروش/خدمات
                                 </h3>
                                 
-                                <!-- بخش افزودن مشخصات کالا/خدمات -->
-                                <div class="inventory-section">
-                                    <h3 class="section-title">
-                                        <i class="fas fa-plus"></i>
-                                        افزودن مشخصات کالا/خدمات
-                                    </h3>
-                                    <div class="inventory-form">
-                                        <div class="form-group">
-                                            <label for="product-code" class="form-label">کد کالا/خدمات</label>
-                                            <input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="product-name" class="form-label">نام کالا/خدمات</label>
-                                            <input type="text" id="product-name" class="form-control" placeholder="نام کالا/خدمات">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="product-price" class="form-label">بهای واحد</label>
-                                            <div class="amount-input-container">
-                                                <span class="currency-symbol">﷼</span>
-                                                <input type="text" id="product-price" class="form-control amount-input" placeholder="0">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="button" id="add-product" class="btn btn-success">
-                                                <i class="fas fa-plus"></i>
-                                                افزودن کالا/خدمات
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="inventory-list" id="inventory-list">
-                                        <div class="empty-state">
-                                            <i class="fas fa-boxes"></i>
-                                            <p>هیچ کالا/خدماتی ثبت نشده است</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="section-divider"></div>
-                                
                                 <!-- بخش اصلی فاکتور -->
                                 <div class="invoice-form">
                                     <div class="form-group">
@@ -2688,6 +2661,46 @@
                                     <div class="empty-state">
                                         <i class="fas fa-receipt"></i>
                                         <p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- بخش افزودن مشخصات کالا/خدمات - انتقال یافته به زیر پیش‌نمایش فاکتور -->
+                                <div class="section-divider"></div>
+                                
+                                <div class="inventory-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-plus"></i>
+                                        افزودن مشخصات کالا/خدمات
+                                    </h3>
+                                    <div class="inventory-form">
+                                        <div class="form-group">
+                                            <label for="product-code" class="form-label">کد کالا/خدمات</label>
+                                            <input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-name" class="form-label">نام کالا/خدمات</label>
+                                            <input type="text" id="product-name" class="form-control" placeholder="نام کالا/خدمات">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-price" class="form-label">بهای واحد</label>
+                                            <div class="amount-input-container">
+                                                <span class="currency-symbol">﷼</span>
+                                                <input type="text" id="product-price" class="form-control amount-input" placeholder="0">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="add-product" class="btn btn-success">
+                                                <i class="fas fa-plus"></i>
+                                                افزودن کالا/خدمات
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="inventory-list" id="inventory-list">
+                                        <div class="empty-state">
+                                            <i class="fas fa-boxes"></i>
+                                            <p>هیچ کالا/خدماتی ثبت نشده است</p>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -2958,7 +2971,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 11; // افزایش نسخه برای تغییرات جدید
+        const DB_VERSION = 12; // افزایش نسخه برای تغییرات جدید
         
         // نام جداول
         const STORE_NAMES = {
@@ -4909,7 +4922,7 @@
             updateBalanceSheet();
         }
         
-        // تابع به‌روزرسانی صورت سود و زیان
+        // تابع به‌روزرسانی صورت سود و زیان - بهبود یافته برای نمایش اعداد منفی
         function updateProfitLoss() {
             // محاسبه درآمدها و هزینه‌ها
             let totalIncome = 0;
@@ -5004,7 +5017,7 @@
                     </tr>
                     <tr style="background-color: rgba(0,0,0,0.05); font-weight: bold;">
                         <td>سود (زیان) خالص</td>
-                        <td class="${netProfit >= 0 ? 'positive' : 'negative'}">${formatCurrency(Math.abs(netProfit))}</td>
+                        <td class="${netProfit >= 0 ? 'positive-profit' : 'negative-profit'}">${formatCurrency(netProfit)}</td>
                     </tr>
                 `;
             }
@@ -7295,7 +7308,7 @@
             // و در فرم نمایش داده نمی‌شوند
         }
         
-        // تابع تولید پیش‌نمایش فاکتور استاندارد
+        // تابع تولید پیش‌نمایش فاکتور استاندارد - بهبود یافته
         function generateStandardInvoicePreview() {
             const date = invoiceDateInput.value;
             const partyId = invoicePartySelect.value;
@@ -7359,7 +7372,7 @@
                     <div class="invoice-standard-header">
                         <div class="invoice-standard-title">فاکتور فروش/خدمات</div>
                         <div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div>
-                        <div class="invoice-standard-date">تاریخ فاکتور: ${date}</div>
+                        <div class="invoice-standard-date">تاریخ: ${date}</div>
                     </div>
                     
                     <div class="invoice-horizontal-details">
@@ -7676,9 +7689,11 @@
                         .invoice-detail-label {
                             font-weight: 600;
                             width: 120px;
+                            font-size: 0.7rem;
                         }
                         .invoice-detail-value {
                             flex: 1;
+                            font-size: 0.7rem;
                         }
                         .invoice-small-font {
                             font-size: 0.7rem;
@@ -7830,9 +7845,11 @@
                         .invoice-detail-label {
                             font-weight: 600;
                             width: 120px;
+                            font-size: 0.7rem;
                         }
                         .invoice-detail-value {
                             flex: 1;
+                            font-size: 0.7rem;
                         }
                         .invoice-small-font {
                             font-size: 0.7rem;
@@ -7897,7 +7914,7 @@
                         <div class="invoice-standard-header">
                             <div class="invoice-standard-title">فاکتور فروش/خدمات</div>
                             <div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div>
-                            <div class="invoice-standard-date">تاریخ فاکتور: ${invoice.date}</div>
+                            <div class="invoice-standard-date">تاریخ: ${invoice.date}</div>
                         </div>
                         
                         <div class="invoice-horizontal-details">
