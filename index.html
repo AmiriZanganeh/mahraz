@@ -375,6 +375,31 @@
         /* استایل‌های جدید برای دکمه‌های فاکتور */
         .invoice-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: center; }
         .invoice-actions .btn { flex: 1; max-width: 200px; }
+        
+        /* استایل‌های جدید برای دکمه‌های ساده */
+        .simple-btn { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: var(--border-radius); cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: var(--transition); }
+        .simple-btn:hover { background: var(--primary-dark); }
+        .simple-btn-danger { background: var(--danger); }
+        .simple-btn-danger:hover { background: #c82333; }
+        .simple-btn-success { background: var(--success); }
+        .simple-btn-success:hover { background: #218838; }
+        .simple-btn-warning { background: var(--warning); color: #212529; }
+        .simple-btn-warning:hover { background: #e0a800; }
+        .simple-btn-info { background: var(--info); }
+        .simple-btn-info:hover { background: #138496; }
+        
+        /* استایل‌های جدید برای واحد اندازه‌گیری */
+        .unit-input-container { display: flex; gap: 10px; }
+        .unit-input-container .form-control { flex: 1; }
+        
+        /* استایل‌های جدید برای فاکتور متصل */
+        .invoice-connected-details { display: flex; justify-content: space-between; margin-bottom: 0; }
+        .invoice-connected-table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 0.75rem; }
+        .invoice-connected-table th { background: var(--primary); color: white; padding: 8px; text-align: center; border: 1px solid var(--border); }
+        .invoice-connected-table td { padding: 6px; border: 1px solid var(--border); text-align: center; }
+        .invoice-connected-seller, .invoice-connected-buyer { flex: 1; padding: 15px; background: rgba(44, 90, 160, 0.05); border: 1px solid var(--border); }
+        .invoice-connected-seller { margin-left: 10px; border-bottom: none; border-radius: var(--border-radius) var(--border-radius) 0 0; }
+        .invoice-connected-buyer { margin-right: 10px; border-bottom: none; border-radius: var(--border-radius) var(--border-radius) 0 0; }
     </style>
 </head>
 <body>
@@ -484,7 +509,7 @@
                                     <label for="description" class="form-label">شرح</label>
                                     <textarea id="description" class="form-control" rows="3" placeholder="شرح معامله" required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-block"><i class="fas fa-file-alt"></i> ثبت سند</button>
+                                <button type="submit" class="simple-btn simple-btn-success btn-block"><i class="fas fa-file-alt"></i> ثبت سند</button>
                             </form>
                             
                             <form id="manual-document-form" class="manual-document-form">
@@ -516,12 +541,12 @@
                                                 <input type="text" class="form-control amount-input manual-credit" placeholder="0">
                                             </div>
                                         </div>
-                                        <button type="button" class="remove-transaction-btn" disabled><i class="fas fa-trash"></i></button>
+                                        <button type="button" class="simple-btn simple-btn-danger" disabled><i class="fas fa-trash"></i></button>
                                     </div>
                                 </div>
-                                <button type="button" id="add-transaction-btn" class="btn btn-success"><i class="fas fa-plus"></i> افزودن ردیف</button>
+                                <button type="button" id="add-transaction-btn" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن ردیف</button>
                                 <div class="form-group" style="margin-top: 15px;">
-                                    <button type="submit" class="btn btn-success btn-block"><i class="fas fa-file-alt"></i> ثبت سند دستی</button>
+                                    <button type="submit" class="simple-btn simple-btn-success btn-block"><i class="fas fa-file-alt"></i> ثبت سند دستی</button>
                                 </div>
                             </form>
                         </div>
@@ -653,7 +678,7 @@
                                     <div class="form-group"><label for="monthly-deductions" class="form-label">کسورات</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" id="monthly-deductions" class="form-control amount-input" placeholder="0"></div></div>
                                 </div>
                                 <div class="salary-actions">
-                                    <button type="button" id="generate-salary-document" class="btn btn-success"><i class="fas fa-file-invoice-dollar"></i> سند محاسبه حقوق و دستمزد</button>
+                                    <button type="button" id="generate-salary-document" class="simple-btn simple-btn-success"><i class="fas fa-file-invoice-dollar"></i> سند محاسبه حقوق و دستمزد</button>
                                 </div>
                             </div>
                             <div class="section-divider"></div>
@@ -674,7 +699,7 @@
                                     <div class="form-group"><label for="employee-insurance-worker" class="form-label">درصد بیمه سهم کارگر</label><input type="text" id="employee-insurance-worker" class="form-control" placeholder="0"></div>
                                     <div class="form-group"><label for="employee-insurance-employer" class="form-label">درصد بیمه سهم کارفرما</label><input type="text" id="employee-insurance-employer" class="form-control" placeholder="0"></div>
                                     <div class="form-group"><label for="employee-salary-tax" class="form-label">مالیات حقوق</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" id="employee-salary-tax" class="form-control amount-input" placeholder="0"></div></div>
-                                    <div class="form-group"><button type="button" id="add-employee" class="btn btn-success"><i class="fas fa-user-plus"></i> افزودن پرسنل</button></div>
+                                    <div class="form-group"><button type="button" id="add-employee" class="simple-btn simple-btn-success"><i class="fas fa-user-plus"></i> افزودن پرسنل</button></div>
                                 </div>
                                 <div class="salary-employees-list" id="salary-employees-list">
                                     <div class="empty-state"><i class="fas fa-users"></i><p>هیچ پرسنلی ثبت نشده است</p></div>
@@ -710,7 +735,7 @@
                                             <div class="invoice-payment-option"><input type="radio" id="payment-non-cash" name="payment-method" value="non-cash" class="invoice-payment-checkbox"><label for="payment-non-cash">غیر نقدی</label></div>
                                         </div>
                                     </div>
-                                    <button type="button" id="add-invoice-item" class="btn btn-success"><i class="fas fa-plus"></i> افزودن ردیف فاکتور</button>
+                                    <button type="button" id="add-invoice-item" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن ردیف فاکتور</button>
                                 </div>
                                 <div class="invoice-items-container" id="invoice-items-container">
                                     <div class="empty-state"><i class="fas fa-receipt"></i><p>هیچ موردی به فاکتور اضافه نشده است</p></div>
@@ -719,9 +744,9 @@
                                     <div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>
                                 </div>
                                 <div class="invoice-actions">
-                                    <button id="save-invoice" class="btn btn-success"><i class="fas fa-save"></i> ذخیره فاکتور</button>
-                                    <button id="print-invoice" class="btn btn-info"><i class="fas fa-print"></i> چاپ فاکتور</button>
-                                    <button id="reset-invoice" class="btn btn-warning"><i class="fas fa-undo"></i> بازگشت</button>
+                                    <button id="save-invoice" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره فاکتور</button>
+                                    <button id="print-invoice" class="simple-btn simple-btn-info"><i class="fas fa-print"></i> چاپ فاکتور</button>
+                                    <button id="reset-invoice" class="simple-btn simple-btn-warning"><i class="fas fa-undo"></i> بازگشت</button>
                                 </div>
                                 <div class="section-divider"></div>
                                 <div class="inventory-section">
@@ -730,7 +755,13 @@
                                         <div class="form-group"><label for="product-code" class="form-label">کد کالا/خدمات</label><input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات"></div>
                                         <div class="form-group"><label for="product-name" class="form-label">نام کالا/خدمات</label><input type="text" id="product-name" class="form-control" placeholder="نام کالا/خدمات"></div>
                                         <div class="form-group"><label for="product-price" class="form-label">بهای واحد</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" id="product-price" class="form-control amount-input" placeholder="0"></div></div>
-                                        <div class="form-group"><button type="button" id="add-product" class="btn btn-success"><i class="fas fa-plus"></i> افزودن کالا/خدمات</button></div>
+                                        <div class="form-group">
+                                            <label for="product-unit" class="form-label">واحد اندازه‌گیری</label>
+                                            <div class="unit-input-container">
+                                                <input type="text" id="product-unit" class="form-control" placeholder="مثال: عدد، کیلوگرم، متر">
+                                            </div>
+                                        </div>
+                                        <div class="form-group"><button type="button" id="add-product" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن کالا/خدمات</button></div>
                                     </div>
                                     <div class="inventory-list" id="inventory-list">
                                         <div class="empty-state"><i class="fas fa-boxes"></i><p>هیچ کالا/خدماتی ثبت نشده است</p></div>
@@ -754,7 +785,7 @@
                                     <div class="form-group"><label for="party-phone" class="form-label">شماره تماس</label><input type="text" id="party-phone" class="form-control" placeholder="شماره تماس"></div>
                                     <div class="form-group"><label for="party-address" class="form-label">آدرس</label><textarea id="party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                     <div class="form-group"><label for="party-postal-code" class="form-label">کد پستی</label><input type="text" id="party-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                    <div class="form-group"><button type="button" id="add-party" class="btn btn-success"><i class="fas fa-plus"></i> افزودن طرف حساب</button></div>
+                                    <div class="form-group"><button type="button" id="add-party" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن طرف حساب</button></div>
                                 </div>
                                 <div class="parties-list" id="parties-list">
                                     <div class="empty-state"><i class="fas fa-address-book"></i><p>هیچ طرف حسابی ثبت نشده است</p></div>
@@ -766,7 +797,7 @@
                                 <div class="account-group-form">
                                     <div class="form-group"><label for="new-account-name" class="form-label">نام حساب</label><input type="text" id="new-account-name" class="form-control" placeholder="نام حساب جدید"></div>
                                     <div class="form-group"><label for="account-group" class="form-label">گروه حساب</label><select id="account-group" class="form-control"><option value="asset">دارایی</option><option value="liability">بدهی</option><option value="equity">حقوق صاحبان سهام</option><option value="income">درآمد</option><option value="expense">هزینه</option></select></div>
-                                    <div class="form-group"><button type="button" id="add-account" class="btn btn-success"><i class="fas fa-plus"></i> افزودن حساب</button></div>
+                                    <div class="form-group"><button type="button" id="add-account" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن حساب</button></div>
                                 </div>
                                 <div class="accounts-list" id="accounts-list">
                                     <div class="empty-state"><i class="fas fa-wallet"></i><p>هیچ حسابی ثبت نشده است</p></div>
@@ -790,7 +821,7 @@
                                         <div class="form-group"><label for="company-phone" class="form-label">شماره تماس</label><input type="text" id="company-phone" class="form-control" placeholder="شماره تماس"></div>
                                         <div class="form-group"><label for="company-address" class="form-label">آدرس</label><textarea id="company-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                         <div class="form-group"><label for="company-postal-code" class="form-label">کد پستی</label><input type="text" id="company-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                        <div class="form-group"><button type="button" id="save-company-info" class="btn btn-success"><i class="fas fa-save"></i> ذخیره اطلاعات شرکت</button></div>
+                                        <div class="form-group"><button type="button" id="save-company-info" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره اطلاعات شرکت</button></div>
                                     </div>
                                 </div>
                                 <div class="section-divider"></div>
@@ -799,15 +830,15 @@
                                     <div class="fiscal-period-form">
                                         <div class="form-group"><label for="fiscal-period-start" class="form-label">تاریخ شروع دوره مالی</label><input type="text" id="fiscal-period-start" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵"></div>
                                         <div class="form-group"><label for="fiscal-period-end" class="form-label">تاریخ پایان دوره مالی</label><input type="text" id="fiscal-period-end" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵"></div>
-                                        <div class="form-group"><button type="button" id="save-fiscal-period" class="btn btn-success"><i class="fas fa-save"></i> ذخیره دوره مالی</button></div>
+                                        <div class="form-group"><button type="button" id="save-fiscal-period" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره دوره مالی</button></div>
                                     </div>
                                     <div class="section-divider"></div>
                                     <div class="backup-section">
                                         <h3 class="section-title"><i class="fas fa-database"></i> پشتیبان‌گیری و بازیابی داده‌ها</h3>
                                         <div class="backup-actions">
-                                            <button type="button" id="export-data" class="btn btn-info"><i class="fas fa-download"></i> Export JSON</button>
-                                            <button type="button" id="import-data" class="btn btn-warning"><i class="fas fa-upload"></i> Import JSON</button>
-                                            <button type="button" id="reset-data" class="btn btn-danger"><i class="fas fa-trash"></i> بازنشانی داده‌ها</button>
+                                            <button type="button" id="export-data" class="simple-btn simple-btn-info"><i class="fas fa-download"></i> Export JSON</button>
+                                            <button type="button" id="import-data" class="simple-btn simple-btn-warning"><i class="fas fa-upload"></i> Import JSON</button>
+                                            <button type="button" id="reset-data" class="simple-btn simple-btn-danger"><i class="fas fa-trash"></i> بازنشانی داده‌ها</button>
                                         </div>
                                         <input type="file" id="import-file" accept=".json" style="display: none;">
                                     </div>
@@ -824,8 +855,8 @@
                             <div class="empty-state"><i class="fas fa-file-alt"></i><p>پس از ثبت معامله، سند حسابداری در اینجا نمایش داده می‌شود</p></div>
                         </div>
                         <div class="actions">
-                            <button id="save-document" class="btn btn-success"><i class="fas fa-save"></i> ذخیره سند</button>
-                            <button id="clear-document" class="btn btn-outline"><i class="fas fa-undo"></i> بازگشت</button>
+                            <button id="save-document" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره سند</button>
+                            <button id="clear-document" class="simple-btn simple-btn-warning"><i class="fas fa-undo"></i> بازگشت</button>
                         </div>
                     </div>
                 </div>
@@ -840,7 +871,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 12;
+        const DB_VERSION = 13;
         
         // نام جداول
         const STORE_NAMES = {
@@ -979,6 +1010,7 @@
         const productCodeInput = document.getElementById('product-code');
         const productNameInput = document.getElementById('product-name');
         const productPriceInput = document.getElementById('product-price');
+        const productUnitInput = document.getElementById('product-unit');
         const inventoryList = document.getElementById('inventory-list');
         const invoiceDateInput = document.getElementById('invoice-date');
         const invoicePartySelect = document.getElementById('invoice-party');
@@ -1878,7 +1910,7 @@
             
             let html = '';
             userAccounts.forEach(account => {
-                html += `<div class="account-item"><div><div>${account.name}</div><small class="text-muted">${getAccountGroupText(account.group)}</small></div><button class="btn btn-danger btn-sm" onclick="deleteAccount(${account.id})"><i class="fas fa-trash"></i> حذف</button></div>`;
+                html += `<div class="account-item"><div><div>${account.name}</div><small class="text-muted">${getAccountGroupText(account.group)}</small></div><button class="simple-btn simple-btn-danger" onclick="deleteAccount(${account.id})"><i class="fas fa-trash"></i> حذف</button></div>`;
             });
             accountsList.innerHTML = html;
         }
@@ -1893,7 +1925,7 @@
             let html = '';
             savedDocuments.forEach(document => {
                 let descriptionText = document.transactions[0]?.description || '';
-                html += `<div class="document-item"><div class="document-info"><div class="document-title">سند شماره ${toPersianNumbers(document.number)}</div><div class="document-meta"><div class="document-meta-item"><i class="fas fa-calendar"></i><span>${document.date}</span></div><div class="document-meta-item"><i class="fas fa-money-bill-wave"></i><span>${formatCurrency(document.totalAmount)}</span></div></div><div class="document-description-preview">${descriptionText}</div></div><div class="document-actions"><button class="document-action-btn view" onclick="viewDocument(${document.id})"><i class="fas fa-eye"></i> مشاهده</button><button class="document-action-btn delete" onclick="deleteDocument(${document.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
+                html += `<div class="document-item"><div class="document-info"><div class="document-title">سند شماره ${toPersianNumbers(document.number)}</div><div class="document-meta"><div class="document-meta-item"><i class="fas fa-calendar"></i><span>${document.date}</span></div><div class="document-meta-item"><i class="fas fa-money-bill-wave"></i><span>${formatCurrency(document.totalAmount)}</span></div></div><div class="document-description-preview">${descriptionText}</div></div><div class="document-actions"><button class="simple-btn simple-btn-success" onclick="viewDocument(${document.id})"><i class="fas fa-eye"></i> مشاهده</button><button class="simple-btn simple-btn-danger" onclick="deleteDocument(${document.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
             });
             documentsList.innerHTML = html;
         }
@@ -1912,7 +1944,7 @@
                                   (employee.childAllowance || 0) + (employee.foodAllowance || 0) + 
                                   (employee.workerBonus || 0) + (employee.seniorityBase || 0);
                 
-                html += `<div class="salary-employee-item"><div class="salary-employee-details"><div class="salary-employee-name">${employee.name}</div><div class="salary-employee-info"><span>کد ملی: ${employee.nationalId}</span><span>تاریخ استخدام: ${employee.hireDate}</span><span>حقوق پایه روزانه: ${formatCurrency(employee.dailySalary)}</span></div></div><div class="salary-employee-actions"><button class="btn btn-danger btn-sm" onclick="deleteEmployee(${employee.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
+                html += `<div class="salary-employee-item"><div class="salary-employee-details"><div class="salary-employee-name">${employee.name}</div><div class="salary-employee-info"><span>کد ملی: ${employee.nationalId}</span><span>تاریخ استخدام: ${employee.hireDate}</span><span>حقوق پایه روزانه: ${formatCurrency(employee.dailySalary)}</span></div></div><div class="salary-employee-actions"><button class="simple-btn simple-btn-danger" onclick="deleteEmployee(${employee.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
             });
             salaryEmployeesList.innerHTML = html;
         }
@@ -1933,7 +1965,7 @@
             
             let html = '';
             parties.forEach(party => {
-                html += `<div class="party-item"><div><div>${party.name}</div><small class="text-muted">شماره تماس: ${party.phone} | آدرس: ${party.address}</small></div><button class="btn btn-danger btn-sm" onclick="deleteParty(${party.id})"><i class="fas fa-trash"></i> حذف</button></div>`;
+                html += `<div class="party-item"><div><div>${party.name}</div><small class="text-muted">شماره تماس: ${party.phone} | آدرس: ${party.address}</small></div><button class="simple-btn simple-btn-danger" onclick="deleteParty(${party.id})"><i class="fas fa-trash"></i> حذف</button></div>`;
             });
             partiesList.innerHTML = html;
         }
@@ -1970,7 +2002,7 @@
             
             let html = '';
             inventory.forEach(product => {
-                html += `<div class="inventory-item"><div><div>${product.name}</div><small class="text-muted">کد کالا/خدمات: ${product.code} | بهای واحد: ${formatCurrency(product.price)}</small></div><button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})"><i class="fas fa-trash"></i> حذف</button></div>`;
+                html += `<div class="inventory-item"><div><div>${product.name}</div><small class="text-muted">کد کالا/خدمات: ${product.code} | بهای واحد: ${formatCurrency(product.price)} | واحد: ${product.unit || 'عدد'}</small></div><button class="simple-btn simple-btn-danger" onclick="deleteProduct(${product.id})"><i class="fas fa-trash"></i> حذف</button></div>`;
             });
             inventoryList.innerHTML = html;
         }
@@ -1986,7 +2018,7 @@
         function updateInvoiceProductSelect() {
             let html = '<option value="">انتخاب کنید</option>';
             inventory.forEach(product => {
-                html += `<option value="${product.id}" data-code="${product.code}" data-name="${product.name}" data-price="${product.price}">${product.code} - ${product.name}</option>`;
+                html += `<option value="${product.id}" data-code="${product.code}" data-name="${product.name}" data-price="${product.price}" data-unit="${product.unit || 'عدد'}">${product.code} - ${product.name}</option>`;
             });
             invoiceProductSelect.innerHTML = html;
         }
@@ -2000,7 +2032,7 @@
             
             let html = '';
             savedInvoices.forEach(invoice => {
-                html += `<div class="saved-invoice-item"><div class="saved-invoice-info"><div class="saved-invoice-title">فاکتور شماره ${invoice.number}</div><div class="saved-invoice-meta"><div class="saved-invoice-meta-item"><i class="fas fa-calendar"></i><span>${invoice.date}</span></div><div class="saved-invoice-meta-item"><i class="fas fa-user"></i><span>${invoice.partyName}</span></div><div class="saved-invoice-meta-item"><i class="fas fa-money-bill-wave"></i><span>${formatCurrency(invoice.grandTotal)}</span></div></div></div><div class="saved-invoice-actions"><button class="document-action-btn print" onclick="printSavedInvoice(${invoice.id})"><i class="fas fa-print"></i> چاپ</button><button class="document-action-btn delete" onclick="deleteInvoice(${invoice.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
+                html += `<div class="saved-invoice-item"><div class="saved-invoice-info"><div class="saved-invoice-title">فاکتور شماره ${invoice.number}</div><div class="saved-invoice-meta"><div class="saved-invoice-meta-item"><i class="fas fa-calendar"></i><span>${invoice.date}</span></div><div class="saved-invoice-meta-item"><i class="fas fa-user"></i><span>${invoice.partyName}</span></div><div class="saved-invoice-meta-item"><i class="fas fa-money-bill-wave"></i><span>${formatCurrency(invoice.grandTotal)}</span></div></div></div><div class="saved-invoice-actions"><button class="simple-btn simple-btn-info" onclick="printSavedInvoice(${invoice.id})"><i class="fas fa-print"></i> چاپ</button><button class="simple-btn simple-btn-danger" onclick="deleteInvoice(${invoice.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
             });
             savedInvoicesList.innerHTML = html;
         }
@@ -2785,8 +2817,8 @@
         function addManualTransactionRow() {
             const row = document.createElement('div');
             row.className = 'manual-transaction-row';
-            row.innerHTML = `<div class="form-group"><label class="form-label">حساب</label><select class="form-control manual-account" required><option value="">انتخاب کنید</option>${accounts.map(acc => `<option value="${acc.id}">${acc.name}</option>`).join('')}</select></div><div class="form-group"><label class="form-label">بدهکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-debit" placeholder="0"></div></div><div class="form-group"><label class="form-label">بستانکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-credit" placeholder="0"></div></div><button type="button" class="remove-transaction-btn"><i class="fas fa-trash"></i></button>`;
-            const removeBtn = row.querySelector('.remove-transaction-btn');
+            row.innerHTML = `<div class="form-group"><label class="form-label">حساب</label><select class="form-control manual-account" required><option value="">انتخاب کنید</option>${accounts.map(acc => `<option value="${acc.id}">${acc.name}</option>`).join('')}</select></div><div class="form-group"><label class="form-label">بدهکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-debit" placeholder="0"></div></div><div class="form-group"><label class="form-label">بستانکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-credit" placeholder="0"></div></div><button type="button" class="simple-btn simple-btn-danger"><i class="fas fa-trash"></i></button>`;
+            const removeBtn = row.querySelector('.simple-btn');
             removeBtn.addEventListener('click', function() { row.remove(); updateRemoveButtons(); });
             manualTransactionsContainer.appendChild(row);
             updateRemoveButtons();
@@ -2795,7 +2827,7 @@
         // تابع به‌روزرسانی وضعیت دکمه‌های حذف
         function updateRemoveButtons() {
             const rows = document.querySelectorAll('.manual-transaction-row');
-            const removeButtons = document.querySelectorAll('.remove-transaction-btn');
+            const removeButtons = document.querySelectorAll('.manual-transaction-row .simple-btn');
             if (rows.length === 1) removeButtons[0].disabled = true;
             else removeButtons.forEach(btn => { btn.disabled = false; });
         }
@@ -3203,6 +3235,7 @@
             const code = productCodeInput.value.trim();
             const name = productNameInput.value.trim();
             const price = parseAmount(productPriceInput.value) || 0;
+            const unit = productUnitInput.value.trim() || 'عدد';
             
             if (!code || !name) {
                 showNotification('لطفاً کد و نام کالا/خدمات را وارد کنید!', 'error');
@@ -3214,7 +3247,7 @@
                 return;
             }
             
-            const newProduct = { id: Date.now(), code: code, name: name, price: price };
+            const newProduct = { id: Date.now(), code: code, name: name, price: price, unit: unit };
             inventory.push(newProduct);
             saveProduct(newProduct);
             updateInventoryList();
@@ -3222,6 +3255,7 @@
             productCodeInput.value = '';
             productNameInput.value = '';
             productPriceInput.value = '';
+            productUnitInput.value = '';
             showNotification('کالا/خدمات جدید با موفقیت افزوده شد!', 'success');
         }
         
@@ -3245,7 +3279,8 @@
             const totalPrice = quantity * unitPrice;
             const invoiceItem = {
                 id: Date.now(), productId: productId, productCode: product.code,
-                productName: product.name, quantity: quantity, unitPrice: unitPrice, totalPrice: totalPrice
+                productName: product.name, quantity: quantity, unitPrice: unitPrice, 
+                totalPrice: totalPrice, unit: product.unit || 'عدد'
             };
             
             invoiceItems.push(invoiceItem);
@@ -3265,7 +3300,7 @@
             
             let html = '';
             invoiceItems.forEach((item, index) => {
-                html += `<div class="invoice-item-display"><div class="invoice-item-info"><div class="invoice-item-name">${item.productName}</div><div class="invoice-item-details"><span>کد کالا/خدمات: ${item.productCode}</span><span>مقدار: ${toPersianNumbers(item.quantity)}</span><span>بهای واحد: ${formatCurrency(item.unitPrice)}</span><span>بهای کل: ${formatCurrency(item.totalPrice)}</span></div></div><div class="invoice-item-actions"><button class="btn btn-danger btn-sm" onclick="removeInvoiceItem(${index})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
+                html += `<div class="invoice-item-display"><div class="invoice-item-info"><div class="invoice-item-name">${item.productName}</div><div class="invoice-item-details"><span>کد کالا/خدمات: ${item.productCode}</span><span>مقدار: ${toPersianNumbers(item.quantity)}</span><span>بهای واحد: ${formatCurrency(item.unitPrice)}</span><span>بهای کل: ${formatCurrency(item.totalPrice)}</span></div></div><div class="invoice-item-actions"><button class="simple-btn simple-btn-danger" onclick="removeInvoiceItem(${index})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
             });
             invoiceItemsContainer.innerHTML = html;
         }
@@ -3289,7 +3324,7 @@
             const grandTotal = subtotal - discountAmount + taxAmount;
         }
         
-        // تابع تولید پیش‌نمایش فاکتور استاندارد - بهبود یافته
+        // تابع تولید پیش‌نمایش فاکتور استاندارد - بهبود یافته با اتصال کادرها
         function generateStandardInvoicePreview() {
             const date = invoiceDateInput.value;
             const partyId = invoicePartySelect.value;
@@ -3317,10 +3352,10 @@
             
             let itemsHtml = '';
             invoiceItems.forEach((item, index) => {
-                itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>عدد</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(0)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(taxAmount / invoiceItems.length)}</td><td>${formatCurrency(item.totalPrice + (taxAmount / invoiceItems.length))}</td></tr>`;
+                itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>${item.unit}</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(0)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(taxAmount / invoiceItems.length)}</td><td>${formatCurrency(item.totalPrice + (taxAmount / invoiceItems.length))}</td></tr>`;
             });
             
-            let html = `<div class="invoice-standard-preview-content"><div class="invoice-standard-header"><div class="invoice-standard-title">فاکتور فروش/خدمات</div><div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div><div class="invoice-standard-date">تاریخ: ${date}</div></div><div class="invoice-horizontal-details"><div class="invoice-seller-details"><div class="invoice-standard-section-title">فروشنده</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.name || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.economicCode || '---'}</div></div>${companyInfo.type === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.registrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.nationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.address || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.postalCode || '---'}</div></div></div><div class="invoice-buyer-details"><div class="invoice-standard-section-title">خریدار</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${party.name}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${party.economicCode}</div></div>${party.type === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${party.registrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${party.nationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${party.address || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${party.postalCode || '---'}</div></div></div></div><table class="invoice-standard-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-summary-section"><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به عدد:</div><div class="invoice-summary-value invoice-small-font">${formatCurrency(grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به حروف:</div><div class="invoice-summary-value invoice-small-font">${numberToWords(grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">نحوه پرداخت:</div><div class="invoice-summary-value invoice-small-font"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-standard-signatures"><div class="invoice-standard-signature"><div>مهر و امضای فروشنده</div><div class="invoice-standard-signature-line"></div></div><div class="invoice-standard-signature"><div>مهر و امضای خریدار</div><div class="invoice-standard-signature-line"></div></div></div></div>`;
+            let html = `<div class="invoice-standard-preview-content"><div class="invoice-standard-header"><div class="invoice-standard-title">فاکتور فروش/خدمات</div><div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div><div class="invoice-standard-date">تاریخ: ${date}</div></div><div class="invoice-connected-details"><div class="invoice-connected-seller"><div class="invoice-standard-section-title">فروشنده</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.name || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.economicCode || '---'}</div></div>${companyInfo.type === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.registrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.nationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.address || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.postalCode || '---'}</div></div></div><div class="invoice-connected-buyer"><div class="invoice-standard-section-title">خریدار</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${party.name}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${party.economicCode}</div></div>${party.type === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${party.registrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${party.nationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${party.address || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${party.postalCode || '---'}</div></div></div></div><table class="invoice-connected-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-summary-section"><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به عدد:</div><div class="invoice-summary-value invoice-small-font">${formatCurrency(grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به حروف:</div><div class="invoice-summary-value invoice-small-font">${numberToWords(grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">نحوه پرداخت:</div><div class="invoice-summary-value invoice-small-font"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-standard-signatures"><div class="invoice-standard-signature"><div>مهر و امضای فروشنده</div><div class="invoice-standard-signature-line"></div></div><div class="invoice-standard-signature"><div>مهر و امضای خریدار</div><div class="invoice-standard-signature-line"></div></div></div></div>`;
             invoiceStandardPreview.innerHTML = html;
         }
         
@@ -3422,7 +3457,7 @@
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-standard-preview-content{border:1px solid #000;padding:20px}.invoice-standard-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-standard-title{font-size:1.5rem;font-weight:bold}.invoice-horizontal-details{display:flex;justify-content:space-between;margin-bottom:20px;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000}.invoice-seller-details,.invoice-buyer-details{flex:1}.invoice-seller-details{margin-left:10px}.invoice-buyer-details{margin-right:10px}.invoice-detail-row{display:flex;margin-bottom:8px}.invoice-detail-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-detail-value{flex:1;font-size:0.7rem}.invoice-small-font{font-size:0.7rem}.invoice-standard-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.7rem}.invoice-standard-table th,.invoice-standard-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-standard-table th{background-color:#f0f0f0}.invoice-summary-section{margin-top:20px;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000}.invoice-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-summary-label{font-weight:600}.invoice-summary-value{font-weight:700}.invoice-standard-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-standard-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-standard-preview-content{border:none}}</style></head><body>${invoiceContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-standard-preview-content{border:1px solid #000;padding:20px}.invoice-standard-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-standard-title{font-size:1.5rem;font-weight:bold}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px;background:rgba(0,0,0,0.05);border:1px solid #000}.invoice-connected-seller{margin-left:10px;border-bottom:none;border-radius:10px 10px 0 0}.invoice-connected-buyer{margin-right:10px;border-bottom:none;border-radius:10px 10px 0 0}.invoice-detail-row{display:flex;margin-bottom:8px}.invoice-detail-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-detail-value{flex:1;font-size:0.7rem}.invoice-small-font{font-size:0.7rem}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-summary-section{margin-top:20px;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000}.invoice-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-summary-label{font-weight:600}.invoice-summary-value{font-weight:700}.invoice-standard-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-standard-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-standard-preview-content{border:none}}</style></head><body>${invoiceContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -3437,12 +3472,12 @@
             
             let itemsHtml = '';
             invoice.items.forEach((item, index) => {
-                itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>عدد</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(0)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(invoice.taxAmount / invoice.items.length)}</td><td>${formatCurrency(item.totalPrice + (invoice.taxAmount / invoice.items.length))}</td></tr>`;
+                itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>${item.unit || 'عدد'}</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(0)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(invoice.taxAmount / invoice.items.length)}</td><td>${formatCurrency(item.totalPrice + (invoice.taxAmount / invoice.items.length))}</td></tr>`;
             });
             
             const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-standard-preview-content{border:1px solid #000;padding:20px}.invoice-standard-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-standard-title{font-size:1.5rem;font-weight:bold}.invoice-horizontal-details{display:flex;justify-content:space-between;margin-bottom:20px;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000}.invoice-seller-details,.invoice-buyer-details{flex:1}.invoice-seller-details{margin-left:10px}.invoice-buyer-details{margin-right:10px}.invoice-detail-row{display:flex;margin-bottom:8px}.invoice-detail-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-detail-value{flex:1;font-size:0.7rem}.invoice-small-font{font-size:0.7rem}.invoice-standard-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.7rem}.invoice-standard-table th,.invoice-standard-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-standard-table th{background-color:#f0f0f0}.invoice-summary-section{margin-top:20px;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000}.invoice-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-summary-label{font-weight:600}.invoice-summary-value{font-weight:700}.invoice-standard-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-standard-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-standard-preview-content{border:none}}</style></head><body><div class="invoice-standard-preview-content"><div class="invoice-standard-header"><div class="invoice-standard-title">فاکتور فروش/خدمات</div><div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-standard-date">تاریخ: ${invoice.date}</div></div><div class="invoice-horizontal-details"><div class="invoice-seller-details"><div class="invoice-standard-section-title">فروشنده</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.name || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.economicCode || '---'}</div></div>${companyInfo.type === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.registrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.nationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.address || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.postalCode || '---'}</div></div></div><div class="invoice-buyer-details"><div class="invoice-standard-section-title">خریدار</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyName}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyEconomicCode}</div></div>${invoice.partyType === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyRegistrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyNationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyAddress || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyPostalCode || '---'}</div></div></div></div><table class="invoice-standard-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-summary-section"><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به عدد:</div><div class="invoice-summary-value invoice-small-font">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به حروف:</div><div class="invoice-summary-value invoice-small-font">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">نحوه پرداخت:</div><div class="invoice-summary-value invoice-small-font"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-standard-signatures"><div class="invoice-standard-signature"><div>مهر و امضای فروشنده</div><div class="invoice-standard-signature-line"></div></div><div class="invoice-standard-signature"><div>مهر و امضای خریدار</div><div class="invoice-standard-signature-line"></div></div></div></div></body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-standard-preview-content{border:1px solid #000;padding:20px}.invoice-standard-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-standard-title{font-size:1.5rem;font-weight:bold}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px;background:rgba(0,0,0,0.05);border:1px solid #000}.invoice-connected-seller{margin-left:10px;border-bottom:none;border-radius:10px 10px 0 0}.invoice-connected-buyer{margin-right:10px;border-bottom:none;border-radius:10px 10px 0 0}.invoice-detail-row{display:flex;margin-bottom:8px}.invoice-detail-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-detail-value{flex:1;font-size:0.7rem}.invoice-small-font{font-size:0.7rem}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-summary-section{margin-top:20px;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000}.invoice-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-summary-label{font-weight:600}.invoice-summary-value{font-weight:700}.invoice-standard-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-standard-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-standard-preview-content{border:none}}</style></head><body><div class="invoice-standard-preview-content"><div class="invoice-standard-header"><div class="invoice-standard-title">فاکتور فروش/خدمات</div><div class="invoice-standard-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-standard-date">تاریخ: ${invoice.date}</div></div><div class="invoice-connected-details"><div class="invoice-connected-seller"><div class="invoice-standard-section-title">فروشنده</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.name || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.economicCode || '---'}</div></div>${companyInfo.type === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.registrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.nationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.address || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${companyInfo.postalCode || '---'}</div></div></div><div class="invoice-connected-buyer"><div class="invoice-standard-section-title">خریدار</div><div class="invoice-detail-row"><div class="invoice-detail-label">نام:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyName}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">شماره اقتصادی:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyEconomicCode}</div></div>${invoice.partyType === 'legal' ? `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ثبت:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyRegistrationCode || '---'}</div></div>` : `<div class="invoice-detail-row"><div class="invoice-detail-label">شماره ملی:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyNationalCode || '---'}</div></div>`}<div class="invoice-detail-row"><div class="invoice-detail-label">آدرس:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyAddress || '---'}</div></div><div class="invoice-detail-row"><div class="invoice-detail-label">کد پستی:</div><div class="invoice-detail-value invoice-small-font">${invoice.partyPostalCode || '---'}</div></div></div></div><table class="invoice-connected-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-summary-section"><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به عدد:</div><div class="invoice-summary-value invoice-small-font">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">جمع تمامی ستون ها به حروف:</div><div class="invoice-summary-value invoice-small-font">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-summary-row"><div class="invoice-summary-label invoice-small-font">نحوه پرداخت:</div><div class="invoice-summary-value invoice-small-font"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-standard-signatures"><div class="invoice-standard-signature"><div>مهر و امضای فروشنده</div><div class="invoice-standard-signature-line"></div></div><div class="invoice-standard-signature"><div>مهر و امضای خریدار</div><div class="invoice-standard-signature-line"></div></div></div></div></body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
