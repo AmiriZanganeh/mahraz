@@ -142,7 +142,6 @@
             padding-left: 45px;
         }
 
-        /* استایل جدید برای دکمه‌ها */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -156,17 +155,6 @@
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.3);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
         }
 
         .btn-primary {
@@ -252,27 +240,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .btn-loading {
-            position: relative;
-            color: transparent !important;
-        }
-
-        .btn-loading::after {
-            content: "";
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border: 2px solid transparent;
-            border-top: 2px solid currentColor;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .login-btn {
@@ -2985,7 +2952,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 12; // افزایش نسخه برای تغییرات جدید
+        const DB_VERSION = 12;
         
         // نام جداول
         const STORE_NAMES = {
@@ -3033,7 +3000,7 @@
         
         // اطلاعات شرکت
         let companyInfo = {
-            type: 'legal', // حقیقی یا حقوقی
+            type: 'legal',
             name: '',
             economicCode: '',
             registrationCode: '',
@@ -8073,4 +8040,3 @@
     </script>
 </body>
 </html>
-
