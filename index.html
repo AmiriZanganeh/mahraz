@@ -416,6 +416,9 @@
         .invoice-unified-signatures { display: flex; justify-content: space-between; margin-top: 30px; }
         .invoice-unified-signature { text-align: center; width: 45%; }
         .invoice-unified-signature-line { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 5px; }
+        
+        /* استایل‌های جدید برای بخش‌های پایانی فاکتور با فونت کوچک */
+        .invoice-summary-small-font { font-size: 0.65rem !important; }
     </style>
 </head>
 <body>
@@ -1151,6 +1154,8 @@
                 if (tabId === 'documents') updateSavedInvoicesList();
                 if (tabId === 'ledgers') {
                     updateJournal();
+                    updateLedgerAccountSelect(); // اصلاح شده
+                    updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                     updateLedger(ledgerAccountSelect.value);
                     updateSubsidiaryLedger(subsidiaryLedgerAccountSelect.value);
                 }
@@ -1219,7 +1224,8 @@
                 updateInventoryList();
                 updateInvoicePartySelect();
                 updateInvoiceProductSelect();
-                updateSubsidiaryLedgerAccountSelect();
+                updateLedgerAccountSelect(); // اصلاح شده
+                updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                 updateSavedInvoicesList();
                 
                 if (currentDocumentTransactions.length > 0) {
@@ -1356,7 +1362,8 @@
                     saveAccount(newAccount);
                     updateAccountSelect();
                     updateAccountsList();
-                    updateSubsidiaryLedgerAccountSelect();
+                    updateLedgerAccountSelect(); // اصلاح شده
+                    updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                     newAccountNameInput.value = '';
                     showNotification('حساب جدید با موفقیت افزوده شد!', 'success');
                 });
@@ -1815,16 +1822,21 @@
             });
             accountSelect.innerHTML = html;
             
-            let ledgerHtml = '<option value="">انتخاب حساب برای مشاهده دفترکل</option>';
-            accounts.forEach(account => {
-                if (hasAccountBalance(account.id)) ledgerHtml += `<option value="${account.id}">${account.name}</option>`;
-            });
-            ledgerAccountSelect.innerHTML = ledgerHtml;
-            
             const manualAccountSelects = document.querySelectorAll('.manual-account');
             let manualHtml = '<option value="">انتخاب کنید</option>';
             accounts.forEach(account => manualHtml += `<option value="${account.id}">${account.name}</option>`);
             manualAccountSelects.forEach(select => select.innerHTML = manualHtml);
+        }
+        
+        // تابع به‌روزرسانی dropdown حساب‌ها برای دفترکل - اصلاح شده
+        function updateLedgerAccountSelect() {
+            let ledgerHtml = '<option value="">انتخاب حساب برای مشاهده دفترکل</option>';
+            accounts.forEach(account => {
+                if (hasAccountBalance(account.id)) {
+                    ledgerHtml += `<option value="${account.id}">${account.name}</option>`;
+                }
+            });
+            ledgerAccountSelect.innerHTML = ledgerHtml;
         }
         
         // تابع بررسی مانده حساب
@@ -1898,40 +1910,77 @@
             partySelect.innerHTML = html;
         }
         
-        // تابع به‌روزرسانی dropdown دفتر معین
+        // تابع به‌روزرسانی dropdown دفتر معین - اصلاح شده
         function updateSubsidiaryLedgerAccountSelect() {
             let html = '<option value="">انتخاب حساب برای مشاهده دفتر معین</option>';
-            parties.forEach(party => {
-                // فقط حساب‌هایی که معاملاتی دارند را نمایش بده
-                if (hasPartyTransactions(party.id)) {
-                    html += `<option value="receivable-${party.id}">حساب های دریافتنی-${party.name}</option>`;
-                    html += `<option value="payable-${party.id}">حساب های پرداختنی-${party.name}</option>`;
-                    html += `<option value="notes-receivable-${party.id}">اسناد دریافتنی-${party.name}</option>`;
-                    html += `<option value="notes-payable-${party.id}">اسناد پرداختنی-${party.name}</option>`;
-                }
-            });
-            subsidiaryLedgerAccountSelect.innerHTML = html;
-        }
-        
-        // تابع بررسی وجود معاملات برای طرف حساب
-        function hasPartyTransactions(partyId) {
-            let hasTransactions = false;
+            
+            // ایجاد لیستی از حساب‌های استفاده شده در اسناد
+            const usedAccounts = new Set();
             
             savedDocuments.forEach(document => {
                 document.transactions.forEach(transaction => {
-                    if (!transaction.isManual && transaction.partyId == partyId) {
-                        hasTransactions = true;
+                    if (!transaction.isManual && transaction.partyId) {
+                        const party = parties.find(p => p.id == transaction.partyId);
+                        if (party) {
+                            if (transaction.transactionType === 'receipt') {
+                                if (transaction.paymentType === 'credit') {
+                                    usedAccounts.add(`receivable-${transaction.partyId}`);
+                                } else if (transaction.paymentType === 'check') {
+                                    usedAccounts.add(`notes-receivable-${transaction.partyId}`);
+                                }
+                            } else if (transaction.transactionType === 'payment') {
+                                if (transaction.paymentType === 'credit') {
+                                    usedAccounts.add(`payable-${transaction.partyId}`);
+                                } else if (transaction.paymentType === 'check') {
+                                    usedAccounts.add(`notes-payable-${transaction.partyId}`);
+                                }
+                            }
+                        }
                     }
                 });
             });
             
             currentDocumentTransactions.forEach(transaction => {
-                if (!transaction.isManual && transaction.partyId == partyId) {
-                    hasTransactions = true;
+                if (!transaction.isManual && transaction.partyId) {
+                    const party = parties.find(p => p.id == transaction.partyId);
+                    if (party) {
+                        if (transaction.transactionType === 'receipt') {
+                            if (transaction.paymentType === 'credit') {
+                                usedAccounts.add(`receivable-${transaction.partyId}`);
+                            } else if (transaction.paymentType === 'check') {
+                                usedAccounts.add(`notes-receivable-${transaction.partyId}`);
+                            }
+                        } else if (transaction.transactionType === 'payment') {
+                            if (transaction.paymentType === 'credit') {
+                                usedAccounts.add(`payable-${transaction.partyId}`);
+                            } else if (transaction.paymentType === 'check') {
+                                usedAccounts.add(`notes-payable-${transaction.partyId}`);
+                            }
+                        }
+                    }
                 }
             });
             
-            return hasTransactions;
+            // فقط حساب‌هایی که در اسناد استفاده شده‌اند را نمایش بده
+            usedAccounts.forEach(accountId => {
+                const parts = accountId.split('-');
+                const accountType = parts[0];
+                const partyId = parts[1];
+                
+                const party = parties.find(p => p.id == partyId);
+                if (party) {
+                    let accountName = '';
+                    switch(accountType) {
+                        case 'receivable': accountName = `حساب های دریافتنی-${party.name}`; break;
+                        case 'payable': accountName = `حساب های پرداختنی-${party.name}`; break;
+                        case 'notes-receivable': accountName = `اسناد دریافتنی-${party.name}`; break;
+                        case 'notes-payable': accountName = `اسناد پرداختنی-${party.name}`; break;
+                    }
+                    html += `<option value="${accountId}">${accountName}</option>`;
+                }
+            });
+            
+            subsidiaryLedgerAccountSelect.innerHTML = html;
         }
         
         // تابع به‌روزرسانی لیست حساب‌ها
@@ -2717,7 +2766,8 @@
                 deleteAccountFromDB(accountId);
                 updateAccountSelect();
                 updateAccountsList();
-                updateSubsidiaryLedgerAccountSelect();
+                updateLedgerAccountSelect(); // اصلاح شده
+                updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                 showNotification('حساب با موفقیت حذف شد!', 'success');
             }
         }
@@ -2745,7 +2795,7 @@
                 updatePartiesList();
                 updateInvoicePartySelect();
                 updatePartySelect();
-                updateSubsidiaryLedgerAccountSelect();
+                updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                 showNotification('طرف حساب با موفقیت حذف شد!', 'success');
             }
         }
@@ -2832,6 +2882,8 @@
             saveCurrentDocument();
             updateDocumentsList();
             updateJournal();
+            updateLedgerAccountSelect(); // اصلاح شده
+            updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
             documentPreview.innerHTML = `<div class="empty-state"><i class="fas fa-file-alt"></i><p>پس از ثبت معامله، سند حسابداری در اینجا نمایش داده می‌شود</p></div>`;
             showNotification(`سند شماره ${toPersianNumbers(newDocument.number)} با موفقیت ذخیره شد!`, 'success');
         }
@@ -2882,6 +2934,8 @@
                 deleteDocumentFromDB(documentId);
                 updateDocumentsList();
                 updateJournal();
+                updateLedgerAccountSelect(); // اصلاح شده
+                updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                 showNotification('سند با موفقیت حذف شد!', 'success');
             }
         }
@@ -3007,7 +3061,8 @@
                                 updateInvoicePartySelect();
                                 updateInvoiceProductSelect();
                                 updatePartySelect();
-                                updateSubsidiaryLedgerAccountSelect();
+                                updateLedgerAccountSelect(); // اصلاح شده
+                                updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                                 updateJournal();
                                 updateSavedInvoicesList();
                                 fiscalPeriodStart.value = fiscalPeriod.startDate || '';
@@ -3074,7 +3129,8 @@
                         updateInvoicePartySelect();
                         updateInvoiceProductSelect();
                         updatePartySelect();
-                        updateSubsidiaryLedgerAccountSelect();
+                        updateLedgerAccountSelect(); // اصلاح شده
+                        updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
                         updateJournal();
                         updateSavedInvoicesList();
                         fiscalPeriodStart.value = '';
@@ -3280,7 +3336,7 @@
             updatePartiesList();
             updateInvoicePartySelect();
             updatePartySelect();
-            updateSubsidiaryLedgerAccountSelect();
+            updateSubsidiaryLedgerAccountSelect(); // اصلاح شده
             partyNameInput.value = '';
             partyEconomicCodeInput.value = '';
             partyNationalIdInput.value = '';
@@ -3408,7 +3464,7 @@
             generateUnifiedInvoicePreview();
         }
         
-        // تابع تولید پیش‌نمایش فاکتور یکپارچه - بهبود یافته با حذف مشخصات فروشنده و خریدار
+        // تابع تولید پیش‌نمایش فاکتور یکپارچه - بهبود یافته با فونت‌های کوچک برای بخش‌های پایانی
         function generateUnifiedInvoicePreview() {
             const date = invoiceDateInput.value;
             const partyId = invoicePartySelect.value;
@@ -3444,7 +3500,7 @@
                 itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode || '---'}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>${item.unit}</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(item.discountAmount)}</td><td>${formatCurrency(item.totalPrice - item.discountAmount)}</td><td>${formatCurrency(item.taxAmount)}</td><td>${formatCurrency(item.finalPrice)}</td></tr>`;
             });
             
-            let html = `<div class="invoice-unified-preview-content"><div class="invoice-unified-header"><div class="invoice-unified-title">فاکتور فروش/خدمات</div><div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div><div class="invoice-unified-date">تاریخ: ${date}</div></div><table class="invoice-unified-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-unified-summary"><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-small-font">جمع تمامی ستون ها به عدد:</div><div class="invoice-unified-summary-value invoice-small-font">${formatCurrency(grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-small-font">جمع تمامی ستون ها به حروف:</div><div class="invoice-unified-summary-value invoice-small-font">${numberToWords(grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-small-font">نحوه پرداخت:</div><div class="invoice-unified-summary-value invoice-small-font"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-unified-signatures"><div class="invoice-unified-signature"><div>مهر و امضای فروشنده</div><div class="invoice-unified-signature-line"></div></div><div class="invoice-unified-signature"><div>مهر و امضای خریدار</div><div class="invoice-unified-signature-line"></div></div></div></div>`;
+            let html = `<div class="invoice-unified-preview-content"><div class="invoice-unified-header"><div class="invoice-unified-title">فاکتور فروش/خدمات</div><div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div><div class="invoice-unified-date">تاریخ: ${date}</div></div><table class="invoice-unified-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-unified-summary"><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-summary-small-font">جمع تمامی ستون ها به عدد:</div><div class="invoice-unified-summary-value invoice-summary-small-font">${formatCurrency(grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-summary-small-font">جمع تمامی ستون ها به حروف:</div><div class="invoice-unified-summary-value invoice-summary-small-font">${numberToWords(grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-summary-small-font">نحوه پرداخت:</div><div class="invoice-unified-summary-value invoice-summary-small-font"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-unified-signatures"><div class="invoice-unified-signature"><div>مهر و امضای فروشنده</div><div class="invoice-unified-signature-line"></div></div><div class="invoice-unified-signature"><div>مهر و امضای خریدار</div><div class="invoice-unified-signature-line"></div></div></div></div>`;
             invoiceUnifiedPreview.innerHTML = html;
         }
         
@@ -3550,7 +3606,7 @@
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600}.invoice-unified-summary-value{font-weight:700}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body>${invoiceContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body>${invoiceContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -3570,7 +3626,7 @@
             
             const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600}.invoice-unified-summary-value{font-weight:700}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body><div class="invoice-unified-preview-content"><div class="invoice-unified-header"><div class="invoice-unified-title">فاکتور فروش/خدمات</div><div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-unified-date">تاریخ: ${invoice.date}</div></div><table class="invoice-unified-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-unified-summary"><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-small-font">جمع تمامی ستون ها به عدد:</div><div class="invoice-unified-summary-value invoice-small-font">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-small-font">جمع تمامی ستون ها به حروف:</div><div class="invoice-unified-summary-value invoice-small-font">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label invoice-small-font">نحوه پرداخت:</div><div class="invoice-unified-summary-value invoice-small-font"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-unified-signatures"><div class="invoice-unified-signature"><div>مهر و امضای فروشنده</div><div class="invoice-unified-signature-line"></div></div><div class="invoice-unified-signature"><div>مهر و امضای خریدار</div><div class="invoice-unified-signature-line"></div></div></div></div></body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body><div class="invoice-unified-preview-content"><div class="invoice-unified-header"><div class="invoice-unified-title">فاکتور فروش/خدمات</div><div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-unified-date">تاریخ: ${invoice.date}</div></div><table class="invoice-unified-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-unified-summary"><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به عدد:</div><div class="invoice-unified-summary-value">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به حروف:</div><div class="invoice-unified-summary-value">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">نحوه پرداخت:</div><div class="invoice-unified-summary-value"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-unified-signatures"><div class="invoice-unified-signature"><div>مهر و امضای فروشنده</div><div class="invoice-unified-signature-line"></div></div><div class="invoice-unified-signature"><div>مهر و امضای خریدار</div><div class="invoice-unified-signature-line"></div></div></div></div></body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
