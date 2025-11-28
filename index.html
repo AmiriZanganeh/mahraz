@@ -419,6 +419,15 @@
         
         /* استایل‌های جدید برای بخش‌های پایانی فاکتور با فونت کوچک */
         .invoice-summary-small-font { font-size: 0.65rem !important; }
+        
+        /* استایل‌های جدید برای نمایش افقی مشخصات فروشنده و خریدار */
+        .invoice-horizontal-container { display: flex; justify-content: space-between; background: rgba(44, 90, 160, 0.05); border-radius: var(--border-radius); padding: 15px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .invoice-horizontal-seller, .invoice-horizontal-buyer { flex: 1; }
+        .invoice-horizontal-seller { margin-left: 10px; }
+        .invoice-horizontal-buyer { margin-right: 10px; }
+        .invoice-horizontal-row { display: flex; margin-bottom: 8px; }
+        .invoice-horizontal-label { font-weight: 600; width: 120px; font-size: 0.7rem; }
+        .invoice-horizontal-value { flex: 1; font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -888,7 +897,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 13;
+        const DB_VERSION = 14;
         
         // نام جداول
         const STORE_NAMES = {
@@ -1822,30 +1831,33 @@
             });
             accountSelect.innerHTML = html;
             
+            // به‌روزرسانی حساب‌های سند دستی با حساب‌های طرف‌های حساب
             const manualAccountSelects = document.querySelectorAll('.manual-account');
             let manualHtml = '<option value="">انتخاب کنید</option>';
             accounts.forEach(account => manualHtml += `<option value="${account.id}">${account.name}</option>`);
+            
+            // اضافه کردن حساب‌های طرف‌های حساب
+            parties.forEach(party => {
+                manualHtml += `<option value="receivable-${party.id}">حساب های دریافتنی-${party.name}</option>`;
+                manualHtml += `<option value="payable-${party.id}">حساب های پرداختنی-${party.name}</option>`;
+                manualHtml += `<option value="notes-receivable-${party.id}">اسناد دریافتنی-${party.name}</option>`;
+                manualHtml += `<option value="notes-payable-${party.id}">اسناد پرداختنی-${party.name}</option>`;
+            });
+            
             manualAccountSelects.forEach(select => select.innerHTML = manualHtml);
         }
         
         // تابع به‌روزرسانی dropdown حساب‌ها برای دفترکل
         function updateLedgerAccountSelect() {
             let ledgerHtml = '<option value="">انتخاب حساب برای مشاهده دفترکل</option>';
-            accounts.forEach(account => {
-                if (hasAccountBalance(account.id)) {
-                    ledgerHtml += `<option value="${account.id}">${account.name}</option>`;
-                }
-            });
-            ledgerAccountSelect.innerHTML = ledgerHtml;
-        }
-        
-        // تابع بررسی مانده حساب
-        function hasAccountBalance(accountId) {
-            let balance = 0;
+            
+            // فقط حساب‌هایی که در اسناد استفاده شده‌اند را نمایش بده
+            const usedAccounts = new Set();
+            
             savedDocuments.forEach(document => {
                 document.transactions.forEach(transaction => {
                     if (transaction.isManual) {
-                        if (transaction.accountId == accountId) balance += (transaction.debit || 0) - (transaction.credit || 0);
+                        usedAccounts.add(transaction.accountId);
                     } else {
                         if (transaction.transactionType === 'receipt') {
                             let debitAccount = '';
@@ -1855,8 +1867,8 @@
                                 case 'check': debitAccount = 'اسناد دریافتنی'; break;
                             }
                             const debitAcc = accounts.find(acc => acc.name === debitAccount);
-                            if (debitAcc && debitAcc.id == accountId) balance += transaction.amount;
-                            if (transaction.accountId == accountId) balance -= transaction.amount;
+                            if (debitAcc) usedAccounts.add(debitAcc.id);
+                            usedAccounts.add(transaction.accountId);
                         } else if (transaction.transactionType === 'payment') {
                             let creditAccount = '';
                             switch(transaction.paymentType) {
@@ -1864,9 +1876,9 @@
                                 case 'credit': creditAccount = 'حساب های پرداختنی'; break;
                                 case 'check': creditAccount = 'اسناد پرداختنی'; break;
                             }
-                            if (transaction.accountId == accountId) balance += transaction.amount;
+                            usedAccounts.add(transaction.accountId);
                             const creditAcc = accounts.find(acc => acc.name === creditAccount);
-                            if (creditAcc && creditAcc.id == accountId) balance -= transaction.amount;
+                            if (creditAcc) usedAccounts.add(creditAcc.id);
                         }
                     }
                 });
@@ -1874,7 +1886,7 @@
             
             currentDocumentTransactions.forEach(transaction => {
                 if (transaction.isManual) {
-                    if (transaction.accountId == accountId) balance += (transaction.debit || 0) - (transaction.credit || 0);
+                    usedAccounts.add(transaction.accountId);
                 } else {
                     if (transaction.transactionType === 'receipt') {
                         let debitAccount = '';
@@ -1884,8 +1896,8 @@
                             case 'check': debitAccount = 'اسناد دریافتنی'; break;
                         }
                         const debitAcc = accounts.find(acc => acc.name === debitAccount);
-                        if (debitAcc && debitAcc.id == accountId) balance += transaction.amount;
-                        if (transaction.accountId == accountId) balance -= transaction.amount;
+                        if (debitAcc) usedAccounts.add(debitAcc.id);
+                        usedAccounts.add(transaction.accountId);
                     } else if (transaction.transactionType === 'payment') {
                         let creditAccount = '';
                         switch(transaction.paymentType) {
@@ -1893,14 +1905,60 @@
                             case 'credit': creditAccount = 'حساب های پرداختنی'; break;
                             case 'check': creditAccount = 'اسناد پرداختنی'; break;
                         }
-                        if (transaction.accountId == accountId) balance += transaction.amount;
+                        usedAccounts.add(transaction.accountId);
                         const creditAcc = accounts.find(acc => acc.name === creditAccount);
-                        if (creditAcc && creditAcc.id == accountId) balance -= transaction.amount;
+                        if (creditAcc) usedAccounts.add(creditAcc.id);
                     }
                 }
             });
             
-            return balance !== 0;
+            // اضافه کردن حساب‌های طرف‌های حساب که در اسناد استفاده شده‌اند
+            parties.forEach(party => {
+                const partyUsedInDocuments = savedDocuments.some(document => 
+                    document.transactions.some(transaction => 
+                        !transaction.isManual && transaction.partyId == party.id
+                    )
+                );
+                
+                const partyUsedInCurrent = currentDocumentTransactions.some(transaction => 
+                    !transaction.isManual && transaction.partyId == party.id
+                );
+                
+                if (partyUsedInDocuments || partyUsedInCurrent) {
+                    usedAccounts.add(`receivable-${party.id}`);
+                    usedAccounts.add(`payable-${party.id}`);
+                    usedAccounts.add(`notes-receivable-${party.id}`);
+                    usedAccounts.add(`notes-payable-${party.id}`);
+                }
+            });
+            
+            // نمایش حساب‌های استفاده شده
+            usedAccounts.forEach(accountId => {
+                if (typeof accountId === 'number') {
+                    const account = accounts.find(acc => acc.id == accountId);
+                    if (account) {
+                        ledgerHtml += `<option value="${account.id}">${account.name}</option>`;
+                    }
+                } else {
+                    const parts = accountId.split('-');
+                    const accountType = parts[0];
+                    const partyId = parts[1];
+                    
+                    const party = parties.find(p => p.id == partyId);
+                    if (party) {
+                        let accountName = '';
+                        switch(accountType) {
+                            case 'receivable': accountName = `حساب های دریافتنی-${party.name}`; break;
+                            case 'payable': accountName = `حساب های پرداختنی-${party.name}`; break;
+                            case 'notes-receivable': accountName = `اسناد دریافتنی-${party.name}`; break;
+                            case 'notes-payable': accountName = `اسناد پرداختنی-${party.name}`; break;
+                        }
+                        ledgerHtml += `<option value="${accountId}">${accountName}</option>`;
+                    }
+                }
+            });
+            
+            ledgerAccountSelect.innerHTML = ledgerHtml;
         }
         
         // تابع به‌روزرسانی dropdown طرف حساب‌ها
@@ -1910,7 +1968,7 @@
             partySelect.innerHTML = html;
         }
         
-        // تابع به‌روزرسانی dropdown دفتر معین - اصلاح شده
+        // تابع به‌روزرسانی dropdown دفتر معین
         function updateSubsidiaryLedgerAccountSelect() {
             let html = '<option value="">انتخاب حساب برای مشاهده دفتر معین</option>';
             
@@ -2377,6 +2435,12 @@
                 return;
             }
             
+            // بررسی اینکه آیا حساب یک حساب طرف‌های حساب است
+            if (typeof accountId === 'string' && accountId.includes('-')) {
+                updateSubsidiaryLedger(accountId);
+                return;
+            }
+            
             const account = accounts.find(acc => acc.id == accountId);
             if (!account) {
                 ledgerBody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-exclamation-circle"></i><p>حساب انتخاب شده معتبر نیست</p></td></tr>`;
@@ -2836,7 +2900,26 @@
             
             currentDocumentTransactions.forEach(transaction => {
                 if (transaction.isManual) {
-                    html += `<tr><td>${transaction.accountName}</td><td class="debit">${transaction.debit > 0 ? formatCurrency(transaction.debit) : '-'}</td><td class="credit">${transaction.credit > 0 ? formatCurrency(transaction.credit) : '-'}</td></tr>`;
+                    // بررسی اینکه آیا حساب یک حساب طرف‌های حساب است
+                    if (typeof transaction.accountId === 'string' && transaction.accountId.includes('-')) {
+                        const parts = transaction.accountId.split('-');
+                        const accountType = parts[0];
+                        const partyId = parts[1];
+                        
+                        const party = parties.find(p => p.id == partyId);
+                        if (party) {
+                            let accountName = '';
+                            switch(accountType) {
+                                case 'receivable': accountName = `حساب های دریافتنی-${party.name}`; break;
+                                case 'payable': accountName = `حساب های پرداختنی-${party.name}`; break;
+                                case 'notes-receivable': accountName = `اسناد دریافتنی-${party.name}`; break;
+                                case 'notes-payable': accountName = `اسناد پرداختنی-${party.name}`; break;
+                            }
+                            html += `<tr><td>${accountName}</td><td class="debit">${transaction.debit > 0 ? formatCurrency(transaction.debit) : '-'}</td><td class="credit">${transaction.credit > 0 ? formatCurrency(transaction.credit) : '-'}</td></tr>`;
+                        }
+                    } else {
+                        html += `<tr><td>${transaction.accountName}</td><td class="debit">${transaction.debit > 0 ? formatCurrency(transaction.debit) : '-'}</td><td class="credit">${transaction.credit > 0 ? formatCurrency(transaction.credit) : '-'}</td></tr>`;
+                    }
                 } else {
                     if (transaction.transactionType === 'receipt') {
                         let debitAccount = '';
@@ -2901,7 +2984,26 @@
             
             document.transactions.forEach(transaction => {
                 if (transaction.isManual) {
-                    html += `<tr><td>${transaction.accountName}</td><td class="debit">${transaction.debit > 0 ? formatCurrency(transaction.debit) : '-'}</td><td class="credit">${transaction.credit > 0 ? formatCurrency(transaction.credit) : '-'}</td></tr>`;
+                    // بررسی اینکه آیا حساب یک حساب طرف‌های حساب است
+                    if (typeof transaction.accountId === 'string' && transaction.accountId.includes('-')) {
+                        const parts = transaction.accountId.split('-');
+                        const accountType = parts[0];
+                        const partyId = parts[1];
+                        
+                        const party = parties.find(p => p.id == partyId);
+                        if (party) {
+                            let accountName = '';
+                            switch(accountType) {
+                                case 'receivable': accountName = `حساب های دریافتنی-${party.name}`; break;
+                                case 'payable': accountName = `حساب های پرداختنی-${party.name}`; break;
+                                case 'notes-receivable': accountName = `اسناد دریافتنی-${party.name}`; break;
+                                case 'notes-payable': accountName = `اسناد پرداختنی-${party.name}`; break;
+                            }
+                            html += `<tr><td>${accountName}</td><td class="debit">${transaction.debit > 0 ? formatCurrency(transaction.debit) : '-'}</td><td class="credit">${transaction.credit > 0 ? formatCurrency(transaction.credit) : '-'}</td></tr>`;
+                        }
+                    } else {
+                        html += `<tr><td>${transaction.accountName}</td><td class="debit">${transaction.debit > 0 ? formatCurrency(transaction.debit) : '-'}</td><td class="credit">${transaction.credit > 0 ? formatCurrency(transaction.credit) : '-'}</td></tr>`;
+                    }
                 } else {
                     if (transaction.transactionType === 'receipt') {
                         let debitAccount = '';
@@ -2959,7 +3061,7 @@
         function addManualTransactionRow() {
             const row = document.createElement('div');
             row.className = 'manual-transaction-row';
-            row.innerHTML = `<div class="form-group"><label class="form-label">حساب</label><select class="form-control manual-account" required><option value="">انتخاب کنید</option>${accounts.map(acc => `<option value="${acc.id}">${acc.name}</option>`).join('')}</select></div><div class="form-group"><label class="form-label">بدهکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-debit" placeholder="0"></div></div><div class="form-group"><label class="form-label">بستانکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-credit" placeholder="0"></div></div><button type="button" class="simple-btn simple-btn-danger"><i class="fas fa-trash"></i></button>`;
+            row.innerHTML = `<div class="form-group"><label class="form-label">حساب</label><select class="form-control manual-account" required><option value="">انتخاب کنید</option>${accounts.map(acc => `<option value="${acc.id}">${acc.name}</option>`).join('')}${parties.map(party => `<option value="receivable-${party.id}">حساب های دریافتنی-${party.name}</option><option value="payable-${party.id}">حساب های پرداختنی-${party.name}</option><option value="notes-receivable-${party.id}">اسناد دریافتنی-${party.name}</option><option value="notes-payable-${party.id}">اسناد پرداختنی-${party.name}</option>`).join('')}</select></div><div class="form-group"><label class="form-label">بدهکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-debit" placeholder="0"></div></div><div class="form-group"><label class="form-label">بستانکار</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" class="form-control amount-input manual-credit" placeholder="0"></div></div><button type="button" class="simple-btn simple-btn-danger"><i class="fas fa-trash"></i></button>`;
             const removeBtn = row.querySelector('.simple-btn');
             removeBtn.addEventListener('click', function() { row.remove(); updateRemoveButtons(); });
             manualTransactionsContainer.appendChild(row);
@@ -3500,31 +3602,29 @@
                 itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode || '---'}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>${item.unit}</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(item.discountAmount)}</td><td>${formatCurrency(item.totalPrice - item.discountAmount)}</td><td>${formatCurrency(item.taxAmount)}</td><td>${formatCurrency(item.finalPrice)}</td></tr>`;
             });
             
-            // اضافه کردن مشخصات فروشنده و خریدار
+            // اضافه کردن مشخصات فروشنده و خریدار به صورت افقی در یک کادر
             let sellerDetails = '';
             let buyerDetails = '';
             
             if (companyInfo.name) {
                 sellerDetails = `
-                    <div class="invoice-unified-section-title">فروشنده</div>
-                    <div class="invoice-unified-info-row"><div class="invoice-unified-info-label">نام:</div><div class="invoice-unified-info-value">${companyInfo.name}</div></div>
-                    ${companyInfo.economicCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره اقتصادی:</div><div class="invoice-unified-info-value">${companyInfo.economicCode}</div></div>` : ''}
-                    ${companyInfo.nationalId ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شناسه ملی:</div><div class="invoice-unified-info-value">${companyInfo.nationalId}</div></div>` : ''}
-                    ${companyInfo.nationalCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره ملی:</div><div class="invoice-unified-info-value">${companyInfo.nationalCode}</div></div>` : ''}
-                    ${companyInfo.phone ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره تماس:</div><div class="invoice-unified-info-value">${companyInfo.phone}</div></div>` : ''}
-                    ${companyInfo.address ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">آدرس:</div><div class="invoice-unified-info-value">${companyInfo.address}</div></div>` : ''}
+                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${companyInfo.name}</div></div>
+                    ${companyInfo.economicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${companyInfo.economicCode}</div></div>` : ''}
+                    ${companyInfo.nationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalId}</div></div>` : ''}
+                    ${companyInfo.nationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalCode}</div></div>` : ''}
+                    ${companyInfo.phone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${companyInfo.phone}</div></div>` : ''}
+                    ${companyInfo.address ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${companyInfo.address}</div></div>` : ''}
                 `;
             }
             
             if (party) {
                 buyerDetails = `
-                    <div class="invoice-unified-section-title">خریدار</div>
-                    <div class="invoice-unified-info-row"><div class="invoice-unified-info-label">نام:</div><div class="invoice-unified-info-value">${party.name}</div></div>
-                    ${party.economicCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره اقتصادی:</div><div class="invoice-unified-info-value">${party.economicCode}</div></div>` : ''}
-                    ${party.nationalId ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شناسه ملی:</div><div class="invoice-unified-info-value">${party.nationalId}</div></div>` : ''}
-                    ${party.nationalCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره ملی:</div><div class="invoice-unified-info-value">${party.nationalCode}</div></div>` : ''}
-                    ${party.phone ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره تماس:</div><div class="invoice-unified-info-value">${party.phone}</div></div>` : ''}
-                    ${party.address ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">آدرس:</div><div class="invoice-unified-info-value">${party.address}</div></div>` : ''}
+                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${party.name}</div></div>
+                    ${party.economicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${party.economicCode}</div></div>` : ''}
+                    ${party.nationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${party.nationalId}</div></div>` : ''}
+                    ${party.nationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${party.nationalCode}</div></div>` : ''}
+                    ${party.phone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${party.phone}</div></div>` : ''}
+                    ${party.address ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${party.address}</div></div>` : ''}
                 `;
             }
             
@@ -3535,9 +3635,15 @@
                         <div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div>
                         <div class="invoice-unified-date">تاریخ: ${date}</div>
                     </div>
-                    <div class="invoice-unified-details">
-                        <div class="invoice-unified-seller">${sellerDetails}</div>
-                        <div class="invoice-unified-buyer">${buyerDetails}</div>
+                    <div class="invoice-horizontal-container">
+                        <div class="invoice-horizontal-seller">
+                            <div class="invoice-unified-section-title">فروشنده</div>
+                            ${sellerDetails}
+                        </div>
+                        <div class="invoice-horizontal-buyer">
+                            <div class="invoice-unified-section-title">خریدار</div>
+                            ${buyerDetails}
+                        </div>
                     </div>
                     <table class="invoice-unified-table">
                         <thead>
@@ -3691,7 +3797,7 @@
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body>${invoiceContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-horizontal-container{display:flex;justify-content:space-between;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000;margin-bottom:20px}.invoice-horizontal-seller,.invoice-horizontal-buyer{flex:1}.invoice-horizontal-seller{margin-left:10px}.invoice-horizontal-buyer{margin-right:10px}.invoice-horizontal-row{display:flex;margin-bottom:8px}.invoice-horizontal-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-horizontal-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body>${invoiceContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -3717,30 +3823,28 @@
             
             if (companyInfo.name) {
                 sellerDetails = `
-                    <div class="invoice-unified-section-title">فروشنده</div>
-                    <div class="invoice-unified-info-row"><div class="invoice-unified-info-label">نام:</div><div class="invoice-unified-info-value">${companyInfo.name}</div></div>
-                    ${companyInfo.economicCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره اقتصادی:</div><div class="invoice-unified-info-value">${companyInfo.economicCode}</div></div>` : ''}
-                    ${companyInfo.nationalId ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شناسه ملی:</div><div class="invoice-unified-info-value">${companyInfo.nationalId}</div></div>` : ''}
-                    ${companyInfo.nationalCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره ملی:</div><div class="invoice-unified-info-value">${companyInfo.nationalCode}</div></div>` : ''}
-                    ${companyInfo.phone ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره تماس:</div><div class="invoice-unified-info-value">${companyInfo.phone}</div></div>` : ''}
-                    ${companyInfo.address ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">آدرس:</div><div class="invoice-unified-info-value">${companyInfo.address}</div></div>` : ''}
+                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${companyInfo.name}</div></div>
+                    ${companyInfo.economicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${companyInfo.economicCode}</div></div>` : ''}
+                    ${companyInfo.nationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalId}</div></div>` : ''}
+                    ${companyInfo.nationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalCode}</div></div>` : ''}
+                    ${companyInfo.phone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${companyInfo.phone}</div></div>` : ''}
+                    ${companyInfo.address ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${companyInfo.address}</div></div>` : ''}
                 `;
             }
             
             if (invoice.partyName) {
                 buyerDetails = `
-                    <div class="invoice-unified-section-title">خریدار</div>
-                    <div class="invoice-unified-info-row"><div class="invoice-unified-info-label">نام:</div><div class="invoice-unified-info-value">${invoice.partyName}</div></div>
-                    ${invoice.partyEconomicCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره اقتصادی:</div><div class="invoice-unified-info-value">${invoice.partyEconomicCode}</div></div>` : ''}
-                    ${invoice.partyNationalId ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شناسه ملی:</div><div class="invoice-unified-info-value">${invoice.partyNationalId}</div></div>` : ''}
-                    ${invoice.partyNationalCode ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره ملی:</div><div class="invoice-unified-info-value">${invoice.partyNationalCode}</div></div>` : ''}
-                    ${invoice.partyPhone ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">شماره تماس:</div><div class="invoice-unified-info-value">${invoice.partyPhone}</div></div>` : ''}
-                    ${invoice.partyAddress ? `<div class="invoice-unified-info-row"><div class="invoice-unified-info-label">آدرس:</div><div class="invoice-unified-info-value">${invoice.partyAddress}</div></div>` : ''}
+                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${invoice.partyName}</div></div>
+                    ${invoice.partyEconomicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${invoice.partyEconomicCode}</div></div>` : ''}
+                    ${invoice.partyNationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${invoice.partyNationalId}</div></div>` : ''}
+                    ${invoice.partyNationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${invoice.partyNationalCode}</div></div>` : ''}
+                    ${invoice.partyPhone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${invoice.partyPhone}</div></div>` : ''}
+                    ${invoice.partyAddress ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${invoice.partyAddress}</div></div>` : ''}
                 `;
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body><div class="invoice-unified-preview-content"><div class="invoice-unified-header"><div class="invoice-unified-title">فاکتور فروش/خدمات</div><div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-unified-date">تاریخ: ${invoice.date}</div></div><div class="invoice-unified-details"><div class="invoice-unified-seller">${sellerDetails}</div><div class="invoice-unified-buyer">${buyerDetails}</div></div><table class="invoice-unified-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-unified-summary"><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به عدد:</div><div class="invoice-unified-summary-value">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به حروف:</div><div class="invoice-unified-summary-value">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">نحوه پرداخت:</div><div class="invoice-unified-summary-value"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-unified-signatures"><div class="invoice-unified-signature"><div>مهر و امضای فروشنده</div><div class="invoice-unified-signature-line"></div></div><div class="invoice-unified-signature"><div>مهر و امضای خریدار</div><div class="invoice-unified-signature-line"></div></div></div></div></body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-horizontal-container{display:flex;justify-content:space-between;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000;margin-bottom:20px}.invoice-horizontal-seller,.invoice-horizontal-buyer{flex:1}.invoice-horizontal-seller{margin-left:10px}.invoice-horizontal-buyer{margin-right:10px}.invoice-horizontal-row{display:flex;margin-bottom:8px}.invoice-horizontal-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-horizontal-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body><div class="invoice-unified-preview-content"><div class="invoice-unified-header"><div class="invoice-unified-title">فاکتور فروش/خدمات</div><div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-unified-date">تاریخ: ${invoice.date}</div></div><div class="invoice-horizontal-container"><div class="invoice-horizontal-seller"><div class="invoice-unified-section-title">فروشنده</div>${sellerDetails}</div><div class="invoice-horizontal-buyer"><div class="invoice-unified-section-title">خریدار</div>${buyerDetails}</div></div><table class="invoice-unified-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-unified-summary"><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به عدد:</div><div class="invoice-unified-summary-value">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به حروف:</div><div class="invoice-unified-summary-value">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">نحوه پرداخت:</div><div class="invoice-unified-summary-value"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-unified-signatures"><div class="invoice-unified-signature"><div>مهر و امضای فروشنده</div><div class="invoice-unified-signature-line"></div></div><div class="invoice-unified-signature"><div>مهر و امضای خریدار</div><div class="invoice-unified-signature-line"></div></div></div></div></body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
