@@ -428,6 +428,31 @@
         .invoice-horizontal-row { display: flex; margin-bottom: 8px; }
         .invoice-horizontal-label { font-weight: 600; width: 120px; font-size: 0.7rem; }
         .invoice-horizontal-value { flex: 1; font-size: 0.7rem; }
+        
+        /* استایل‌های جدید برای فاکتور متصل */
+        .invoice-connected-container { border: 1px solid var(--border); border-radius: var(--border-radius); margin-bottom: 20px; }
+        .invoice-connected-header { text-align: center; padding: 15px; border-bottom: 1px solid var(--border); }
+        .invoice-connected-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
+        .invoice-connected-number { font-size: 1rem; color: var(--secondary); }
+        .invoice-connected-details { display: flex; justify-content: space-between; margin-bottom: 0; }
+        .invoice-connected-seller, .invoice-connected-buyer { flex: 1; padding: 15px; background: rgba(44, 90, 160, 0.05); border: 1px solid var(--border); }
+        .invoice-connected-seller { margin-left: 0; border-bottom: none; border-radius: 0 0 0 0; }
+        .invoice-connected-buyer { margin-right: 0; border-bottom: none; border-radius: 0 0 0 0; }
+        .invoice-connected-section-title { font-weight: 700; margin-bottom: 10px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .invoice-connected-info-row { display: flex; margin-bottom: 5px; }
+        .invoice-connected-info-label { font-weight: 600; width: 120px; font-size: 0.7rem; }
+        .invoice-connected-info-value { flex: 1; font-size: 0.7rem; }
+        .invoice-connected-table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 0.75rem; }
+        .invoice-connected-table th { background: var(--primary); color: white; padding: 8px; text-align: center; border: 1px solid var(--border); }
+        .invoice-connected-table td { padding: 6px; border: 1px solid var(--border); text-align: center; }
+        .invoice-connected-summary { margin-top: 0; background: rgba(44, 90, 160, 0.05); border-radius: 0 0 var(--border-radius) var(--border-radius); padding: 15px; border: 1px solid var(--border); border-top: none; }
+        .invoice-connected-summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        .invoice-connected-summary-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .invoice-connected-summary-label { font-weight: 600; }
+        .invoice-connected-summary-value { font-weight: 700; }
+        .invoice-connected-signatures { display: flex; justify-content: space-between; margin-top: 30px; }
+        .invoice-connected-signature { text-align: center; width: 45%; }
+        .invoice-connected-signature-line { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 5px; }
     </style>
 </head>
 <body>
@@ -766,7 +791,7 @@
                                 <div class="invoice-items-container" id="invoice-items-container">
                                     <div class="empty-state"><i class="fas fa-receipt"></i><p>هیچ موردی به فاکتور اضافه نشده است</p></div>
                                 </div>
-                                <div class="invoice-unified-preview" id="invoice-unified-preview">
+                                <div class="invoice-connected-preview" id="invoice-connected-preview">
                                     <div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>
                                 </div>
                                 <div class="invoice-actions">
@@ -897,7 +922,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 14;
+        const DB_VERSION = 15;
         
         // نام جداول
         const STORE_NAMES = {
@@ -1045,7 +1070,7 @@
         const invoiceItemDiscountInput = document.querySelector('.invoice-item-discount');
         const invoiceItemTaxInput = document.querySelector('.invoice-item-tax');
         const addInvoiceItemBtn = document.getElementById('add-invoice-item');
-        const invoiceUnifiedPreview = document.getElementById('invoice-unified-preview');
+        const invoiceConnectedPreview = document.getElementById('invoice-connected-preview');
         const printInvoiceBtn = document.getElementById('print-invoice');
         const resetInvoiceBtn = document.getElementById('reset-invoice');
         const saveInvoiceBtn = document.getElementById('save-invoice');
@@ -3542,7 +3567,7 @@
             invoiceQuantityInput.value = '';
             invoiceItemDiscountInput.value = '';
             invoiceItemTaxInput.value = '';
-            generateUnifiedInvoicePreview();
+            generateConnectedInvoicePreview();
         }
         
         // تابع به‌روزرسانی نمایش اقلام فاکتور
@@ -3563,16 +3588,16 @@
         function removeInvoiceItem(index) {
             invoiceItems.splice(index, 1);
             updateInvoiceItemsDisplay();
-            generateUnifiedInvoicePreview();
+            generateConnectedInvoicePreview();
         }
         
-        // تابع تولید پیش‌نمایش فاکتور یکپارچه - بهبود یافته با فونت‌های کوچک برای بخش‌های پایانی
-        function generateUnifiedInvoicePreview() {
+        // تابع تولید پیش‌نمایش فاکتور متصل - بهبود یافته با فونت‌های کوچک برای بخش‌های پایانی
+        function generateConnectedInvoicePreview() {
             const date = invoiceDateInput.value;
             const partyId = invoicePartySelect.value;
             
             if (!date || !partyId || invoiceItems.length === 0) {
-                invoiceUnifiedPreview.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>`;
+                invoiceConnectedPreview.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>`;
                 return;
             }
             
@@ -3608,44 +3633,44 @@
             
             if (companyInfo.name) {
                 sellerDetails = `
-                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${companyInfo.name}</div></div>
-                    ${companyInfo.economicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${companyInfo.economicCode}</div></div>` : ''}
-                    ${companyInfo.nationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalId}</div></div>` : ''}
-                    ${companyInfo.nationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalCode}</div></div>` : ''}
-                    ${companyInfo.phone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${companyInfo.phone}</div></div>` : ''}
-                    ${companyInfo.address ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${companyInfo.address}</div></div>` : ''}
+                    <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div></div>
+                    ${companyInfo.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div></div>` : ''}
+                    ${companyInfo.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div></div>` : ''}
+                    ${companyInfo.nationalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalCode}</div></div>` : ''}
+                    ${companyInfo.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div></div>` : ''}
+                    ${companyInfo.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${companyInfo.address}</div></div>` : ''}
                 `;
             }
             
             if (party) {
                 buyerDetails = `
-                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${party.name}</div></div>
-                    ${party.economicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${party.economicCode}</div></div>` : ''}
-                    ${party.nationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${party.nationalId}</div></div>` : ''}
-                    ${party.nationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${party.nationalCode}</div></div>` : ''}
-                    ${party.phone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${party.phone}</div></div>` : ''}
-                    ${party.address ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${party.address}</div></div>` : ''}
+                    <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${party.name}</div></div>
+                    ${party.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره اقتصادی:</div><div class="invoice-connected-info-value">${party.economicCode}</div></div>` : ''}
+                    ${party.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${party.nationalId}</div></div>` : ''}
+                    ${party.nationalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ملی:</div><div class="invoice-connected-info-value">${party.nationalCode}</div></div>` : ''}
+                    ${party.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${party.phone}</div></div>` : ''}
+                    ${party.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${party.address}</div></div>` : ''}
                 `;
             }
             
             let html = `
-                <div class="invoice-unified-preview-content">
-                    <div class="invoice-unified-header">
-                        <div class="invoice-unified-title">فاکتور فروش/خدمات</div>
-                        <div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div>
-                        <div class="invoice-unified-date">تاریخ: ${date}</div>
+                <div class="invoice-connected-container">
+                    <div class="invoice-connected-header">
+                        <div class="invoice-connected-title">فاکتور فروش/خدمات</div>
+                        <div class="invoice-connected-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div>
+                        <div class="invoice-connected-date">تاریخ: ${date}</div>
                     </div>
-                    <div class="invoice-horizontal-container">
-                        <div class="invoice-horizontal-seller">
-                            <div class="invoice-unified-section-title">فروشنده</div>
+                    <div class="invoice-connected-details">
+                        <div class="invoice-connected-seller">
+                            <div class="invoice-connected-section-title">فروشنده</div>
                             ${sellerDetails}
                         </div>
-                        <div class="invoice-horizontal-buyer">
-                            <div class="invoice-unified-section-title">خریدار</div>
+                        <div class="invoice-connected-buyer">
+                            <div class="invoice-connected-section-title">خریدار</div>
                             ${buyerDetails}
                         </div>
                     </div>
-                    <table class="invoice-unified-table">
+                    <table class="invoice-connected-table">
                         <thead>
                             <tr>
                                 <th>ردیف</th>
@@ -3663,36 +3688,36 @@
                         </thead>
                         <tbody>${itemsHtml}</tbody>
                     </table>
-                    <div class="invoice-unified-summary">
-                        <div class="invoice-unified-summary-row">
-                            <div class="invoice-unified-summary-label invoice-summary-small-font">جمع تمامی ستون ها به عدد:</div>
-                            <div class="invoice-unified-summary-value invoice-summary-small-font">${formatCurrency(grandTotal)} ریال</div>
+                    <div class="invoice-connected-summary">
+                        <div class="invoice-connected-summary-row">
+                            <div class="invoice-connected-summary-label invoice-summary-small-font">جمع تمامی ستون ها به عدد:</div>
+                            <div class="invoice-connected-summary-value invoice-summary-small-font">${formatCurrency(grandTotal)} ریال</div>
                         </div>
-                        <div class="invoice-unified-summary-row">
-                            <div class="invoice-unified-summary-label invoice-summary-small-font">جمع تمامی ستون ها به حروف:</div>
-                            <div class="invoice-unified-summary-value invoice-summary-small-font">${numberToWords(grandTotal)} ریال</div>
+                        <div class="invoice-connected-summary-row">
+                            <div class="invoice-connected-summary-label invoice-summary-small-font">جمع تمامی ستون ها به حروف:</div>
+                            <div class="invoice-connected-summary-value invoice-summary-small-font">${numberToWords(grandTotal)} ریال</div>
                         </div>
-                        <div class="invoice-unified-summary-row">
-                            <div class="invoice-unified-summary-label invoice-summary-small-font">نحوه پرداخت:</div>
-                            <div class="invoice-unified-summary-value invoice-summary-small-font">
+                        <div class="invoice-connected-summary-row">
+                            <div class="invoice-connected-summary-label invoice-summary-small-font">نحوه پرداخت:</div>
+                            <div class="invoice-connected-summary-value invoice-summary-small-font">
                                 <span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span>
                                 <span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="invoice-unified-signatures">
-                        <div class="invoice-unified-signature">
+                    <div class="invoice-connected-signatures">
+                        <div class="invoice-connected-signature">
                             <div>مهر و امضای فروشنده</div>
-                            <div class="invoice-unified-signature-line"></div>
+                            <div class="invoice-connected-signature-line"></div>
                         </div>
-                        <div class="invoice-unified-signature">
+                        <div class="invoice-connected-signature">
                             <div>مهر و امضای خریدار</div>
-                            <div class="invoice-unified-signature-line"></div>
+                            <div class="invoice-connected-signature-line"></div>
                         </div>
                     </div>
                 </div>
             `;
-            invoiceUnifiedPreview.innerHTML = html;
+            invoiceConnectedPreview.innerHTML = html;
         }
         
         // تابع تبدیل عدد به حروف
@@ -3790,14 +3815,14 @@
         
         // تابع چاپ فاکتور
         function printInvoice() {
-            const invoiceContent = invoiceUnifiedPreview.innerHTML;
+            const invoiceContent = invoiceConnectedPreview.innerHTML;
             if (invoiceContent.includes('empty-state')) {
                 showNotification('هیچ فاکتوری برای چاپ وجود ندارد!', 'error');
                 return;
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-horizontal-container{display:flex;justify-content:space-between;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000;margin-bottom:20px}.invoice-horizontal-seller,.invoice-horizontal-buyer{flex:1}.invoice-horizontal-seller{margin-left:10px}.invoice-horizontal-buyer{margin-right:10px}.invoice-horizontal-row{display:flex;margin-bottom:8px}.invoice-horizontal-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-horizontal-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body>${invoiceContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-connected-title{font-size:1.5rem;font-weight:bold}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px;background:rgba(0,0,0,0.05);border:1px solid #000}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:5px}.invoice-connected-info-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${invoiceContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -3823,28 +3848,28 @@
             
             if (companyInfo.name) {
                 sellerDetails = `
-                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${companyInfo.name}</div></div>
-                    ${companyInfo.economicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${companyInfo.economicCode}</div></div>` : ''}
-                    ${companyInfo.nationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalId}</div></div>` : ''}
-                    ${companyInfo.nationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${companyInfo.nationalCode}</div></div>` : ''}
-                    ${companyInfo.phone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${companyInfo.phone}</div></div>` : ''}
-                    ${companyInfo.address ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${companyInfo.address}</div></div>` : ''}
+                    <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div></div>
+                    ${companyInfo.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div></div>` : ''}
+                    ${companyInfo.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div></div>` : ''}
+                    ${companyInfo.nationalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalCode}</div></div>` : ''}
+                    ${companyInfo.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div></div>` : ''}
+                    ${companyInfo.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${companyInfo.address}</div></div>` : ''}
                 `;
             }
             
             if (invoice.partyName) {
                 buyerDetails = `
-                    <div class="invoice-horizontal-row"><div class="invoice-horizontal-label">نام:</div><div class="invoice-horizontal-value">${invoice.partyName}</div></div>
-                    ${invoice.partyEconomicCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره اقتصادی:</div><div class="invoice-horizontal-value">${invoice.partyEconomicCode}</div></div>` : ''}
-                    ${invoice.partyNationalId ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شناسه ملی:</div><div class="invoice-horizontal-value">${invoice.partyNationalId}</div></div>` : ''}
-                    ${invoice.partyNationalCode ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره ملی:</div><div class="invoice-horizontal-value">${invoice.partyNationalCode}</div></div>` : ''}
-                    ${invoice.partyPhone ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">شماره تماس:</div><div class="invoice-horizontal-value">${invoice.partyPhone}</div></div>` : ''}
-                    ${invoice.partyAddress ? `<div class="invoice-horizontal-row"><div class="invoice-horizontal-label">آدرس:</div><div class="invoice-horizontal-value">${invoice.partyAddress}</div></div>` : ''}
+                    <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div></div>
+                    ${invoice.partyEconomicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره اقتصادی:</div><div class="invoice-connected-info-value">${invoice.partyEconomicCode}</div></div>` : ''}
+                    ${invoice.partyNationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${invoice.partyNationalId}</div></div>` : ''}
+                    ${invoice.partyNationalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ملی:</div><div class="invoice-connected-info-value">${invoice.partyNationalCode}</div></div>` : ''}
+                    ${invoice.partyPhone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${invoice.partyPhone}</div></div>` : ''}
+                    ${invoice.partyAddress ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${invoice.partyAddress}</div></div>` : ''}
                 `;
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-unified-preview-content{border:1px solid #000;padding:20px}.invoice-unified-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-unified-title{font-size:1.5rem;font-weight:bold}.invoice-unified-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-unified-table th,.invoice-unified-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-unified-table th{background-color:#f0f0f0}.invoice-unified-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-unified-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-unified-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-unified-summary-label{font-weight:600;font-size:0.65rem}.invoice-unified-summary-value{font-weight:700;font-size:0.65rem}.invoice-unified-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-unified-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-horizontal-container{display:flex;justify-content:space-between;background:rgba(0,0,0,0.05);border-radius:10px;padding:15px;border:1px solid #000;margin-bottom:20px}.invoice-horizontal-seller,.invoice-horizontal-buyer{flex:1}.invoice-horizontal-seller{margin-left:10px}.invoice-horizontal-buyer{margin-right:10px}.invoice-horizontal-row{display:flex;margin-bottom:8px}.invoice-horizontal-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-horizontal-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-unified-preview-content{border:none}}</style></head><body><div class="invoice-unified-preview-content"><div class="invoice-unified-header"><div class="invoice-unified-title">فاکتور فروش/خدمات</div><div class="invoice-unified-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-unified-date">تاریخ: ${invoice.date}</div></div><div class="invoice-horizontal-container"><div class="invoice-horizontal-seller"><div class="invoice-unified-section-title">فروشنده</div>${sellerDetails}</div><div class="invoice-horizontal-buyer"><div class="invoice-unified-section-title">خریدار</div>${buyerDetails}</div></div><table class="invoice-unified-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-unified-summary"><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به عدد:</div><div class="invoice-unified-summary-value">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">جمع تمامی ستون ها به حروف:</div><div class="invoice-unified-summary-value">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-unified-summary-row"><div class="invoice-unified-summary-label">نحوه پرداخت:</div><div class="invoice-unified-summary-value"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-unified-signatures"><div class="invoice-unified-signature"><div>مهر و امضای فروشنده</div><div class="invoice-unified-signature-line"></div></div><div class="invoice-unified-signature"><div>مهر و امضای خریدار</div><div class="invoice-unified-signature-line"></div></div></div></div></body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-connected-title{font-size:1.5rem;font-weight:bold}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px;background:rgba(0,0,0,0.05);border:1px solid #000}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:5px}.invoice-connected-info-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body><div class="invoice-connected-container"><div class="invoice-connected-header"><div class="invoice-connected-title">فاکتور فروش/خدمات</div><div class="invoice-connected-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div><div class="invoice-connected-date">تاریخ: ${invoice.date}</div></div><div class="invoice-connected-details"><div class="invoice-connected-seller"><div class="invoice-connected-section-title">فروشنده</div>${sellerDetails}</div><div class="invoice-connected-buyer"><div class="invoice-connected-section-title">خریدار</div>${buyerDetails}</div></div><table class="invoice-connected-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>شرح کالا/خدمات</th><th>مقدار</th><th>واحد</th><th>بهای واحد</th><th>بهای کل</th><th>مبلغ تخفیف</th><th>بهای کل پس از تخفیف</th><th>مالیات و عوارض</th><th>بهای کل بعلاوه مالیات و عوارض</th></tr></thead><tbody>${itemsHtml}</tbody></table><div class="invoice-connected-summary"><div class="invoice-connected-summary-row"><div class="invoice-connected-summary-label">جمع تمامی ستون ها به عدد:</div><div class="invoice-connected-summary-value">${formatCurrency(invoice.grandTotal)} ریال</div></div><div class="invoice-connected-summary-row"><div class="invoice-connected-summary-label">جمع تمامی ستون ها به حروف:</div><div class="invoice-connected-summary-value">${numberToWords(invoice.grandTotal)} ریال</div></div><div class="invoice-connected-summary-row"><div class="invoice-connected-summary-label">نحوه پرداخت:</div><div class="invoice-connected-summary-value"><span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span><span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span></div></div></div><div class="invoice-connected-signatures"><div class="invoice-connected-signature"><div>مهر و امضای فروشنده</div><div class="invoice-connected-signature-line"></div></div><div class="invoice-connected-signature"><div>مهر و امضای خریدار</div><div class="invoice-connected-signature-line"></div></div></div></div></body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -3859,7 +3884,7 @@
             invoiceItemTaxInput.value = '';
             invoiceItems = [];
             updateInvoiceItemsDisplay();
-            invoiceUnifiedPreview.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>`;
+            invoiceConnectedPreview.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>`;
         }
     </script>
 </body>
