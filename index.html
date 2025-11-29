@@ -1215,7 +1215,7 @@
         // مدیریت افزودن کالا
         addProductBtn.addEventListener('click', addProduct);
         
-        // مدیریت افزودن ردیف فاکتور
+        // مدیریت افزودن ردیف فакتور
         addInvoiceItemBtn.addEventListener('click', addInvoiceItem);
         
         // مدیریت ذخیره فاکتور
@@ -1876,91 +1876,17 @@
         function updateLedgerAccountSelect() {
             let ledgerHtml = '<option value="">انتخاب حساب برای مشاهده دفترکل</option>';
             
-            // ایجاد لیستی از حساب‌های استفاده شده در اسناد
-            const usedAccounts = new Set();
-            
-            savedDocuments.forEach(document => {
-                document.transactions.forEach(transaction => {
-                    if (transaction.isManual) {
-                        usedAccounts.add(transaction.accountId);
-                    } else {
-                        if (transaction.transactionType === 'receipt') {
-                            let debitAccount = '';
-                            switch(transaction.paymentType) {
-                                case 'cash': debitAccount = 'موجودی نقد-بانک'; break;
-                                case 'credit': debitAccount = 'حساب های دریافتنی'; break;
-                                case 'check': debitAccount = 'اسناد دریافتنی'; break;
-                            }
-                            const debitAcc = accounts.find(acc => acc.name === debitAccount);
-                            if (debitAcc) usedAccounts.add(debitAcc.id);
-                            usedAccounts.add(transaction.accountId);
-                        } else if (transaction.transactionType === 'payment') {
-                            let creditAccount = '';
-                            switch(transaction.paymentType) {
-                                case 'cash': creditAccount = 'موجودی نقد-بانک'; break;
-                                case 'credit': creditAccount = 'حساب های پرداختنی'; break;
-                                case 'check': creditAccount = 'اسناد پرداختنی'; break;
-                            }
-                            usedAccounts.add(transaction.accountId);
-                            const creditAcc = accounts.find(acc => acc.name === creditAccount);
-                            if (creditAcc) usedAccounts.add(creditAcc.id);
-                        }
-                    }
-                });
+            // نمایش تمام حساب‌های موجود
+            accounts.forEach(account => {
+                ledgerHtml += `<option value="${account.id}">${account.name}</option>`;
             });
             
-            currentDocumentTransactions.forEach(transaction => {
-                if (transaction.isManual) {
-                    usedAccounts.add(transaction.accountId);
-                } else {
-                    if (transaction.transactionType === 'receipt') {
-                        let debitAccount = '';
-                        switch(transaction.paymentType) {
-                            case 'cash': debitAccount = 'موجودی نقد-بانک'; break;
-                            case 'credit': debitAccount = 'حساب های دریافتنی'; break;
-                            case 'check': debitAccount = 'اسناد دریافتنی'; break;
-                        }
-                        const debitAcc = accounts.find(acc => acc.name === debitAccount);
-                        if (debitAcc) usedAccounts.add(debitAcc.id);
-                        usedAccounts.add(transaction.accountId);
-                    } else if (transaction.transactionType === 'payment') {
-                        let creditAccount = '';
-                        switch(transaction.paymentType) {
-                            case 'cash': creditAccount = 'موجودی نقد-بانک'; break;
-                            case 'credit': creditAccount = 'حساب های پرداختنی'; break;
-                            case 'check': creditAccount = 'اسناد پرداختنی'; break;
-                        }
-                        usedAccounts.add(transaction.accountId);
-                        const creditAcc = accounts.find(acc => acc.name === creditAccount);
-                        if (creditAcc) usedAccounts.add(creditAcc.id);
-                    }
-                }
-            });
-            
-            // نمایش حساب‌های استفاده شده
-            usedAccounts.forEach(accountId => {
-                if (typeof accountId === 'number') {
-                    const account = accounts.find(acc => acc.id == accountId);
-                    if (account) {
-                        ledgerHtml += `<option value="${account.id}">${account.name}</option>`;
-                    }
-                } else {
-                    const parts = accountId.split('-');
-                    const accountType = parts[0];
-                    const partyId = parts[1];
-                    
-                    const party = parties.find(p => p.id == partyId);
-                    if (party) {
-                        let accountName = '';
-                        switch(accountType) {
-                            case 'receivable': accountName = `حساب های دریافتنی-${party.name}`; break;
-                            case 'payable': accountName = `حساب های پرداختنی-${party.name}`; break;
-                            case 'notes-receivable': accountName = `اسناد دریافتنی-${party.name}`; break;
-                            case 'notes-payable': accountName = `اسناد پرداختنی-${party.name}`; break;
-                        }
-                        ledgerHtml += `<option value="${accountId}">${accountName}</option>`;
-                    }
-                }
+            // اضافه کردن حساب‌های طرف‌های حساب
+            parties.forEach(party => {
+                ledgerHtml += `<option value="receivable-${party.id}">حساب های دریافتنی-${party.name}</option>`;
+                ledgerHtml += `<option value="payable-${party.id}">حساب های پرداختنی-${party.name}</option>`;
+                ledgerHtml += `<option value="notes-receivable-${party.id}">اسناد دریافتنی-${party.name}</option>`;
+                ledgerHtml += `<option value="notes-payable-${party.id}">اسناد پرداختنی-${party.name}</option>`;
             });
             
             ledgerAccountSelect.innerHTML = ledgerHtml;
@@ -1977,70 +1903,12 @@
         function updateSubsidiaryLedgerAccountSelect() {
             let html = '<option value="">انتخاب حساب برای مشاهده دفتر معین</option>';
             
-            // ایجاد لیستی از حساب‌های طرف‌های حساب استفاده شده در اسناد
-            const usedAccounts = new Set();
-            
-            savedDocuments.forEach(document => {
-                document.transactions.forEach(transaction => {
-                    if (!transaction.isManual && transaction.partyId) {
-                        const party = parties.find(p => p.id == transaction.partyId);
-                        if (party) {
-                            if (transaction.transactionType === 'receipt') {
-                                if (transaction.paymentType === 'credit') {
-                                    usedAccounts.add(`receivable-${transaction.partyId}`);
-                                } else if (transaction.paymentType === 'check') {
-                                    usedAccounts.add(`notes-receivable-${transaction.partyId}`);
-                                }
-                            } else if (transaction.transactionType === 'payment') {
-                                if (transaction.paymentType === 'credit') {
-                                    usedAccounts.add(`payable-${transaction.partyId}`);
-                                } else if (transaction.paymentType === 'check') {
-                                    usedAccounts.add(`notes-payable-${transaction.partyId}`);
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-            
-            currentDocumentTransactions.forEach(transaction => {
-                if (!transaction.isManual && transaction.partyId) {
-                    const party = parties.find(p => p.id == transaction.partyId);
-                    if (party) {
-                        if (transaction.transactionType === 'receipt') {
-                            if (transaction.paymentType === 'credit') {
-                                usedAccounts.add(`receivable-${transaction.partyId}`);
-                            } else if (transaction.paymentType === 'check') {
-                                usedAccounts.add(`notes-receivable-${transaction.partyId}`);
-                            }
-                        } else if (transaction.transactionType === 'payment') {
-                            if (transaction.paymentType === 'credit') {
-                                usedAccounts.add(`payable-${transaction.partyId}`);
-                            } else if (transaction.paymentType === 'check') {
-                                usedAccounts.add(`notes-payable-${transaction.partyId}`);
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // فقط حساب‌هایی که در اسناد استفاده شده‌اند را نمایش بده
-            usedAccounts.forEach(accountId => {
-                const parts = accountId.split('-');
-                const accountType = parts[0];
-                const partyId = parts[1];
-                
-                const party = parties.find(p => p.id == partyId);
-                if (party) {
-                    let accountName = '';
-                    switch(accountType) {
-                        case 'receivable': accountName = `حساب های دریافتنی-${party.name}`; break;
-                        case 'payable': accountName = `حساب های پرداختنی-${party.name}`; break;
-                        case 'notes-receivable': accountName = `اسناد دریافتنی-${party.name}`; break;
-                        case 'notes-payable': accountName = `اسناد پرداختنی-${party.name}`; break;
-                    }
-                    html += `<option value="${accountId}">${accountName}</option>`;
-                }
+            // نمایش تمام حساب‌های طرف‌های حساب
+            parties.forEach(party => {
+                html += `<option value="receivable-${party.id}">حساب های دریافتنی-${party.name}</option>`;
+                html += `<option value="payable-${party.id}">حساب های پرداختنی-${party.name}</option>`;
+                html += `<option value="notes-receivable-${party.id}">اسناد دریافتنی-${party.name}</option>`;
+                html += `<option value="notes-payable-${party.id}">اسناد پرداختنی-${party.name}</option>`;
             });
             
             subsidiaryLedgerAccountSelect.innerHTML = html;
@@ -2064,7 +1932,7 @@
         // تابع به‌روزرسانی لیست اسناد
         function updateDocumentsList() {
             if (savedDocuments.length === 0) {
-                documentsList.innerHTML = `<div class="empty-state"><i class="fas fa-file-invoice"></i><p>هیچ سندی ذخیره نشده است</p></div>`;
+                documentsList.innerHTML = `<div class="empty-state"><i class="fas fa-file-invoice"></i><p>هیچ سندی ذخیره شده است</p></div>`;
                 return;
             }
             
@@ -2433,7 +2301,7 @@
             trialBalanceBody.innerHTML = html;
         }
         
-        // تابع به‌روزرسانی دفترکل - بهبود یافته برای نمایش اسناد دستی
+        // تابع به‌روزرسانی دفترکل - بهبود یافته برای نمایش تمام حساب‌ها
         function updateLedger(accountId) {
             if (!accountId) {
                 ledgerBody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-book"></i><p>لطفاً یک حساب را برای مشاهده دفترکل انتخاب کنید</p></td></tr>`;
@@ -2576,7 +2444,7 @@
             ledgerBody.innerHTML = html;
         }
         
-        // تابع به‌روزرسانی دفتر معین - اصلاح شده
+        // تابع به‌روزرسانی دفتر معین - اصلاح شده برای نمایش صحیح حساب‌های طرف‌حسابان
         function updateSubsidiaryLedger(accountId) {
             if (!accountId) {
                 subsidiaryLedgerBody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-book"></i><p>لطفاً یک حساب را برای مشاهده دفتر معین انتخاب کنید</p></td></tr>`;
@@ -2609,32 +2477,32 @@
             const ledgerEntries = [];
             let balance = 0;
             
+            // بررسی اسناد ذخیره شده
             savedDocuments.forEach(document => {
                 document.transactions.forEach(transaction => {
                     if (!transaction.isManual && transaction.partyId == partyId) {
                         let debit = 0;
                         let credit = 0;
+                        
                         if (transaction.transactionType === 'receipt') {
-                            let debitAccount = '';
-                            switch(transaction.paymentType) {
-                                case 'cash': debitAccount = 'موجودی نقد-بانک'; break;
-                                case 'credit': debitAccount = `حساب های دریافتنی-${party.name}`; break;
-                                case 'check': debitAccount = `اسناد دریافتنی-${party.name}`; break;
-                            }
-                            if (debitAccount === accountName) {
+                            if (accountType === 'receivable' && transaction.paymentType === 'credit') {
+                                debit = transaction.amount;
+                                credit = 0;
+                                balance += transaction.amount;
+                                ledgerEntries.push({ date: document.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
+                            } else if (accountType === 'notes-receivable' && transaction.paymentType === 'check') {
                                 debit = transaction.amount;
                                 credit = 0;
                                 balance += transaction.amount;
                                 ledgerEntries.push({ date: document.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
                             }
                         } else if (transaction.transactionType === 'payment') {
-                            let creditAccount = '';
-                            switch(transaction.paymentType) {
-                                case 'cash': creditAccount = 'موجودی نقد-بانک'; break;
-                                case 'credit': creditAccount = `حساب های پرداختنی-${party.name}`; break;
-                                case 'check': creditAccount = `اسناد پرداختنی-${party.name}`; break;
-                            }
-                            if (creditAccount === accountName) {
+                            if (accountType === 'payable' && transaction.paymentType === 'credit') {
+                                debit = 0;
+                                credit = transaction.amount;
+                                balance -= transaction.amount;
+                                ledgerEntries.push({ date: document.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
+                            } else if (accountType === 'notes-payable' && transaction.paymentType === 'check') {
                                 debit = 0;
                                 credit = transaction.amount;
                                 balance -= transaction.amount;
@@ -2642,40 +2510,56 @@
                             }
                         }
                     }
+                    
+                    // بررسی اسناد دستی
+                    if (transaction.isManual && typeof transaction.accountId === 'string' && transaction.accountId === accountId) {
+                        let debit = transaction.debit || 0;
+                        let credit = transaction.credit || 0;
+                        balance += debit - credit;
+                        ledgerEntries.push({ date: document.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
+                    }
                 });
             });
             
+            // بررسی معاملات جاری
             currentDocumentTransactions.forEach(transaction => {
                 if (!transaction.isManual && transaction.partyId == partyId) {
                     let debit = 0;
                     let credit = 0;
+                    
                     if (transaction.transactionType === 'receipt') {
-                        let debitAccount = '';
-                        switch(transaction.paymentType) {
-                            case 'cash': debitAccount = 'موجودی نقد-بانک'; break;
-                            case 'credit': debitAccount = `حساب های دریافتنی-${party.name}`; break;
-                            case 'check': debitAccount = `اسناد دریافتنی-${party.name}`; break;
-                        }
-                        if (debitAccount === accountName) {
+                        if (accountType === 'receivable' && transaction.paymentType === 'credit') {
+                            debit = transaction.amount;
+                            credit = 0;
+                            balance += transaction.amount;
+                            ledgerEntries.push({ date: transaction.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
+                        } else if (accountType === 'notes-receivable' && transaction.paymentType === 'check') {
                             debit = transaction.amount;
                             credit = 0;
                             balance += transaction.amount;
                             ledgerEntries.push({ date: transaction.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
                         }
                     } else if (transaction.transactionType === 'payment') {
-                        let creditAccount = '';
-                        switch(transaction.paymentType) {
-                            case 'cash': creditAccount = 'موجودی نقد-بانک'; break;
-                            case 'credit': creditAccount = `حساب های پرداختنی-${party.name}`; break;
-                            case 'check': creditAccount = `اسناد پرداختنی-${party.name}`; break;
-                        }
-                        if (creditAccount === accountName) {
+                        if (accountType === 'payable' && transaction.paymentType === 'credit') {
+                            debit = 0;
+                            credit = transaction.amount;
+                            balance -= transaction.amount;
+                            ledgerEntries.push({ date: transaction.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
+                        } else if (accountType === 'notes-payable' && transaction.paymentType === 'check') {
                             debit = 0;
                             credit = transaction.amount;
                             balance -= transaction.amount;
                             ledgerEntries.push({ date: transaction.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
                         }
                     }
+                }
+                
+                // بررسی اسناد دستی
+                if (transaction.isManual && typeof transaction.accountId === 'string' && transaction.accountId === accountId) {
+                    let debit = transaction.debit || 0;
+                    let credit = transaction.credit || 0;
+                    balance += debit - credit;
+                    ledgerEntries.push({ date: transaction.date, description: transaction.description, debit: debit, credit: credit, balance: balance });
                 }
             });
             
