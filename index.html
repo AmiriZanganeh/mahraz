@@ -1872,11 +1872,11 @@
             manualAccountSelects.forEach(select => select.innerHTML = manualHtml);
         }
         
-        // تابع به‌روزرسانی dropdown حساب‌ها برای دفترکل
+        // تابع به‌روزرسانی dropdown حساب‌ها برای دفترکل - بهبود یافته
         function updateLedgerAccountSelect() {
             let ledgerHtml = '<option value="">انتخاب حساب برای مشاهده دفترکل</option>';
             
-            // فقط حساب‌هایی که در اسناد استفاده شده‌اند را نمایش بده
+            // ایجاد لیستی از حساب‌های استفاده شده در اسناد
             const usedAccounts = new Set();
             
             savedDocuments.forEach(document => {
@@ -1937,26 +1937,6 @@
                 }
             });
             
-            // اضافه کردن حساب‌های طرف‌های حساب که در اسناد استفاده شده‌اند
-            parties.forEach(party => {
-                const partyUsedInDocuments = savedDocuments.some(document => 
-                    document.transactions.some(transaction => 
-                        !transaction.isManual && transaction.partyId == party.id
-                    )
-                );
-                
-                const partyUsedInCurrent = currentDocumentTransactions.some(transaction => 
-                    !transaction.isManual && transaction.partyId == party.id
-                );
-                
-                if (partyUsedInDocuments || partyUsedInCurrent) {
-                    usedAccounts.add(`receivable-${party.id}`);
-                    usedAccounts.add(`payable-${party.id}`);
-                    usedAccounts.add(`notes-receivable-${party.id}`);
-                    usedAccounts.add(`notes-payable-${party.id}`);
-                }
-            });
-            
             // نمایش حساب‌های استفاده شده
             usedAccounts.forEach(accountId => {
                 if (typeof accountId === 'number') {
@@ -1993,11 +1973,11 @@
             partySelect.innerHTML = html;
         }
         
-        // تابع به‌روزرسانی dropdown دفتر معین
+        // تابع به‌روزرسانی dropdown دفتر معین - بهبود یافته
         function updateSubsidiaryLedgerAccountSelect() {
             let html = '<option value="">انتخاب حساب برای مشاهده دفتر معین</option>';
             
-            // ایجاد لیستی از حساب‌های استفاده شده در اسناد
+            // ایجاد لیستی از حساب‌های طرف‌های حساب استفاده شده در اسناد
             const usedAccounts = new Set();
             
             savedDocuments.forEach(document => {
