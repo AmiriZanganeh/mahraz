@@ -59,8 +59,6 @@
         .app-logo { display: flex; align-items: center; gap: 10px; }
         .app-logo-icon { width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
         .app-logo-text { font-size: 1.1rem; font-weight: 700; color: white; }
-        .dashboard-btn { background: transparent; color: rgba(255, 255, 255, 0.8); border: none; cursor: pointer; font-size: 1.1rem; padding: 5px; border-radius: 4px; transition: var(--transition); }
-        .dashboard-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
         .sidebar-nav { flex: 1; padding: 20px 0; }
         .nav-item { padding: 12px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; color: rgba(255, 255, 255, 0.8); font-size: 0.95rem; margin: 2px 0; transition: var(--transition); }
         .nav-item.active { background: rgba(255, 255, 255, 0.1); color: white; border-right: 3px solid var(--primary); }
@@ -269,6 +267,11 @@
         .invoice-payment-option { display: flex; align-items: center; gap: 5px; }
         .invoice-payment-option input { width: auto; }
         .invoice-payment-checkbox { width: 16px; height: 16px; margin-left: 5px; }
+        
+        /* استایل‌های جدید برای سیستم ویرایش */
+        .edit-form-container { background: rgba(44, 90, 160, 0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px; border: 1px solid var(--primary-light); }
+        .edit-form-title { font-weight: 700; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .edit-form-actions { display: flex; gap: 10px; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -304,7 +307,6 @@
                         <div class="app-logo-icon"><i class="fas fa-calculator"></i></div>
                         <div class="app-logo-text">مَهراز</div>
                     </div>
-                    <button class="dashboard-btn" id="dashboard-btn"><i class="fas fa-user"></i></button>
                 </div>
                 <div class="sidebar-nav">
                     <div class="nav-item active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i><span class="nav-item-text">داشبورد</span></div>
@@ -400,6 +402,27 @@
                                     <div class="form-group"><label for="party-mobile" class="form-label">شماره تماس</label><input type="text" id="party-mobile" class="form-control" placeholder="شماره تماس"></div>
                                     <div class="form-group"><button type="button" id="add-party" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن شخص</button></div>
                                 </div>
+                                
+                                <!-- فرم ویرایش شخص -->
+                                <div id="edit-party-form" class="edit-form-container hidden">
+                                    <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش شخص</div>
+                                    <div class="party-form">
+                                        <div class="form-group"><label for="edit-party-name" class="form-label">نام طرف حساب</label><input type="text" id="edit-party-name" class="form-control" placeholder="نام طرف حساب"></div>
+                                        <div class="form-group"><label for="edit-party-economic-code" class="form-label">شماره اقتصادی</label><input type="text" id="edit-party-economic-code" class="form-control" placeholder="شماره اقتصادی"></div>
+                                        <div class="form-group" id="edit-party-registration-code-group"><label for="edit-party-national-id" class="form-label">شناسه ملی</label><input type="text" id="edit-party-national-id" class="form-control" placeholder="شناسه ملی"></div>
+                                        <div class="form-group" id="edit-party-national-code-group" style="display: none;"><label for="edit-party-national-code" class="form-label">شماره ملی</label><input type="text" id="edit-party-national-code" class="form-control" placeholder="شماره ملی"></div>
+                                        <div class="form-group"><label for="edit-party-registration-number" class="form-label">شماره ثبت</label><input type="text" id="edit-party-registration-number" class="form-control" placeholder="شماره ثبت"></div>
+                                        <div class="form-group"><label for="edit-party-postal-code" class="form-label">کد پستی</label><input type="text" id="edit-party-postal-code" class="form-control" placeholder="کد پستی"></div>
+                                        <div class="form-group"><label for="edit-party-address" class="form-label">آدرس</label><textarea id="edit-party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
+                                        <div class="form-group"><label for="edit-party-phone" class="form-label">تلفن</label><input type="text" id="edit-party-phone" class="form-control" placeholder="تلفن"></div>
+                                        <div class="form-group"><label for="edit-party-mobile" class="form-label">شماره تماس</label><input type="text" id="edit-party-mobile" class="form-control" placeholder="شماره تماس"></div>
+                                        <div class="edit-form-actions">
+                                            <button type="button" id="update-party" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
+                                            <button type="button" id="cancel-edit-party" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="parties-list" id="parties-list">
                                     <div class="empty-state"><i class="fas fa-users"></i><p>هیچ شخصی ثبت نشده است</p></div>
                                 </div>
@@ -426,6 +449,27 @@
                                     </div>
                                     <div class="form-group"><button type="button" id="add-product" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن کالا/خدمات</button></div>
                                 </div>
+                                
+                                <!-- فرم ویرایش کالا -->
+                                <div id="edit-product-form" class="edit-form-container hidden">
+                                    <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش کالا/خدمات</div>
+                                    <div class="inventory-form">
+                                        <div class="form-group"><label for="edit-product-code" class="form-label">کد کالا/خدمات</label><input type="text" id="edit-product-code" class="form-control" placeholder="کد کالا/خدمات"></div>
+                                        <div class="form-group"><label for="edit-product-name" class="form-label">شرح کالا/خدمات</label><input type="text" id="edit-product-name" class="form-control" placeholder="شرح کالا/خدمات"></div>
+                                        <div class="form-group"><label for="edit-product-price" class="form-label">بهای واحد</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" id="edit-product-price" class="form-control amount-input" placeholder="0"></div></div>
+                                        <div class="form-group">
+                                            <label for="edit-product-unit" class="form-label">واحد اندازه‌گیری</label>
+                                            <div class="unit-input-container">
+                                                <input type="text" id="edit-product-unit" class="form-control" placeholder="مثال: عدد، کیلوگرم، متر">
+                                            </div>
+                                        </div>
+                                        <div class="edit-form-actions">
+                                            <button type="button" id="update-product" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
+                                            <button type="button" id="cancel-edit-product" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="inventory-list" id="inventory-list">
                                     <div class="empty-state"><i class="fas fa-box"></i><p>هیچ کالا/خدماتی ثبت نشده است</p></div>
                                 </div>
@@ -536,12 +580,15 @@
         // متغیر پایگاه داده
         let db;
         
+        // متغیرهای ویرایش
+        let editingPartyId = null;
+        let editingProductId = null;
+        
         // عناصر DOM
         const loginPage = document.getElementById('login-page');
         const mainApp = document.getElementById('main-app');
         const loginForm = document.getElementById('login-form');
         const errorMessage = document.getElementById('error-message');
-        const dashboardBtn = document.getElementById('dashboard-btn');
         const pageTitle = document.getElementById('page-title');
         const pageDescription = document.getElementById('page-description');
         
@@ -606,6 +653,28 @@
         const partyNationalIdGroup = document.getElementById('party-registration-code-group');
         const partyNationalCodeGroup = document.getElementById('party-national-code-group');
         
+        // عناصر جدید برای فرم‌های ویرایش
+        const editPartyForm = document.getElementById('edit-party-form');
+        const editPartyNameInput = document.getElementById('edit-party-name');
+        const editPartyEconomicCodeInput = document.getElementById('edit-party-economic-code');
+        const editPartyNationalIdInput = document.getElementById('edit-party-national-id');
+        const editPartyNationalCodeInput = document.getElementById('edit-party-national-code');
+        const editPartyRegistrationNumberInput = document.getElementById('edit-party-registration-number');
+        const editPartyPhoneInput = document.getElementById('edit-party-phone');
+        const editPartyMobileInput = document.getElementById('edit-party-mobile');
+        const editPartyAddressInput = document.getElementById('edit-party-address');
+        const editPartyPostalCodeInput = document.getElementById('edit-party-postal-code');
+        const updatePartyBtn = document.getElementById('update-party');
+        const cancelEditPartyBtn = document.getElementById('cancel-edit-party');
+        
+        const editProductForm = document.getElementById('edit-product-form');
+        const editProductCodeInput = document.getElementById('edit-product-code');
+        const editProductNameInput = document.getElementById('edit-product-name');
+        const editProductPriceInput = document.getElementById('edit-product-price');
+        const editProductUnitInput = document.getElementById('edit-product-unit');
+        const updateProductBtn = document.getElementById('update-product');
+        const cancelEditProductBtn = document.getElementById('cancel-edit-product');
+        
         // مدیریت ورود به سیستم
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -617,14 +686,6 @@
             } else {
                 errorMessage.style.display = 'block';
             }
-        });
-        
-        // مدیریت رفتن به داشبورد
-        dashboardBtn.addEventListener('click', function() {
-            navItems.forEach(item => item.classList.remove('active'));
-            tabContents.forEach(content => content.classList.add('hidden'));
-            document.getElementById('dashboard-tab').classList.remove('hidden');
-            updatePageTitle('dashboard');
         });
         
         // مدیریت تغییر نوع شرکت
@@ -715,6 +776,14 @@
         
         // مدیریت بازگشت فاکتور
         resetInvoiceBtn.addEventListener('click', resetInvoice);
+        
+        // مدیریت ویرایش شخص
+        updatePartyBtn.addEventListener('click', updateParty);
+        cancelEditPartyBtn.addEventListener('click', cancelEditParty);
+        
+        // مدیریت ویرایش کالا
+        updateProductBtn.addEventListener('click', updateProduct);
+        cancelEditProductBtn.addEventListener('click', cancelEditProduct);
         
         // مقداردهی اولیه برنامه پس از ورود
         function initializeApp() {
@@ -1141,41 +1210,45 @@
             }
             
             // نمایش فرم ویرایش
-            partyNameInput.value = party.name;
-            partyEconomicCodeInput.value = party.economicCode || '';
-            partyNationalIdInput.value = party.nationalId || '';
-            partyNationalCodeInput.value = party.nationalCode || '';
-            partyRegistrationNumberInput.value = party.registrationNumber || '';
-            partyPhoneInput.value = party.phone || '';
-            partyMobileInput.value = party.mobile || '';
-            partyAddressInput.value = party.address || '';
-            partyPostalCodeInput.value = party.postalCode || '';
+            editPartyNameInput.value = party.name;
+            editPartyEconomicCodeInput.value = party.economicCode || '';
+            editPartyNationalIdInput.value = party.nationalId || '';
+            editPartyNationalCodeInput.value = party.nationalCode || '';
+            editPartyRegistrationNumberInput.value = party.registrationNumber || '';
+            editPartyPhoneInput.value = party.phone || '';
+            editPartyMobileInput.value = party.mobile || '';
+            editPartyAddressInput.value = party.address || '';
+            editPartyPostalCodeInput.value = party.postalCode || '';
             
             // تغییر نوع شخص
             if (party.type === 'legal') {
-                partyTypeBtns[0].click();
+                document.querySelectorAll('.party-type-selector .type-btn')[0].click();
             } else {
-                partyTypeBtns[1].click();
+                document.querySelectorAll('.party-type-selector .type-btn')[1].click();
             }
             
-            // تغییر متن دکمه
-            addPartyBtn.innerHTML = '<i class="fas fa-save"></i> به‌روزرسانی شخص';
-            addPartyBtn.onclick = function() { updateParty(partyId); };
+            // تنظیم ID ویرایش
+            editingPartyId = partyId;
+            
+            // نمایش فرم ویرایش
+            editPartyForm.classList.remove('hidden');
             
             showNotification('اطلاعات شخص برای ویرایش بارگذاری شد!', 'info');
         }
         
         // تابع به‌روزرسانی طرف حساب
-        function updateParty(partyId) {
-            const name = partyNameInput.value.trim();
-            const economicCode = partyEconomicCodeInput.value.trim();
-            const nationalId = partyNationalIdInput.value.trim();
-            const nationalCode = partyNationalCodeInput.value.trim();
-            const registrationNumber = partyRegistrationNumberInput.value.trim();
-            const phone = partyPhoneInput.value.trim();
-            const mobile = partyMobileInput.value.trim();
-            const address = partyAddressInput.value.trim();
-            const postalCode = partyPostalCodeInput.value.trim();
+        function updateParty() {
+            if (!editingPartyId) return;
+            
+            const name = editPartyNameInput.value.trim();
+            const economicCode = editPartyEconomicCodeInput.value.trim();
+            const nationalId = editPartyNationalIdInput.value.trim();
+            const nationalCode = editPartyNationalCodeInput.value.trim();
+            const registrationNumber = editPartyRegistrationNumberInput.value.trim();
+            const phone = editPartyPhoneInput.value.trim();
+            const mobile = editPartyMobileInput.value.trim();
+            const address = editPartyAddressInput.value.trim();
+            const postalCode = editPartyPostalCodeInput.value.trim();
             
             if (!name) {
                 showNotification('لطفاً نام شخص/شرکت را وارد کنید!', 'error');
@@ -1184,7 +1257,7 @@
             
             const type = document.querySelector('.party-type-selector .type-btn.active').getAttribute('data-type');
             const updatedParty = {
-                id: partyId, 
+                id: editingPartyId, 
                 type: type, 
                 name: name, 
                 economicCode: economicCode,
@@ -1197,30 +1270,26 @@
                 postalCode: postalCode
             };
             
-            const index = parties.findIndex(p => p.id === partyId);
+            const index = parties.findIndex(p => p.id === editingPartyId);
             if (index !== -1) {
                 parties[index] = updatedParty;
                 saveParty(updatedParty);
                 updatePartiesList();
                 updateInvoicePartySelect();
                 
-                // بازنشانی فرم
-                partyNameInput.value = '';
-                partyEconomicCodeInput.value = '';
-                partyNationalIdInput.value = '';
-                partyNationalCodeInput.value = '';
-                partyRegistrationNumberInput.value = '';
-                partyPhoneInput.value = '';
-                partyMobileInput.value = '';
-                partyAddressInput.value = '';
-                partyPostalCodeInput.value = '';
-                
-                // بازگرداندن دکمه به حالت اول
-                addPartyBtn.innerHTML = '<i class="fas fa-plus"></i> افزودن شخص';
-                addPartyBtn.onclick = addParty;
+                // پنهان کردن فرم ویرایش
+                editPartyForm.classList.add('hidden');
+                editingPartyId = null;
                 
                 showNotification('اطلاعات شخص با موفقیت به‌روزرسانی شد!', 'success');
             }
+        }
+        
+        // تابع انصراف از ویرایش شخص
+        function cancelEditParty() {
+            editPartyForm.classList.add('hidden');
+            editingPartyId = null;
+            showNotification('ویرایش لغو شد!', 'info');
         }
         
         // تابع حذف طرف حساب
@@ -1302,24 +1371,28 @@
             }
             
             // نمایش فرم ویرایش
-            productCodeInput.value = product.code || '';
-            productNameInput.value = product.name;
-            productPriceInput.value = product.price;
-            productUnitInput.value = product.unit || '';
+            editProductCodeInput.value = product.code || '';
+            editProductNameInput.value = product.name;
+            editProductPriceInput.value = product.price;
+            editProductUnitInput.value = product.unit || '';
             
-            // تغییر متن دکمه
-            addProductBtn.innerHTML = '<i class="fas fa-save"></i> به‌روزرسانی کالا/خدمات';
-            addProductBtn.onclick = function() { updateProduct(productId); };
+            // تنظیم ID ویرایش
+            editingProductId = productId;
+            
+            // نمایش فرم ویرایش
+            editProductForm.classList.remove('hidden');
             
             showNotification('اطلاعات کالا/خدمات برای ویرایش بارگذاری شد!', 'info');
         }
         
         // تابع به‌روزرسانی کالا
-        function updateProduct(productId) {
-            const code = productCodeInput.value.trim();
-            const name = productNameInput.value.trim();
-            const price = parseAmount(productPriceInput.value) || 0;
-            const unit = productUnitInput.value.trim() || 'عدد';
+        function updateProduct() {
+            if (!editingProductId) return;
+            
+            const code = editProductCodeInput.value.trim();
+            const name = editProductNameInput.value.trim();
+            const price = parseAmount(editProductPriceInput.value) || 0;
+            const unit = editProductUnitInput.value.trim() || 'عدد';
             
             if (!name) {
                 showNotification('لطفاً شرح کالا/خدمات را وارد کنید!', 'error');
@@ -1331,27 +1404,28 @@
                 return;
             }
             
-            const updatedProduct = { id: productId, code: code, name: name, price: price, unit: unit };
+            const updatedProduct = { id: editingProductId, code: code, name: name, price: price, unit: unit };
             
-            const index = inventory.findIndex(p => p.id === productId);
+            const index = inventory.findIndex(p => p.id === editingProductId);
             if (index !== -1) {
                 inventory[index] = updatedProduct;
                 saveProduct(updatedProduct);
                 updateInventoryList();
                 updateInvoiceProductSelect();
                 
-                // بازنشانی فرم
-                productCodeInput.value = '';
-                productNameInput.value = '';
-                productPriceInput.value = '';
-                productUnitInput.value = '';
-                
-                // بازگرداندن دکمه به حالت اول
-                addProductBtn.innerHTML = '<i class="fas fa-plus"></i> افزودن کالا/خدمات';
-                addProductBtn.onclick = addProduct;
+                // پنهان کردن فرم ویرایش
+                editProductForm.classList.add('hidden');
+                editingProductId = null;
                 
                 showNotification('اطلاعات کالا/خدمات با موفقیت به‌روزرسانی شد!', 'success');
             }
+        }
+        
+        // تابع انصراف از ویرایش کالا
+        function cancelEditProduct() {
+            editProductForm.classList.add('hidden');
+            editingProductId = null;
+            showNotification('ویرایش لغو شد!', 'info');
         }
         
         // تابع حذف کالا
