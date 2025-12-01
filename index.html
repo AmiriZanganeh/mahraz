@@ -194,14 +194,14 @@
         .invoice-actions .btn { flex: 1; max-width: 200px; }
         
         /* استایل‌های جدید برای لیست‌ها */
-        .parties-list, .inventory-list, .accounts-list { max-height: 300px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--border-radius); padding: 10px; background: var(--light); }
-        .party-item, .inventory-item, .account-item { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; border-radius: 4px; margin-bottom: 5px; background: white; }
-        .party-item:hover, .inventory-item:hover, .account-item:hover { background: rgba(44, 90, 160, 0.05); }
-        .party-item:last-child, .inventory-item:last-child, .account-item:last-child { border-bottom: none; margin-bottom: 0; }
-        .party-info, .inventory-info, .account-info { flex: 1; }
-        .party-title, .inventory-title, .account-title { font-weight: 600; font-size: 0.85rem; color: var(--dark); margin-bottom: 4px; }
-        .party-meta, .inventory-meta, .account-meta { display: flex; gap: 10px; font-size: 0.75rem; color: var(--secondary); }
-        .party-actions, .inventory-actions, .account-actions { display: flex; gap: 5px; }
+        .parties-list, .inventory-list, .accounts-list, .documents-list { max-height: 300px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--border-radius); padding: 10px; background: var(--light); }
+        .party-item, .inventory-item, .account-item, .document-item { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; border-radius: 4px; margin-bottom: 5px; background: white; }
+        .party-item:hover, .inventory-item:hover, .account-item:hover, .document-item:hover { background: rgba(44, 90, 160, 0.05); }
+        .party-item:last-child, .inventory-item:last-child, .account-item:last-child, .document-item:last-child { border-bottom: none; margin-bottom: 0; }
+        .party-info, .inventory-info, .account-info, .document-info { flex: 1; }
+        .party-title, .inventory-title, .account-title, .document-title { font-weight: 600; font-size: 0.85rem; color: var(--dark); margin-bottom: 4px; }
+        .party-meta, .inventory-meta, .account-meta, .document-meta { display: flex; gap: 10px; font-size: 0.75rem; color: var(--secondary); }
+        .party-actions, .inventory-actions, .account-actions, .document-actions { display: flex; gap: 5px; }
         
         /* استایل‌های جدید برای کدینگ حسابداری درختی */
         .accounting-tree { border: 1px solid var(--border); border-radius: var(--border-radius); padding: 15px; background: white; }
@@ -272,6 +272,35 @@
         .edit-form-container { background: rgba(44, 90, 160, 0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px; border: 1px solid var(--primary-light); }
         .edit-form-title { font-weight: 700; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .edit-form-actions { display: flex; gap: 10px; margin-top: 15px; }
+        
+        /* استایل‌های جدید برای تب ثبت سند حسابداری */
+        .accounting-entry-container { display: flex; flex-direction: column; gap: 15px; }
+        .accounting-entry-header { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+        .accounting-entry-header .form-group { margin-bottom: 0; flex: 1; min-width: 200px; }
+        .entry-details-container { margin-top: 15px; border: 1px solid var(--border); border-radius: var(--border-radius); padding: 10px; background: var(--light); }
+        .entry-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .entry-table th { background: var(--primary); color: white; padding: 10px; text-align: center; border: 1px solid var(--border); }
+        .entry-table td { padding: 8px; border: 1px solid var(--border); text-align: center; }
+        .entry-row-actions { display: flex; gap: 5px; justify-content: center; }
+        .entry-totals { margin-top: 15px; display: flex; justify-content: space-between; font-weight: 700; padding: 10px; background: rgba(44, 90, 160, 0.05); border-radius: var(--border-radius); }
+        .entry-balance { font-weight: 700; padding: 10px; border-radius: var(--border-radius); text-align: center; }
+        .entry-balanced { background: rgba(40, 167, 69, 0.1); color: var(--success); border: 1px solid var(--success); }
+        .entry-not-balanced { background: rgba(220, 53, 69, 0.1); color: var(--danger); border: 1px solid var(--danger); }
+        
+        /* استایل‌های جدید برای تب اسناد */
+        .document-details { background: white; border-radius: var(--border-radius); padding: 15px; border: 1px solid var(--border); margin-top: 15px; }
+        .document-details-header { display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        .document-details-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .document-details-table th { background: rgba(44, 90, 160, 0.1); color: var(--primary); padding: 8px; text-align: center; border: 1px solid var(--border); }
+        .document-details-table td { padding: 6px; border: 1px solid var(--border); text-align: center; }
+        
+        /* استایل‌های جدید برای دکمه افزودن کالا */
+        .add-product-button-container { margin-top: 20px; margin-bottom: 20px; }
+        
+        /* استایل‌های جدید برای نوع شخص */
+        .person-type-container { margin-bottom: 15px; }
+        .person-type-label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--dark); font-size: 0.85rem; }
+        .person-type-select { width: 100%; padding: 10px 12px; background: var(--light); border: 1px solid var(--border); border-radius: var(--border-radius); font-size: 0.95rem; color: var(--dark); }
     </style>
 </head>
 <body>
@@ -309,18 +338,20 @@
                     </div>
                 </div>
                 <div class="sidebar-nav">
-                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i><span class="nav-item-text">داشبورد</span></div>
+                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-user"></i><span class="nav-item-text">داشبورد</span></div>
                     <div class="nav-item" data-tab="parties"><i class="fas fa-users"></i><span class="nav-item-text">اشخاص</span></div>
-                    <div class="nav-item" data-tab="products"><i class="fas fa-box"></i><span class="nav-item-text">کالا/خدمات</span></div>
-                    <div class="nav-item" data-tab="accounts"><i class="fas fa-chart-line"></i><span class="nav-item-text">حساب</span></div>
+                    <div class="nav-item" data-tab="products"><i class="fas fa-cubes"></i><span class="nav-item-text">کالا/خدمات</span></div>
+                    <div class="nav-item" data-tab="accounts"><i class="fas fa-sitemap"></i><span class="nav-item-text">حساب</span></div>
                     <div class="nav-item" data-tab="invoice"><i class="fas fa-receipt"></i><span class="nav-item-text">فاکتور</span></div>
+                    <div class="nav-item" data-tab="register"><i class="fas fa-pen"></i><span class="nav-item-text">ثبت</span></div>
+                    <div class="nav-item" data-tab="documents"><i class="fas fa-file-alt"></i><span class="nav-item-text">اسناد</span></div>
                 </div>
             </div>
             
             <!-- محتوای اصلی -->
             <div class="main-content">
                 <div class="content-header">
-                    <h1 class="page-title" id="page-title"><i class="fas fa-tachometer-alt"></i> داشبورد مدیریتی</h1>
+                    <h1 class="page-title" id="page-title"><i class="fas fa-user"></i> داشبورد مدیریتی</h1>
                     <p class="page-description" id="page-description">نمایش کلی وضعیت مالی و مدیریت سیستم</p>
                 </div>
                 
@@ -332,20 +363,22 @@
                                 <h2 class="card-title"><i class="fas fa-building"></i> اطلاعات شخص حقیقی/حقوقی</h2>
                             </div>
                             <div class="company-info-section">
-                                <div class="company-type-selector">
-                                    <button type="button" class="type-btn active" data-type="legal"><i class="fas fa-building"></i> حقوقی</button>
-                                    <button type="button" class="type-btn" data-type="individual"><i class="fas fa-user"></i> حقیقی</button>
+                                <div class="person-type-container">
+                                    <label class="person-type-label">نوع شخص</label>
+                                    <select id="company-type" class="person-type-select">
+                                        <option value="legal">حقوقی</option>
+                                        <option value="individual">حقیقی</option>
+                                    </select>
                                 </div>
                                 <div class="company-info-form">
                                     <div class="form-group"><label for="company-name" class="form-label">نام شرکت/شخص</label><input type="text" id="company-name" class="form-control" placeholder="نام شرکت/شخص"></div>
-                                    <div class="form-group"><label for="company-economic-code" class="form-label">شماره اقتصادی</label><input type="text" id="company-economic-code" class="form-control" placeholder="شماره اقتصادی"></div>
-                                    <div class="form-group" id="company-registration-code-group"><label for="company-national-id" class="form-label">شناسه ملی</label><input type="text" id="company-national-id" class="form-control" placeholder="شناسه ملی"></div>
-                                    <div class="form-group" id="company-national-code-group" style="display: none;"><label for="company-national-code" class="form-label">شماره ملی</label><input type="text" id="company-national-code" class="form-control" placeholder="شماره ملی"></div>
+                                    <div class="form-group"><label for="company-economic-code" class="form-label">کد اقتصادی</label><input type="text" id="company-economic-code" class="form-control" placeholder="کد اقتصادی"></div>
+                                    <div class="form-group"><label for="company-national-id" class="form-label">شناسه ملی</label><input type="text" id="company-national-id" class="form-control" placeholder="شناسه ملی"></div>
                                     <div class="form-group"><label for="company-registration-number" class="form-label">شماره ثبت</label><input type="text" id="company-registration-number" class="form-control" placeholder="شماره ثبت"></div>
-                                    <div class="form-group"><label for="company-postal-code" class="form-label">کد پستی</label><input type="text" id="company-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                    <div class="form-group"><label for="company-address" class="form-label">آدرس</label><textarea id="company-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                     <div class="form-group"><label for="company-phone" class="form-label">تلفن</label><input type="text" id="company-phone" class="form-control" placeholder="تلفن"></div>
                                     <div class="form-group"><label for="company-mobile" class="form-label">شماره تماس</label><input type="text" id="company-mobile" class="form-control" placeholder="شماره تماس"></div>
+                                    <div class="form-group"><label for="company-postal-code" class="form-label">کد پستی</label><input type="text" id="company-postal-code" class="form-control" placeholder="کد پستی"></div>
+                                    <div class="form-group"><label for="company-address" class="form-label">آدرس</label><textarea id="company-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                     <div class="form-group"><button type="button" id="save-company-info" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره اطلاعات</button></div>
                                 </div>
                             </div>
@@ -386,20 +419,22 @@
                                 <h2 class="card-title"><i class="fas fa-users"></i> مدیریت اشخاص</h2>
                             </div>
                             <div class="parties-section">
-                                <div class="party-type-selector">
-                                    <button type="button" class="type-btn active" data-type="legal"><i class="fas fa-building"></i> حقوقی</button>
-                                    <button type="button" class="type-btn" data-type="individual"><i class="fas fa-user"></i> حقیقی</button>
+                                <div class="person-type-container">
+                                    <label class="person-type-label">نوع شخص</label>
+                                    <select id="party-type" class="person-type-select">
+                                        <option value="legal">حقوقی</option>
+                                        <option value="individual">حقیقی</option>
+                                    </select>
                                 </div>
                                 <div class="party-form">
                                     <div class="form-group"><label for="party-name" class="form-label">نام طرف حساب</label><input type="text" id="party-name" class="form-control" placeholder="نام طرف حساب"></div>
-                                    <div class="form-group"><label for="party-economic-code" class="form-label">شماره اقتصادی</label><input type="text" id="party-economic-code" class="form-control" placeholder="شماره اقتصادی"></div>
-                                    <div class="form-group" id="party-registration-code-group"><label for="party-national-id" class="form-label">شناسه ملی</label><input type="text" id="party-national-id" class="form-control" placeholder="شناسه ملی"></div>
-                                    <div class="form-group" id="party-national-code-group" style="display: none;"><label for="party-national-code" class="form-label">شماره ملی</label><input type="text" id="party-national-code" class="form-control" placeholder="شماره ملی"></div>
+                                    <div class="form-group"><label for="party-economic-code" class="form-label">کد اقتصادی</label><input type="text" id="party-economic-code" class="form-control" placeholder="کد اقتصادی"></div>
+                                    <div class="form-group"><label for="party-national-id" class="form-label">شناسه ملی</label><input type="text" id="party-national-id" class="form-control" placeholder="شناسه ملی"></div>
                                     <div class="form-group"><label for="party-registration-number" class="form-label">شماره ثبت</label><input type="text" id="party-registration-number" class="form-control" placeholder="شماره ثبت"></div>
-                                    <div class="form-group"><label for="party-postal-code" class="form-label">کد پستی</label><input type="text" id="party-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                    <div class="form-group"><label for="party-address" class="form-label">آدرس</label><textarea id="party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                     <div class="form-group"><label for="party-phone" class="form-label">تلفن</label><input type="text" id="party-phone" class="form-control" placeholder="تلفن"></div>
                                     <div class="form-group"><label for="party-mobile" class="form-label">شماره تماس</label><input type="text" id="party-mobile" class="form-control" placeholder="شماره تماس"></div>
+                                    <div class="form-group"><label for="party-postal-code" class="form-label">کد پستی</label><input type="text" id="party-postal-code" class="form-control" placeholder="کد پستی"></div>
+                                    <div class="form-group"><label for="party-address" class="form-label">آدرس</label><textarea id="party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                     <div class="form-group"><button type="button" id="add-party" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن شخص</button></div>
                                 </div>
                                 
@@ -407,15 +442,21 @@
                                 <div id="edit-party-form" class="edit-form-container hidden">
                                     <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش شخص</div>
                                     <div class="party-form">
+                                        <div class="person-type-container">
+                                            <label class="person-type-label">نوع شخص</label>
+                                            <select id="edit-party-type" class="person-type-select">
+                                                <option value="legal">حقوقی</option>
+                                                <option value="individual">حقیقی</option>
+                                            </select>
+                                        </div>
                                         <div class="form-group"><label for="edit-party-name" class="form-label">نام طرف حساب</label><input type="text" id="edit-party-name" class="form-control" placeholder="نام طرف حساب"></div>
-                                        <div class="form-group"><label for="edit-party-economic-code" class="form-label">شماره اقتصادی</label><input type="text" id="edit-party-economic-code" class="form-control" placeholder="شماره اقتصادی"></div>
-                                        <div class="form-group" id="edit-party-registration-code-group"><label for="edit-party-national-id" class="form-label">شناسه ملی</label><input type="text" id="edit-party-national-id" class="form-control" placeholder="شناسه ملی"></div>
-                                        <div class="form-group" id="edit-party-national-code-group" style="display: none;"><label for="edit-party-national-code" class="form-label">شماره ملی</label><input type="text" id="edit-party-national-code" class="form-control" placeholder="شماره ملی"></div>
+                                        <div class="form-group"><label for="edit-party-economic-code" class="form-label">کد اقتصادی</label><input type="text" id="edit-party-economic-code" class="form-control" placeholder="کد اقتصادی"></div>
+                                        <div class="form-group"><label for="edit-party-national-id" class="form-label">شناسه ملی</label><input type="text" id="edit-party-national-id" class="form-control" placeholder="شناسه ملی"></div>
                                         <div class="form-group"><label for="edit-party-registration-number" class="form-label">شماره ثبت</label><input type="text" id="edit-party-registration-number" class="form-control" placeholder="شماره ثبت"></div>
-                                        <div class="form-group"><label for="edit-party-postal-code" class="form-label">کد پستی</label><input type="text" id="edit-party-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                        <div class="form-group"><label for="edit-party-address" class="form-label">آدرس</label><textarea id="edit-party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                         <div class="form-group"><label for="edit-party-phone" class="form-label">تلفن</label><input type="text" id="edit-party-phone" class="form-control" placeholder="تلفن"></div>
                                         <div class="form-group"><label for="edit-party-mobile" class="form-label">شماره تماس</label><input type="text" id="edit-party-mobile" class="form-control" placeholder="شماره تماس"></div>
+                                        <div class="form-group"><label for="edit-party-postal-code" class="form-label">کد پستی</label><input type="text" id="edit-party-postal-code" class="form-control" placeholder="کد پستی"></div>
+                                        <div class="form-group"><label for="edit-party-address" class="form-label">آدرس</label><textarea id="edit-party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
                                         <div class="edit-form-actions">
                                             <button type="button" id="update-party" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
                                             <button type="button" id="cancel-edit-party" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
@@ -434,7 +475,7 @@
                     <div id="products-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-box"></i> مدیریت کالا/خدمات</h2>
+                                <h2 class="card-title"><i class="fas fa-cubes"></i> مدیریت کالا/خدمات</h2>
                             </div>
                             <div class="inventory-section">
                                 <div class="inventory-form">
@@ -447,7 +488,9 @@
                                             <input type="text" id="product-unit" class="form-control" placeholder="مثال: عدد، کیلوگرم، متر">
                                         </div>
                                     </div>
-                                    <div class="form-group"><button type="button" id="add-product" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن کالا/خدمات</button></div>
+                                    <div class="add-product-button-container">
+                                        <button type="button" id="add-product" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن کالا/خدمات</button>
+                                    </div>
                                 </div>
                                 
                                 <!-- فرم ویرایش کالا -->
@@ -471,7 +514,7 @@
                                 </div>
                                 
                                 <div class="inventory-list" id="inventory-list">
-                                    <div class="empty-state"><i class="fas fa-box"></i><p>هیچ کالا/خدماتی ثبت نشده است</p></div>
+                                    <div class="empty-state"><i class="fas fa-cubes"></i><p>هیچ کالا/خدماتی ثبت نشده است</p></div>
                                 </div>
                             </div>
                         </div>
@@ -481,7 +524,7 @@
                     <div id="accounts-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-chart-line"></i> کدینگ حسابداری درختی</h2>
+                                <h2 class="card-title"><i class="fas fa-sitemap"></i> کدینگ حسابداری درختی</h2>
                             </div>
                             <div class="accounting-tree" id="accounting-tree">
                                 <!-- ساختار درختی کدینگ حسابداری در اینجا قرار می‌گیرد -->
@@ -531,6 +574,109 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- تب ثبت سند حسابداری -->
+                    <div id="register-tab" class="tab-content hidden">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title"><i class="fas fa-pen"></i> ثبت سند حسابداری</h2>
+                            </div>
+                            <div class="accounting-entry-container">
+                                <div class="accounting-entry-header">
+                                    <div class="form-group">
+                                        <label for="entry-date" class="form-label">تاریخ سند</label>
+                                        <input type="text" id="entry-date" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="entry-description" class="form-label">شرح سند</label>
+                                        <input type="text" id="entry-description" class="form-control" placeholder="شرح سند حسابداری">
+                                    </div>
+                                    <button type="button" id="add-entry-row" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن ردیف</button>
+                                </div>
+                                
+                                <div class="entry-details-container">
+                                    <table class="entry-table" id="entry-table">
+                                        <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>حساب معین</th>
+                                                <th>تفصیل</th>
+                                                <th>شرح</th>
+                                                <th>بدهکار</th>
+                                                <th>بستانکار</th>
+                                                <th>عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="entry-table-body">
+                                            <!-- ردیف‌های سند در اینجا اضافه می‌شوند -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="entry-totals" id="entry-totals">
+                                    <div>جمع بدهکار: <span id="total-debit">0</span> ریال</div>
+                                    <div>جمع بستانکار: <span id="total-credit">0</span> ریال</div>
+                                </div>
+                                
+                                <div id="entry-balance-status" class="entry-balance entry-not-balanced">
+                                    تراز نیست! جمع بدهکار و بستانکار برابر نیست.
+                                </div>
+                                
+                                <div class="actions">
+                                    <button id="save-entry" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ثبت سند</button>
+                                    <button id="reset-entry" class="simple-btn simple-btn-warning"><i class="fas fa-undo"></i> بازگشت</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- تب اسناد -->
+                    <div id="documents-tab" class="tab-content hidden">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title"><i class="fas fa-file-alt"></i> مدیریت اسناد حسابداری</h2>
+                            </div>
+                            <div class="documents-list" id="documents-list">
+                                <div class="empty-state"><i class="fas fa-file-alt"></i><p>هیچ سندی ثبت نشده است</p></div>
+                            </div>
+                            
+                            <!-- نمایش جزئیات سند -->
+                            <div id="document-details" class="document-details hidden">
+                                <div class="document-details-header">
+                                    <h3>مشاهده سند شماره <span id="document-number"></span></h3>
+                                    <div class="document-actions">
+                                        <button id="edit-document" class="simple-btn simple-btn-info"><i class="fas fa-edit"></i> ویرایش</button>
+                                        <button id="delete-document" class="simple-btn simple-btn-danger"><i class="fas fa-trash"></i> حذف</button>
+                                        <button id="close-document" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> بستن</button>
+                                    </div>
+                                </div>
+                                <div class="document-info">
+                                    <p><strong>تاریخ:</strong> <span id="document-date"></span></p>
+                                    <p><strong>شرح:</strong> <span id="document-description"></span></p>
+                                </div>
+                                <table class="document-details-table" id="document-details-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>کد حساب</th>
+                                            <th>نام حساب</th>
+                                            <th>تفصیل</th>
+                                            <th>شرح</th>
+                                            <th>بدهکار</th>
+                                            <th>بستانکار</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="document-details-body">
+                                        <!-- جزئیات سند در اینجا نمایش داده می‌شود -->
+                                    </tbody>
+                                </table>
+                                <div class="entry-totals" id="document-totals">
+                                    <div>جمع بدهکار: <span id="document-total-debit">0</span> ریال</div>
+                                    <div>جمع بستانکار: <span id="document-total-credit">0</span> ریال</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -543,13 +689,13 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 16;
+        const DB_VERSION = 17; // افزایش نسخه برای اضافه شدن جداول جدید
         
         // نام جداول
         const STORE_NAMES = {
             ACCOUNTS: 'accounts', PARTIES: 'parties', INVENTORY: 'inventory', INVOICES: 'invoices', 
             INVOICE_COUNTER: 'invoice_counter', FISCAL_PERIOD: 'fiscal_period', SETTINGS: 'settings',
-            COMPANY_INFO: 'company_info'
+            COMPANY_INFO: 'company_info', DOCUMENTS: 'documents', DOCUMENT_COUNTER: 'document_counter'
         };
         
         // آرایه برای ذخیره حساب‌ها
@@ -565,8 +711,12 @@
         let savedInvoices = [];
         let invoiceCounter = 1;
         
+        // آرایه برای ذخیره اسناد حسابداری
+        let savedDocuments = [];
+        let documentCounter = 1;
+        
         // اطلاعات شرکت
-        let companyInfo = { type: 'legal', name: '', economicCode: '', nationalId: '', nationalCode: '', registrationNumber: '', phone: '', mobile: '', address: '', postalCode: '' };
+        let companyInfo = { type: 'legal', name: '', economicCode: '', nationalId: '', registrationNumber: '', phone: '', mobile: '', address: '', postalCode: '' };
         
         // اطلاعات دوره مالی
         let fiscalPeriod = { startDate: '', endDate: '' };
@@ -577,12 +727,16 @@
         // آرایه برای ذخیره اقلام فاکتور
         let invoiceItems = [];
         
+        // آرایه برای ذخیره ردیف‌های سند حسابداری
+        let documentEntries = [];
+        
         // متغیر پایگاه داده
         let db;
         
         // متغیرهای ویرایش
         let editingPartyId = null;
         let editingProductId = null;
+        let editingDocumentId = null;
         
         // عناصر DOM
         const loginPage = document.getElementById('login-page');
@@ -607,22 +761,22 @@
         const partyNameInput = document.getElementById('party-name');
         const partyEconomicCodeInput = document.getElementById('party-economic-code');
         const partyNationalIdInput = document.getElementById('party-national-id');
-        const partyNationalCodeInput = document.getElementById('party-national-code');
         const partyRegistrationNumberInput = document.getElementById('party-registration-number');
         const partyPhoneInput = document.getElementById('party-phone');
         const partyMobileInput = document.getElementById('party-mobile');
         const partyAddressInput = document.getElementById('party-address');
         const partyPostalCodeInput = document.getElementById('party-postal-code');
+        const partyTypeSelect = document.getElementById('party-type');
         const partiesList = document.getElementById('parties-list');
         const companyNameInput = document.getElementById('company-name');
         const companyEconomicCodeInput = document.getElementById('company-economic-code');
         const companyNationalIdInput = document.getElementById('company-national-id');
-        const companyNationalCodeInput = document.getElementById('company-national-code');
         const companyRegistrationNumberInput = document.getElementById('company-registration-number');
         const companyPhoneInput = document.getElementById('company-phone');
         const companyMobileInput = document.getElementById('company-mobile');
         const companyAddressInput = document.getElementById('company-address');
         const companyPostalCodeInput = document.getElementById('company-postal-code');
+        const companyTypeSelect = document.getElementById('company-type');
         const saveCompanyInfoBtn = document.getElementById('save-company-info');
         const addProductBtn = document.getElementById('add-product');
         const productCodeInput = document.getElementById('product-code');
@@ -642,28 +796,44 @@
         const resetInvoiceBtn = document.getElementById('reset-invoice');
         const saveInvoiceBtn = document.getElementById('save-invoice');
         
+        // عناصر جدید برای تب ثبت
+        const entryDateInput = document.getElementById('entry-date');
+        const entryDescriptionInput = document.getElementById('entry-description');
+        const addEntryRowBtn = document.getElementById('add-entry-row');
+        const entryTableBody = document.getElementById('entry-table-body');
+        const totalDebitSpan = document.getElementById('total-debit');
+        const totalCreditSpan = document.getElementById('total-credit');
+        const entryBalanceStatus = document.getElementById('entry-balance-status');
+        const saveEntryBtn = document.getElementById('save-entry');
+        const resetEntryBtn = document.getElementById('reset-entry');
+        
+        // عناصر جدید برای تب اسناد
+        const documentsList = document.getElementById('documents-list');
+        const documentDetails = document.getElementById('document-details');
+        const documentNumberSpan = document.getElementById('document-number');
+        const documentDateSpan = document.getElementById('document-date');
+        const documentDescriptionSpan = document.getElementById('document-description');
+        const documentDetailsBody = document.getElementById('document-details-body');
+        const documentTotalDebitSpan = document.getElementById('document-total-debit');
+        const documentTotalCreditSpan = document.getElementById('document-total-credit');
+        const editDocumentBtn = document.getElementById('edit-document');
+        const deleteDocumentBtn = document.getElementById('delete-document');
+        const closeDocumentBtn = document.getElementById('close-document');
+        
         // عناصر جدید برای بخش فاکتور
         const invoiceItemsContainer = document.getElementById('invoice-items-container');
-        
-        // عناصر جدید برای نوع شرکت و طرف حساب
-        const companyTypeBtns = document.querySelectorAll('.company-type-selector .type-btn');
-        const partyTypeBtns = document.querySelectorAll('.party-type-selector .type-btn');
-        const companyNationalIdGroup = document.getElementById('company-registration-code-group');
-        const companyNationalCodeGroup = document.getElementById('company-national-code-group');
-        const partyNationalIdGroup = document.getElementById('party-registration-code-group');
-        const partyNationalCodeGroup = document.getElementById('party-national-code-group');
         
         // عناصر جدید برای فرم‌های ویرایش
         const editPartyForm = document.getElementById('edit-party-form');
         const editPartyNameInput = document.getElementById('edit-party-name');
         const editPartyEconomicCodeInput = document.getElementById('edit-party-economic-code');
         const editPartyNationalIdInput = document.getElementById('edit-party-national-id');
-        const editPartyNationalCodeInput = document.getElementById('edit-party-national-code');
         const editPartyRegistrationNumberInput = document.getElementById('edit-party-registration-number');
         const editPartyPhoneInput = document.getElementById('edit-party-phone');
         const editPartyMobileInput = document.getElementById('edit-party-mobile');
         const editPartyAddressInput = document.getElementById('edit-party-address');
         const editPartyPostalCodeInput = document.getElementById('edit-party-postal-code');
+        const editPartyTypeSelect = document.getElementById('edit-party-type');
         const updatePartyBtn = document.getElementById('update-party');
         const cancelEditPartyBtn = document.getElementById('cancel-edit-party');
         
@@ -686,39 +856,6 @@
             } else {
                 errorMessage.style.display = 'block';
             }
-        });
-        
-        // مدیریت تغییر نوع شرکت
-        companyTypeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const type = this.getAttribute('data-type');
-                companyTypeBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                companyInfo.type = type;
-                if (type === 'legal') {
-                    companyNationalIdGroup.style.display = 'block';
-                    companyNationalCodeGroup.style.display = 'none';
-                } else {
-                    companyNationalIdGroup.style.display = 'none';
-                    companyNationalCodeGroup.style.display = 'block';
-                }
-            });
-        });
-        
-        // مدیریت تغییر نوع طرف حساب
-        partyTypeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const type = this.getAttribute('data-type');
-                partyTypeBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                if (type === 'legal') {
-                    partyNationalIdGroup.style.display = 'block';
-                    partyNationalCodeGroup.style.display = 'none';
-                } else {
-                    partyNationalIdGroup.style.display = 'none';
-                    partyNationalCodeGroup.style.display = 'block';
-                }
-            });
         });
         
         // مدیریت پشتیبان‌گیری و بازیابی
@@ -753,6 +890,13 @@
                     updateInvoicePartySelect();
                     updateInvoiceProductSelect();
                 }
+                if (tabId === 'register') {
+                    updateSubsidiaryAccounts();
+                    resetEntryForm();
+                }
+                if (tabId === 'documents') {
+                    updateDocumentsList();
+                }
             });
         });
         
@@ -785,16 +929,27 @@
         updateProductBtn.addEventListener('click', updateProduct);
         cancelEditProductBtn.addEventListener('click', cancelEditProduct);
         
+        // مدیریت تب ثبت
+        addEntryRowBtn.addEventListener('click', addEntryRow);
+        saveEntryBtn.addEventListener('click', saveDocument);
+        resetEntryBtn.addEventListener('click', resetEntryForm);
+        
+        // مدیریت تب اسناد
+        editDocumentBtn.addEventListener('click', editDocument);
+        deleteDocumentBtn.addEventListener('click', deleteDocument);
+        closeDocumentBtn.addEventListener('click', closeDocumentDetails);
+        
         // مقداردهی اولیه برنامه پس از ورود
         function initializeApp() {
             openDatabase().then(() => {
                 return Promise.all([
                     loadAccounts(), loadParties(), loadInventory(), loadInvoices(), loadInvoiceCounter(),
-                    loadFiscalPeriod(), loadSettings(), loadCompanyInfo()
+                    loadFiscalPeriod(), loadSettings(), loadCompanyInfo(), loadDocuments(), loadDocumentCounter()
                 ]);
             }).then(() => {
                 const today = getTodayPersianDate();
                 document.getElementById('invoice-date').value = today;
+                document.getElementById('entry-date').value = today;
                 
                 updatePartiesList();
                 updateCompanyInfo();
@@ -802,8 +957,9 @@
                 updateInvoicePartySelect();
                 updateInvoiceProductSelect();
                 updateAccountingTree();
+                updateSubsidiaryAccounts();
                 
-                showNotification('سیستم با موفقیت بارگذاری شد!', 'success');
+                // حذف پیام نمایش داده شده در نسخه قبلی
             }).catch(error => {
                 console.error('خطا در مقداردهی اولیه برنامه:', error);
                 showNotification('خطا در بارگذاری داده‌ها!', 'error');
@@ -833,6 +989,11 @@
                     if (!db.objectStoreNames.contains(STORE_NAMES.FISCAL_PERIOD)) db.createObjectStore(STORE_NAMES.FISCAL_PERIOD, { keyPath: 'id' });
                     if (!db.objectStoreNames.contains(STORE_NAMES.SETTINGS)) db.createObjectStore(STORE_NAMES.SETTINGS, { keyPath: 'id' });
                     if (!db.objectStoreNames.contains(STORE_NAMES.COMPANY_INFO)) db.createObjectStore(STORE_NAMES.COMPANY_INFO, { keyPath: 'id' });
+                    if (!db.objectStoreNames.contains(STORE_NAMES.DOCUMENTS)) {
+                        const documentsStore = db.createObjectStore(STORE_NAMES.DOCUMENTS, { keyPath: 'id' });
+                        documentsStore.createIndex('number', 'number', { unique: true });
+                    }
+                    if (!db.objectStoreNames.contains(STORE_NAMES.DOCUMENT_COUNTER)) db.createObjectStore(STORE_NAMES.DOCUMENT_COUNTER, { keyPath: 'id' });
                 };
             });
         }
@@ -949,6 +1110,32 @@
             });
         }
         
+        // بارگذاری اسناد از IndexedDB
+        function loadDocuments() {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAMES.DOCUMENTS], 'readonly');
+                const store = transaction.objectStore(STORE_NAMES.DOCUMENTS);
+                const request = store.getAll();
+                request.onsuccess = () => { savedDocuments = request.result; resolve(); };
+                request.onerror = () => reject(new Error('خطا در بارگذاری اسناد'));
+            });
+        }
+        
+        // بارگذاری شمارنده اسناد از IndexedDB
+        function loadDocumentCounter() {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAMES.DOCUMENT_COUNTER], 'readonly');
+                const store = transaction.objectStore(STORE_NAMES.DOCUMENT_COUNTER);
+                const request = store.get(1);
+                request.onsuccess = () => {
+                    if (request.result) documentCounter = request.result.value;
+                    else { documentCounter = 1; saveDocumentCounter(); }
+                    resolve();
+                };
+                request.onerror = () => reject(new Error('خطا در بارگذاری شمارنده اسناد'));
+            });
+        }
+        
         // ذخیره طرف حساب در IndexedDB
         function saveParty(party) {
             const transaction = db.transaction([STORE_NAMES.PARTIES], 'readwrite');
@@ -998,6 +1185,20 @@
             store.put({ id: 1, ...companyInfo });
         }
         
+        // ذخیره سند در IndexedDB
+        function saveDocumentToDB(document) {
+            const transaction = db.transaction([STORE_NAMES.DOCUMENTS], 'readwrite');
+            const store = transaction.objectStore(STORE_NAMES.DOCUMENTS);
+            store.put(document);
+        }
+        
+        // ذخیره شمارنده اسناد در IndexedDB
+        function saveDocumentCounter() {
+            const transaction = db.transaction([STORE_NAMES.DOCUMENT_COUNTER], 'readwrite');
+            const store = transaction.objectStore(STORE_NAMES.DOCUMENT_COUNTER);
+            store.put({ id: 1, value: documentCounter });
+        }
+        
         // ذخیره حساب در IndexedDB
         function saveAccount(account) {
             const transaction = db.transaction([STORE_NAMES.ACCOUNTS], 'readwrite');
@@ -1026,11 +1227,18 @@
             store.delete(invoiceId);
         }
         
+        // حذف سند از IndexedDB
+        function deleteDocumentFromDB(documentId) {
+            const transaction = db.transaction([STORE_NAMES.DOCUMENTS], 'readwrite');
+            const store = transaction.objectStore(STORE_NAMES.DOCUMENTS);
+            store.delete(documentId);
+        }
+        
         // تابع تبدیل مبلغ به عدد
         function parseAmount(amountText) {
             let cleaned = amountText.replace(/[^\d.,]/g, '');
             cleaned = cleaned.replace(/,/g, '');
-            return parseFloat(cleaned);
+            return parseFloat(cleaned) || 0;
         }
         
         // تابع دریافت تاریخ امروز به صورت شمسی
@@ -1052,7 +1260,9 @@
                 'parties': { title: 'مدیریت اشخاص', description: 'در این بخش می‌توانید اشخاص و مشتریان خود را مدیریت کنید' },
                 'products': { title: 'مدیریت کالا/خدمات', description: 'در این بخش می‌توانید کالاها و خدمات خود را مدیریت کنید' },
                 'accounts': { title: 'کدینگ حسابداری', description: 'در این بخش می‌توانید ساختار حساب‌های مالی خود را مشاهده کنید' },
-                'invoice': { title: 'فاکتور فروش/خدمات', description: 'در این بخش می‌توانید فاکتور صادر کنید' }
+                'invoice': { title: 'فاکتور فروش/خدمات', description: 'در این بخش می‌توانید فاکتور صادر کنید' },
+                'register': { title: 'ثبت سند حسابداری', description: 'در این بخش می‌توانید اسناد حسابداری ثبت کنید' },
+                'documents': { title: 'مدیریت اسناد', description: 'در این بخش می‌توانید اسناد ثبت شده را مشاهده و مدیریت کنید' }
             };
             
             const titleInfo = titles[tabId];
@@ -1063,8 +1273,8 @@
         // تابع دریافت آیکون مربوط به تب
         function getTabIcon(tabId) {
             const icons = {
-                'dashboard': 'tachometer-alt', 'parties': 'users', 'products': 'box', 
-                'accounts': 'chart-line', 'invoice': 'receipt'
+                'dashboard': 'user', 'parties': 'users', 'products': 'cubes', 
+                'accounts': 'sitemap', 'invoice': 'receipt', 'register': 'pen', 'documents': 'file-alt'
             };
             return icons[tabId];
         }
@@ -1093,46 +1303,61 @@
             
             let html = '';
             parties.forEach(party => {
-                html += `<div class="party-item"><div class="party-info"><div class="party-title">${party.name}</div><div class="party-meta"><div class="party-meta-item"><i class="fas fa-phone"></i><span>${party.mobile || party.phone || '---'}</span></div><div class="party-meta-item"><i class="fas fa-map-marker-alt"></i><span>${party.address || '---'}</span></div></div></div><div class="party-actions"><button class="simple-btn simple-btn-info" onclick="editParty(${party.id})"><i class="fas fa-edit"></i> ویرایش</button><button class="simple-btn simple-btn-danger" onclick="deleteParty(${party.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
+                html += `<div class="party-item" data-id="${party.id}">
+                    <div class="party-info">
+                        <div class="party-title">${party.name} (${party.type === 'legal' ? 'حقوقی' : 'حقیقی'})</div>
+                        <div class="party-meta">
+                            <div class="party-meta-item"><i class="fas fa-hashtag"></i><span>کد اقتصادی: ${party.economicCode || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-id-card"></i><span>شناسه ملی: ${party.nationalId || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-phone"></i><span>تلفن: ${party.phone || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-mobile-alt"></i><span>شماره تماس: ${party.mobile || '---'}</span></div>
+                        </div>
+                    </div>
+                    <div class="party-actions">
+                        <button class="simple-btn simple-btn-info" onclick="editParty(${party.id})"><i class="fas fa-edit"></i> ویرایش</button>
+                        <button class="simple-btn simple-btn-danger" onclick="deleteParty(${party.id})"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                </div>`;
             });
             partiesList.innerHTML = html;
         }
         
         // تابع به‌روزرسانی اطلاعات شرکت
         function updateCompanyInfo() {
-            if (companyInfo.type === 'legal') {
-                companyTypeBtns[0].classList.add('active');
-                companyTypeBtns[1].classList.remove('active');
-                companyNationalIdGroup.style.display = 'block';
-                companyNationalCodeGroup.style.display = 'none';
-            } else {
-                companyTypeBtns[0].classList.remove('active');
-                companyTypeBtns[1].classList.add('active');
-                companyNationalIdGroup.style.display = 'none';
-                companyNationalCodeGroup.style.display = 'block';
-            }
-            
+            companyTypeSelect.value = companyInfo.type || 'legal';
             companyNameInput.value = companyInfo.name || '';
             companyEconomicCodeInput.value = companyInfo.economicCode || '';
             companyNationalIdInput.value = companyInfo.nationalId || '';
-            companyNationalCodeInput.value = companyInfo.nationalCode || '';
             companyRegistrationNumberInput.value = companyInfo.registrationNumber || '';
             companyPhoneInput.value = companyInfo.phone || '';
             companyMobileInput.value = companyInfo.mobile || '';
-            companyAddressInput.value = companyInfo.address || '';
             companyPostalCodeInput.value = companyInfo.postalCode || '';
+            companyAddressInput.value = companyInfo.address || '';
         }
         
         // تابع به‌روزرسانی لیست کالاها
         function updateInventoryList() {
             if (inventory.length === 0) {
-                inventoryList.innerHTML = `<div class="empty-state"><i class="fas fa-box"></i><p>هیچ کالا/خدماتی ثبت نشده است</p></div>`;
+                inventoryList.innerHTML = `<div class="empty-state"><i class="fas fa-cubes"></i><p>هیچ کالا/خدماتی ثبت نشده است</p></div>`;
                 return;
             }
             
             let html = '';
             inventory.forEach(product => {
-                html += `<div class="inventory-item"><div class="inventory-info"><div class="inventory-title">${product.name}</div><div class="inventory-meta"><div class="inventory-meta-item"><i class="fas fa-barcode"></i><span>کد: ${product.code || '---'}</span></div><div class="inventory-meta-item"><i class="fas fa-money-bill-wave"></i><span>بهای واحد: ${formatCurrency(product.price)}</span></div><div class="inventory-meta-item"><i class="fas fa-ruler"></i><span>واحد: ${product.unit || 'عدد'}</span></div></div></div><div class="inventory-actions"><button class="simple-btn simple-btn-info" onclick="editProduct(${product.id})"><i class="fas fa-edit"></i> ویرایش</button><button class="simple-btn simple-btn-danger" onclick="deleteProduct(${product.id})"><i class="fas fa-trash"></i> حذف</button></div></div>`;
+                html += `<div class="inventory-item">
+                    <div class="inventory-info">
+                        <div class="inventory-title">${product.name}</div>
+                        <div class="inventory-meta">
+                            <div class="inventory-meta-item"><i class="fas fa-barcode"></i><span>کد: ${product.code || '---'}</span></div>
+                            <div class="inventory-meta-item"><i class="fas fa-money-bill-wave"></i><span>بهای واحد: ${formatCurrency(product.price)}</span></div>
+                            <div class="inventory-meta-item"><i class="fas fa-ruler"></i><span>واحد: ${product.unit || 'عدد'}</span></div>
+                        </div>
+                    </div>
+                    <div class="inventory-actions">
+                        <button class="simple-btn simple-btn-info" onclick="editProduct(${product.id})"><i class="fas fa-edit"></i> ویرایش</button>
+                        <button class="simple-btn simple-btn-danger" onclick="deleteProduct(${product.id})"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                </div>`;
             });
             inventoryList.innerHTML = html;
         }
@@ -1140,7 +1365,7 @@
         // تابع به‌روزرسانی dropdown طرف‌های حساب در فاکتور
         function updateInvoicePartySelect() {
             let html = '<option value="">انتخاب کنید</option>';
-            parties.forEach(party => html += `<option value="${party.id}">${party.name}</option>`);
+            parties.forEach(party => html += `<option value="${party.id}">${party.name} (${party.type === 'legal' ? 'حقوقی' : 'حقیقی'})</option>`);
             invoicePartySelect.innerHTML = html;
         }
         
@@ -1153,36 +1378,39 @@
             invoiceProductSelect.innerHTML = html;
         }
         
+        // تابع به‌روزرسانی dropdown حساب‌های معین در تب ثبت
+        function updateSubsidiaryAccounts() {
+            // این تابع در هنگام افزودن ردیف سند فراخوانی می‌شود
+        }
+        
         // تابع افزودن طرف حساب
         function addParty() {
             const name = partyNameInput.value.trim();
             const economicCode = partyEconomicCodeInput.value.trim();
             const nationalId = partyNationalIdInput.value.trim();
-            const nationalCode = partyNationalCodeInput.value.trim();
             const registrationNumber = partyRegistrationNumberInput.value.trim();
             const phone = partyPhoneInput.value.trim();
             const mobile = partyMobileInput.value.trim();
-            const address = partyAddressInput.value.trim();
             const postalCode = partyPostalCodeInput.value.trim();
+            const address = partyAddressInput.value.trim();
+            const type = partyTypeSelect.value;
             
             if (!name) {
                 showNotification('لطفاً نام شخص/شرکت را وارد کنید!', 'error');
                 return;
             }
             
-            const type = document.querySelector('.party-type-selector .type-btn.active').getAttribute('data-type');
             const newParty = {
                 id: Date.now(), 
                 type: type, 
                 name: name, 
                 economicCode: economicCode,
-                nationalId: type === 'legal' ? nationalId : '',
-                nationalCode: type === 'individual' ? nationalCode : '',
+                nationalId: nationalId,
                 registrationNumber: registrationNumber,
                 phone: phone, 
                 mobile: mobile,
-                address: address, 
-                postalCode: postalCode
+                postalCode: postalCode,
+                address: address
             };
             
             parties.push(newParty);
@@ -1192,12 +1420,11 @@
             partyNameInput.value = '';
             partyEconomicCodeInput.value = '';
             partyNationalIdInput.value = '';
-            partyNationalCodeInput.value = '';
             partyRegistrationNumberInput.value = '';
             partyPhoneInput.value = '';
             partyMobileInput.value = '';
-            partyAddressInput.value = '';
             partyPostalCodeInput.value = '';
+            partyAddressInput.value = '';
             showNotification('شخص جدید با موفقیت افزوده شد!', 'success');
         }
         
@@ -1210,22 +1437,15 @@
             }
             
             // نمایش فرم ویرایش
+            editPartyTypeSelect.value = party.type;
             editPartyNameInput.value = party.name;
             editPartyEconomicCodeInput.value = party.economicCode || '';
             editPartyNationalIdInput.value = party.nationalId || '';
-            editPartyNationalCodeInput.value = party.nationalCode || '';
             editPartyRegistrationNumberInput.value = party.registrationNumber || '';
             editPartyPhoneInput.value = party.phone || '';
             editPartyMobileInput.value = party.mobile || '';
-            editPartyAddressInput.value = party.address || '';
             editPartyPostalCodeInput.value = party.postalCode || '';
-            
-            // تغییر نوع شخص
-            if (party.type === 'legal') {
-                document.querySelectorAll('.party-type-selector .type-btn')[0].click();
-            } else {
-                document.querySelectorAll('.party-type-selector .type-btn')[1].click();
-            }
+            editPartyAddressInput.value = party.address || '';
             
             // تنظیم ID ویرایش
             editingPartyId = partyId;
@@ -1243,31 +1463,29 @@
             const name = editPartyNameInput.value.trim();
             const economicCode = editPartyEconomicCodeInput.value.trim();
             const nationalId = editPartyNationalIdInput.value.trim();
-            const nationalCode = editPartyNationalCodeInput.value.trim();
             const registrationNumber = editPartyRegistrationNumberInput.value.trim();
             const phone = editPartyPhoneInput.value.trim();
             const mobile = editPartyMobileInput.value.trim();
-            const address = editPartyAddressInput.value.trim();
             const postalCode = editPartyPostalCodeInput.value.trim();
+            const address = editPartyAddressInput.value.trim();
+            const type = editPartyTypeSelect.value;
             
             if (!name) {
                 showNotification('لطفاً نام شخص/شرکت را وارد کنید!', 'error');
                 return;
             }
             
-            const type = document.querySelector('.party-type-selector .type-btn.active').getAttribute('data-type');
             const updatedParty = {
                 id: editingPartyId, 
                 type: type, 
                 name: name, 
                 economicCode: economicCode,
-                nationalId: type === 'legal' ? nationalId : '',
-                nationalCode: type === 'individual' ? nationalCode : '',
+                nationalId: nationalId,
                 registrationNumber: registrationNumber,
                 phone: phone, 
                 mobile: mobile,
-                address: address, 
-                postalCode: postalCode
+                postalCode: postalCode,
+                address: address
             };
             
             const index = parties.findIndex(p => p.id === editingPartyId);
@@ -1308,25 +1526,23 @@
             const name = companyNameInput.value.trim();
             const economicCode = companyEconomicCodeInput.value.trim();
             const nationalId = companyNationalIdInput.value.trim();
-            const nationalCode = companyNationalCodeInput.value.trim();
             const registrationNumber = companyRegistrationNumberInput.value.trim();
             const phone = companyPhoneInput.value.trim();
             const mobile = companyMobileInput.value.trim();
-            const address = companyAddressInput.value.trim();
             const postalCode = companyPostalCodeInput.value.trim();
+            const address = companyAddressInput.value.trim();
+            const type = companyTypeSelect.value;
             
-            const type = document.querySelector('.company-type-selector .type-btn.active').getAttribute('data-type');
             companyInfo = {
                 type: type, 
                 name: name, 
                 economicCode: economicCode,
-                nationalId: type === 'legal' ? nationalId : '',
-                nationalCode: type === 'individual' ? nationalCode : '',
+                nationalId: nationalId,
                 registrationNumber: registrationNumber,
                 phone: phone, 
                 mobile: mobile,
-                address: address, 
-                postalCode: postalCode
+                postalCode: postalCode,
+                address: address
             };
             
             saveCompanyInfoToDB();
@@ -1543,9 +1759,8 @@
             if (companyInfo.name) {
                 sellerDetails = `
                     <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div></div>
-                    ${companyInfo.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div></div>` : ''}
+                    ${companyInfo.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div></div>` : ''}
                     ${companyInfo.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div></div>` : ''}
-                    ${companyInfo.nationalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalCode}</div></div>` : ''}
                     ${companyInfo.registrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${companyInfo.registrationNumber}</div></div>` : ''}
                     ${companyInfo.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div></div>` : ''}
                     ${companyInfo.mobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${companyInfo.mobile}</div></div>` : ''}
@@ -1556,9 +1771,8 @@
             if (party) {
                 buyerDetails = `
                     <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${party.name}</div></div>
-                    ${party.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره اقتصادی:</div><div class="invoice-connected-info-value">${party.economicCode}</div></div>` : ''}
+                    ${party.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${party.economicCode}</div></div>` : ''}
                     ${party.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${party.nationalId}</div></div>` : ''}
-                    ${party.nationalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ملی:</div><div class="invoice-connected-info-value">${party.nationalCode}</div></div>` : ''}
                     ${party.registrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${party.registrationNumber}</div></div>` : ''}
                     ${party.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${party.phone}</div></div>` : ''}
                     ${party.mobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${party.mobile}</div></div>` : ''}
@@ -1713,7 +1927,7 @@
             const newInvoice = {
                 id: Date.now(), number: invoiceCounter++, date: date, partyId: partyId, partyName: party.name,
                 partyType: party.type, partyEconomicCode: party.economicCode, partyNationalId: party.nationalId,
-                partyNationalCode: party.nationalCode, partyRegistrationNumber: party.registrationNumber,
+                partyRegistrationNumber: party.registrationNumber,
                 partyPhone: party.phone, partyMobile: party.mobile, partyAddress: party.address,
                 partyPostalCode: party.postalCode, items: [...invoiceItems], subtotal: subtotal,
                 totalDiscount: totalDiscount, totalTax: totalTax, grandTotal: grandTotal, paymentMethod: paymentMethod.value
@@ -1753,9 +1967,365 @@
             invoiceConnectedPreview.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>`;
         }
         
+        // تابع افزودن ردیف به سند حسابداری
+        function addEntryRow() {
+            const rowId = Date.now();
+            const subsidiaries = accounts.filter(account => account.level === 'subsidiary');
+            
+            let subsidiaryOptions = '<option value="">انتخاب کنید</option>';
+            subsidiaries.forEach(subsidiary => {
+                // پیدا کردن کلاس و گروه مربوط به این معین
+                const cls = accounts.find(acc => acc.id === subsidiary.parentId);
+                const group = cls ? accounts.find(acc => acc.id === cls.parentId) : null;
+                
+                subsidiaryOptions += `<option value="${subsidiary.id}" data-group="${group ? group.code : ''}" data-class="${cls ? cls.code : ''}">${subsidiary.code} - ${subsidiary.name}</option>`;
+            });
+            
+            const rowHtml = `
+                <tr id="entry-row-${rowId}">
+                    <td>${documentEntries.length + 1}</td>
+                    <td>
+                        <select class="form-control entry-subsidiary" onchange="updateEntryRowDetails(${rowId})">
+                            ${subsidiaryOptions}
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control entry-detail" id="entry-detail-${rowId}">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control entry-description" placeholder="شرح"></td>
+                    <td><input type="text" class="form-control entry-debit" placeholder="0" oninput="calculateEntryTotals()"></td>
+                    <td><input type="text" class="form-control entry-credit" placeholder="0" oninput="calculateEntryTotals()"></td>
+                    <td class="entry-row-actions">
+                        <button class="simple-btn simple-btn-danger" onclick="removeEntryRow(${rowId})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `;
+            
+            entryTableBody.innerHTML += rowHtml;
+            documentEntries.push({
+                id: rowId,
+                subsidiaryId: null,
+                detailId: null,
+                description: '',
+                debit: 0,
+                credit: 0
+            });
+        }
+        
+        // تابع به‌روزرسانی جزئیات ردیف سند
+        function updateEntryRowDetails(rowId) {
+            const rowIndex = documentEntries.findIndex(entry => entry.id === rowId);
+            if (rowIndex === -1) return;
+            
+            const select = document.querySelector(`#entry-row-${rowId} .entry-subsidiary`);
+            const subsidiaryId = select.value;
+            const subsidiary = accounts.find(acc => acc.id == subsidiaryId);
+            
+            if (!subsidiary) return;
+            
+            // به‌روزرسانی اطلاعات ردیف
+            documentEntries[rowIndex].subsidiaryId = subsidiaryId;
+            
+            // پیدا کردن تفضیل‌های مربوط به این معین
+            const details = accounts.filter(account => account.parentId == subsidiaryId && account.level === 'detail');
+            
+            const detailSelect = document.querySelector(`#entry-detail-${rowId}`);
+            let detailOptions = '<option value="">انتخاب کنید</option>';
+            details.forEach(detail => {
+                detailOptions += `<option value="${detail.id}">${detail.code} - ${detail.name}</option>`;
+            });
+            
+            detailSelect.innerHTML = detailOptions;
+        }
+        
+        // تابع حذف ردیف سند
+        function removeEntryRow(rowId) {
+            const rowIndex = documentEntries.findIndex(entry => entry.id === rowId);
+            if (rowIndex !== -1) {
+                documentEntries.splice(rowIndex, 1);
+                document.querySelector(`#entry-row-${rowId}`).remove();
+                updateEntryRowNumbers();
+                calculateEntryTotals();
+            }
+        }
+        
+        // تابع به‌روزرسانی شماره ردیف‌ها
+        function updateEntryRowNumbers() {
+            const rows = entryTableBody.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                row.querySelector('td:first-child').textContent = index + 1;
+            });
+        }
+        
+        // تابع محاسبه جمع سند
+        function calculateEntryTotals() {
+            let totalDebit = 0;
+            let totalCredit = 0;
+            
+            // به‌روزرسانی مقادیر در آرایه documentEntries
+            documentEntries.forEach((entry, index) => {
+                const debitInput = document.querySelector(`#entry-row-${entry.id} .entry-debit`);
+                const creditInput = document.querySelector(`#entry-row-${entry.id} .entry-credit`);
+                const descriptionInput = document.querySelector(`#entry-row-${entry.id} .entry-description`);
+                const subsidiarySelect = document.querySelector(`#entry-row-${entry.id} .entry-subsidiary`);
+                const detailSelect = document.querySelector(`#entry-detail-${entry.id}`);
+                
+                if (debitInput) {
+                    entry.debit = parseAmount(debitInput.value);
+                    totalDebit += entry.debit;
+                }
+                if (creditInput) {
+                    entry.credit = parseAmount(creditInput.value);
+                    totalCredit += entry.credit;
+                }
+                if (descriptionInput) {
+                    entry.description = descriptionInput.value;
+                }
+                if (subsidiarySelect) {
+                    entry.subsidiaryId = subsidiarySelect.value;
+                }
+                if (detailSelect) {
+                    entry.detailId = detailSelect.value;
+                }
+            });
+            
+            totalDebitSpan.textContent = formatCurrency(totalDebit);
+            totalCreditSpan.textContent = formatCurrency(totalCredit);
+            
+            // بررسی تراز بودن سند
+            if (Math.abs(totalDebit - totalCredit) < 0.01) { // مقایسه با دقت 0.01
+                entryBalanceStatus.textContent = 'تراز است!';
+                entryBalanceStatus.className = 'entry-balance entry-balanced';
+                saveEntryBtn.disabled = false;
+            } else {
+                entryBalanceStatus.textContent = `تراز نیست! تفاوت: ${formatCurrency(Math.abs(totalDebit - totalCredit))} ریال`;
+                entryBalanceStatus.className = 'entry-balance entry-not-balanced';
+                saveEntryBtn.disabled = true;
+            }
+        }
+        
+        // تابع ذخیره سند حسابداری
+        function saveDocument() {
+            const date = entryDateInput.value;
+            const description = entryDescriptionInput.value;
+            
+            if (!date) {
+                showNotification('لطفاً تاریخ سند را وارد کنید!', 'error');
+                return;
+            }
+            
+            if (documentEntries.length === 0) {
+                showNotification('لطفاً حداقل یک ردیف به سند اضافه کنید!', 'error');
+                return;
+            }
+            
+            // محاسبه جمع‌ها برای اطمینان از تراز بودن
+            let totalDebit = 0;
+            let totalCredit = 0;
+            
+            documentEntries.forEach(entry => {
+                totalDebit += entry.debit;
+                totalCredit += entry.credit;
+            });
+            
+            if (Math.abs(totalDebit - totalCredit) > 0.01) {
+                showNotification('سند تراز نیست! لطفاً جمع بدهکار و بستانکار را برابر کنید.', 'error');
+                return;
+            }
+            
+            const newDocument = {
+                id: Date.now(),
+                number: documentCounter++,
+                date: date,
+                description: description,
+                entries: [...documentEntries],
+                totalDebit: totalDebit,
+                totalCredit: totalCredit
+            };
+            
+            savedDocuments.push(newDocument);
+            saveDocumentToDB(newDocument);
+            saveDocumentCounter();
+            showNotification(`سند شماره ${toPersianNumbers(newDocument.number)} با موفقیت ثبت شد!`, 'success');
+            resetEntryForm();
+            updateDocumentsList();
+        }
+        
+        // تابع بازنشانی فرم ثبت سند
+        function resetEntryForm() {
+            entryDateInput.value = getTodayPersianDate();
+            entryDescriptionInput.value = '';
+            documentEntries = [];
+            entryTableBody.innerHTML = '';
+            totalDebitSpan.textContent = '0';
+            totalCreditSpan.textContent = '0';
+            entryBalanceStatus.textContent = 'تراز نیست! جمع بدهکار و بستانکار برابر نیست.';
+            entryBalanceStatus.className = 'entry-balance entry-not-balanced';
+            saveEntryBtn.disabled = true;
+        }
+        
+        // تابع به‌روزرسانی لیست اسناد
+        function updateDocumentsList() {
+            if (savedDocuments.length === 0) {
+                documentsList.innerHTML = `<div class="empty-state"><i class="fas fa-file-alt"></i><p>هیچ سندی ثبت نشده است</p></div>`;
+                return;
+            }
+            
+            let html = '';
+            savedDocuments.forEach(doc => {
+                html += `<div class="document-item" data-id="${doc.id}">
+                    <div class="document-info">
+                        <div class="document-title">سند شماره ${toPersianNumbers(doc.number)} - ${doc.description || 'بدون شرح'}</div>
+                        <div class="document-meta">
+                            <div class="document-meta-item"><i class="fas fa-calendar"></i><span>تاریخ: ${doc.date}</span></div>
+                            <div class="document-meta-item"><i class="fas fa-money-bill-wave"></i><span>مبلغ کل: ${formatCurrency(doc.totalDebit)} ریال</span></div>
+                            <div class="document-meta-item"><i class="fas fa-list-ol"></i><span>تعداد ردیف: ${toPersianNumbers(doc.entries.length)}</span></div>
+                        </div>
+                    </div>
+                    <div class="document-actions">
+                        <button class="simple-btn simple-btn-info" onclick="viewDocument(${doc.id})"><i class="fas fa-eye"></i> مشاهده</button>
+                        <button class="simple-btn simple-btn-danger" onclick="deleteDocument(${doc.id})"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                </div>`;
+            });
+            documentsList.innerHTML = html;
+        }
+        
+        // تابع مشاهده سند
+        function viewDocument(documentId) {
+            const doc = savedDocuments.find(d => d.id === documentId);
+            if (!doc) {
+                showNotification('سند مورد نظر یافت نشد!', 'error');
+                return;
+            }
+            
+            editingDocumentId = documentId;
+            
+            documentNumberSpan.textContent = toPersianNumbers(doc.number);
+            documentDateSpan.textContent = doc.date;
+            documentDescriptionSpan.textContent = doc.description || 'بدون شرح';
+            
+            // نمایش جزئیات سند
+            let detailsHtml = '';
+            doc.entries.forEach((entry, index) => {
+                const subsidiary = accounts.find(acc => acc.id == entry.subsidiaryId);
+                const detail = accounts.find(acc => acc.id == entry.detailId);
+                
+                detailsHtml += `<tr>
+                    <td>${index + 1}</td>
+                    <td>${subsidiary ? subsidiary.code : '---'}</td>
+                    <td>${subsidiary ? subsidiary.name : '---'}</td>
+                    <td>${detail ? detail.name : '---'}</td>
+                    <td>${entry.description || '---'}</td>
+                    <td>${formatCurrency(entry.debit)}</td>
+                    <td>${formatCurrency(entry.credit)}</td>
+                </tr>`;
+            });
+            
+            documentDetailsBody.innerHTML = detailsHtml;
+            documentTotalDebitSpan.textContent = formatCurrency(doc.totalDebit);
+            documentTotalCreditSpan.textContent = formatCurrency(doc.totalCredit);
+            
+            // نمایش بخش جزئیات
+            documentsList.classList.add('hidden');
+            documentDetails.classList.remove('hidden');
+        }
+        
+        // تابع ویرایش سند
+        function editDocument() {
+            if (!editingDocumentId) return;
+            
+            // تغییر به تب ثبت
+            document.querySelector('.nav-item[data-tab="register"]').click();
+            
+            // پر کردن فرم با اطلاعات سند
+            const doc = savedDocuments.find(d => d.id === editingDocumentId);
+            if (!doc) return;
+            
+            resetEntryForm();
+            entryDateInput.value = doc.date;
+            entryDescriptionInput.value = doc.description || '';
+            
+            // افزودن ردیف‌ها
+            doc.entries.forEach(entry => {
+                addEntryRow();
+                
+                // یافتن آخرین ردیف اضافه شده
+                const lastRow = documentEntries[documentEntries.length - 1];
+                if (lastRow) {
+                    lastRow.debit = entry.debit;
+                    lastRow.credit = entry.credit;
+                    lastRow.description = entry.description;
+                    lastRow.subsidiaryId = entry.subsidiaryId;
+                    lastRow.detailId = entry.detailId;
+                    
+                    // به‌روزرسانی مقادیر در فرم
+                    setTimeout(() => {
+                        const rowElement = document.querySelector(`#entry-row-${lastRow.id}`);
+                        if (rowElement) {
+                            const subsidiarySelect = rowElement.querySelector('.entry-subsidiary');
+                            const detailSelect = rowElement.querySelector('.entry-detail');
+                            const descriptionInput = rowElement.querySelector('.entry-description');
+                            const debitInput = rowElement.querySelector('.entry-debit');
+                            const creditInput = rowElement.querySelector('.entry-credit');
+                            
+                            if (subsidiarySelect) subsidiarySelect.value = entry.subsidiaryId;
+                            if (detailSelect) detailSelect.value = entry.detailId;
+                            if (descriptionInput) descriptionInput.value = entry.description || '';
+                            if (debitInput) debitInput.value = entry.debit;
+                            if (creditInput) creditInput.value = entry.credit;
+                            
+                            // به‌روزرسانی dropdown جزئیات
+                            if (entry.subsidiaryId) {
+                                updateEntryRowDetails(lastRow.id);
+                                setTimeout(() => {
+                                    if (detailSelect && entry.detailId) {
+                                        detailSelect.value = entry.detailId;
+                                    }
+                                }, 100);
+                            }
+                        }
+                    }, 100);
+                }
+            });
+            
+            // محاسبه جمع‌ها
+            setTimeout(() => {
+                calculateEntryTotals();
+            }, 200);
+            
+            showNotification('سند برای ویرایش بارگذاری شد. پس از ویرایش، سند جدیدی ثبت خواهد شد.', 'info');
+        }
+        
+        // تابع حذف سند
+        function deleteDocument() {
+            if (!editingDocumentId) return;
+            
+            if (confirm('آیا از حذف این سند اطمینان دارید؟')) {
+                savedDocuments = savedDocuments.filter(doc => doc.id !== editingDocumentId);
+                deleteDocumentFromDB(editingDocumentId);
+                updateDocumentsList();
+                closeDocumentDetails();
+                showNotification('سند با موفقیت حذف شد!', 'success');
+            }
+        }
+        
+        // تابع بستن جزئیات سند
+        function closeDocumentDetails() {
+            documentDetails.classList.add('hidden');
+            documentsList.classList.remove('hidden');
+            editingDocumentId = null;
+        }
+        
         // تابع صادر کردن داده‌ها به JSON
         function exportData() {
-            const data = { accounts, parties, inventory, invoices: savedInvoices, invoiceCounter, fiscalPeriod, settings, companyInfo };
+            const data = { 
+                accounts, parties, inventory, invoices: savedInvoices, invoiceCounter, 
+                documents: savedDocuments, documentCounter,
+                fiscalPeriod, settings, companyInfo 
+            };
             const dataStr = JSON.stringify(data, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const today = new Date();
@@ -1785,9 +2355,11 @@
                         inventory = data.inventory || [];
                         savedInvoices = data.invoices || [];
                         invoiceCounter = data.invoiceCounter || 1;
+                        savedDocuments = data.documents || [];
+                        documentCounter = data.documentCounter || 1;
                         fiscalPeriod = data.fiscalPeriod || { startDate: '', endDate: '' };
                         settings = data.settings || { vatPercentage: 9 };
-                        companyInfo = data.companyInfo || { type: 'legal', name: '', economicCode: '', nationalId: '', nationalCode: '', registrationNumber: '', phone: '', mobile: '', address: '', postalCode: '' };
+                        companyInfo = data.companyInfo || { type: 'legal', name: '', economicCode: '', nationalId: '', registrationNumber: '', phone: '', mobile: '', address: '', postalCode: '' };
                         
                         const promises = [];
                         promises.push(clearStore(STORE_NAMES.ACCOUNTS));
@@ -1795,6 +2367,8 @@
                         promises.push(clearStore(STORE_NAMES.INVENTORY));
                         promises.push(clearStore(STORE_NAMES.INVOICES));
                         promises.push(clearStore(STORE_NAMES.INVOICE_COUNTER));
+                        promises.push(clearStore(STORE_NAMES.DOCUMENTS));
+                        promises.push(clearStore(STORE_NAMES.DOCUMENT_COUNTER));
                         promises.push(clearStore(STORE_NAMES.FISCAL_PERIOD));
                         promises.push(clearStore(STORE_NAMES.SETTINGS));
                         promises.push(clearStore(STORE_NAMES.COMPANY_INFO));
@@ -1806,6 +2380,8 @@
                             inventory.forEach(product => savePromises.push(saveProduct(product)));
                             savedInvoices.forEach(invoice => savePromises.push(saveInvoiceToDB(invoice)));
                             savePromises.push(saveInvoiceCounter());
+                            savedDocuments.forEach(doc => savePromises.push(saveDocumentToDB(doc)));
+                            savePromises.push(saveDocumentCounter());
                             savePromises.push(saveFiscalPeriodToDB());
                             savePromises.push(saveSettingsToDB());
                             savePromises.push(saveCompanyInfoToDB());
@@ -1817,6 +2393,7 @@
                                 updateInvoicePartySelect();
                                 updateInvoiceProductSelect();
                                 updateAccountingTree();
+                                updateDocumentsList();
                                 fiscalPeriodStart.value = fiscalPeriod.startDate || '';
                                 fiscalPeriodEnd.value = fiscalPeriod.endDate || '';
                                 showNotification('داده‌ها با موفقیت وارد شدند!', 'success');
@@ -1851,13 +2428,16 @@
                 inventory = [];
                 savedInvoices = [];
                 invoiceCounter = 1;
+                savedDocuments = [];
+                documentCounter = 1;
                 fiscalPeriod = { startDate: '', endDate: '' };
                 settings = { vatPercentage: 9 };
-                companyInfo = { type: 'legal', name: '', economicCode: '', nationalId: '', nationalCode: '', registrationNumber: '', phone: '', mobile: '', address: '', postalCode: '' };
+                companyInfo = { type: 'legal', name: '', economicCode: '', nationalId: '', registrationNumber: '', phone: '', mobile: '', address: '', postalCode: '' };
                 
                 const promises = [
                     clearStore(STORE_NAMES.ACCOUNTS), clearStore(STORE_NAMES.PARTIES), clearStore(STORE_NAMES.INVENTORY),
-                    clearStore(STORE_NAMES.INVOICES), clearStore(STORE_NAMES.INVOICE_COUNTER), clearStore(STORE_NAMES.FISCAL_PERIOD),
+                    clearStore(STORE_NAMES.INVOICES), clearStore(STORE_NAMES.INVOICE_COUNTER), clearStore(STORE_NAMES.DOCUMENTS),
+                    clearStore(STORE_NAMES.DOCUMENT_COUNTER), clearStore(STORE_NAMES.FISCAL_PERIOD),
                     clearStore(STORE_NAMES.SETTINGS), clearStore(STORE_NAMES.COMPANY_INFO)
                 ];
                 
@@ -1869,6 +2449,7 @@
                         updateInvoicePartySelect();
                         updateInvoiceProductSelect();
                         updateAccountingTree();
+                        updateDocumentsList();
                         fiscalPeriodStart.value = '';
                         fiscalPeriodEnd.value = '';
                         showNotification('تمامی داده‌ها با موفقیت بازنشانی شدند!', 'success');
@@ -2265,7 +2846,7 @@
             const accountingTree = document.getElementById('accounting-tree');
             
             if (accounts.length === 0) {
-                accountingTree.innerHTML = `<div class="empty-state"><i class="fas fa-chart-line"></i><p>هیچ حسابی برای نمایش وجود ندارد</p></div>`;
+                accountingTree.innerHTML = `<div class="empty-state"><i class="fas fa-sitemap"></i><p>هیچ حسابی برای نمایش وجود ندارد</p></div>`;
                 return;
             }
             
