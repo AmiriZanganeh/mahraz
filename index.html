@@ -14,6 +14,7 @@
             --success: #28a745; --danger: #dc3545; --warning: #ffc107; --info: #17a2b8;
             --sidebar-width: 250px; --border-radius: 8px; --shadow: 0 2px 8px rgba(0,0,0,0.1);
             --transition: all 0.2s ease;
+            --level1: #000000; --level2: #4a76c4; --level3: #2ecc71; --level4: #e74c3c;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
         body { background-color: #f5f5f5; color: var(--dark); line-height: 1.6; min-height: 100vh; }
@@ -136,6 +137,7 @@
             .backup-actions { flex-direction: column; }
             .backup-actions .btn { width: 100%; }
             .form-type-selector { flex-direction: column; }
+            .form-grid-row { grid-template-columns: 1fr !important; }
         }
 
         /* نمایش متن در حالت بزرگتر */
@@ -168,12 +170,8 @@
         .type-btn { flex: 1; padding: 10px 15px; background: var(--light); border: 1px solid var(--border); border-radius: var(--border-radius); cursor: pointer; font-size: 0.9rem; font-weight: 600; text-align: center; transition: var(--transition); }
         .type-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
         .type-btn:hover:not(.active) { background: rgba(44, 90, 160, 0.1); border-color: var(--primary); }
-        .company-info-form, .party-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .company-info-form .form-group, .party-form .form-group { margin-bottom: 0; }
-        .company-info-form .form-group:nth-child(3), .party-form .form-group:nth-child(3) { grid-column: 1 / span 2; }
-        .company-info-form .form-group:nth-child(4), .party-form .form-group:nth-child(4) { grid-column: 1 / span 2; }
-        .company-info-form .form-group:nth-child(5), .party-form .form-group:nth-child(5) { grid-column: 1 / span 2; }
-        .company-info-form .form-group:nth-child(6), .party-form .form-group:nth-child(6) { grid-column: 1 / span 2; }
+        .form-grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .form-grid-row .form-group { margin-bottom: 0; }
         
         /* استایل‌های جدید برای چک‌باکس */
         .checkbox-container { display: flex; align-items: center; gap: 8px; cursor: pointer; }
@@ -194,26 +192,32 @@
         .invoice-actions .btn { flex: 1; max-width: 200px; }
         
         /* استایل‌های جدید برای لیست‌ها */
-        .parties-list, .inventory-list, .accounts-list, .documents-list { max-height: 300px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--border-radius); padding: 10px; background: var(--light); }
-        .party-item, .inventory-item, .account-item, .document-item { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; border-radius: 4px; margin-bottom: 5px; background: white; }
-        .party-item:hover, .inventory-item:hover, .account-item:hover, .document-item:hover { background: rgba(44, 90, 160, 0.05); }
-        .party-item:last-child, .inventory-item:last-child, .account-item:last-child, .document-item:last-child { border-bottom: none; margin-bottom: 0; }
-        .party-info, .inventory-info, .account-info, .document-info { flex: 1; }
-        .party-title, .inventory-title, .account-title, .document-title { font-weight: 600; font-size: 0.85rem; color: var(--dark); margin-bottom: 4px; }
-        .party-meta, .inventory-meta, .account-meta, .document-meta { display: flex; gap: 10px; font-size: 0.75rem; color: var(--secondary); }
-        .party-actions, .inventory-actions, .account-actions, .document-actions { display: flex; gap: 5px; }
+        .parties-list, .inventory-list, .accounts-list, .documents-list, .invoices-list { max-height: 300px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--border-radius); padding: 10px; background: var(--light); }
+        .party-item, .inventory-item, .account-item, .document-item, .invoice-item { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; border-radius: 4px; margin-bottom: 5px; background: white; }
+        .party-item:hover, .inventory-item:hover, .account-item:hover, .document-item:hover, .invoice-item:hover { background: rgba(44, 90, 160, 0.05); }
+        .party-item:last-child, .inventory-item:last-child, .account-item:last-child, .document-item:last-child, .invoice-item:last-child { border-bottom: none; margin-bottom: 0; }
+        .party-info, .inventory-info, .account-info, .document-info, .invoice-info { flex: 1; }
+        .party-title, .inventory-title, .account-title, .document-title, .invoice-title { font-weight: 600; font-size: 0.85rem; color: var(--dark); margin-bottom: 4px; }
+        .party-meta, .inventory-meta, .account-meta, .document-meta, .invoice-meta { display: flex; gap: 10px; font-size: 0.75rem; color: var(--secondary); }
+        .party-actions, .inventory-actions, .account-actions, .document-actions, .invoice-actions-list { display: flex; gap: 5px; }
         
         /* استایل‌های جدید برای کدینگ حسابداری درختی */
         .accounting-tree { border: 1px solid var(--border); border-radius: var(--border-radius); padding: 15px; background: white; }
         .tree-node { margin-bottom: 10px; }
-        .tree-node-header { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(44, 90, 160, 0.05); border-radius: var(--border-radius); cursor: pointer; }
+        .tree-node-header { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: var(--border-radius); cursor: pointer; }
         .tree-node-header:hover { background: rgba(44, 90, 160, 0.1); }
         .tree-node-content { margin-right: 20px; margin-top: 5px; display: none; }
         .tree-node-content.active { display: block; }
         .tree-node-icon { transition: var(--transition); }
         .tree-node-icon.rotated { transform: rotate(90deg); }
-        .account-code { font-weight: 600; color: var(--primary); min-width: 60px; }
+        .account-code { font-weight: 600; min-width: 60px; }
         .account-name { flex: 1; }
+        
+        /* استایل‌های جدید برای سطح‌بندی کدینگ */
+        .level-1 .account-code, .level-1 .account-name { color: var(--level1); font-weight: 800; }
+        .level-2 .account-code, .level-2 .account-name { color: var(--level2); font-weight: 700; }
+        .level-3 .account-code, .level-3 .account-name { color: var(--level3); font-weight: 600; }
+        .level-4 .account-code, .level-4 .account-name { color: var(--level4); font-weight: 500; }
         
         /* استایل‌های جدید برای فاکتور */
         .invoice-items-container { margin-top: 15px; border: 1px solid var(--border); border-radius: var(--border-radius); padding: 10px; background: var(--light); max-height: 200px; overflow-y: auto; }
@@ -241,7 +245,7 @@
         .invoice-connected-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
         .invoice-connected-number { font-size: 1rem; color: var(--secondary); }
         .invoice-connected-details { display: flex; justify-content: space-between; margin-bottom: 0; }
-        .invoice-connected-seller, .invoice-connected-buyer { flex: 1; padding: 15px; background: rgba(44, 90, 160, 0.05); border: 1px solid var(--border); }
+        .invoice-connected-seller, .invoice-connected-buyer { flex: 1; padding: 15px; }
         .invoice-connected-seller { margin-left: 0; border-bottom: none; border-radius: 0 0 0 0; }
         .invoice-connected-buyer { margin-right: 0; border-bottom: none; border-radius: 0 0 0 0; }
         .invoice-connected-section-title { font-weight: 700; margin-bottom: 10px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 5px; }
@@ -283,9 +287,6 @@
         .entry-table td { padding: 8px; border: 1px solid var(--border); text-align: center; }
         .entry-row-actions { display: flex; gap: 5px; justify-content: center; }
         .entry-totals { margin-top: 15px; display: flex; justify-content: space-between; font-weight: 700; padding: 10px; background: rgba(44, 90, 160, 0.05); border-radius: var(--border-radius); }
-        .entry-balance { font-weight: 700; padding: 10px; border-radius: var(--border-radius); text-align: center; }
-        .entry-balanced { background: rgba(40, 167, 69, 0.1); color: var(--success); border: 1px solid var(--success); }
-        .entry-not-balanced { background: rgba(220, 53, 69, 0.1); color: var(--danger); border: 1px solid var(--danger); }
         
         /* استایل‌های جدید برای تب اسناد */
         .document-details { background: white; border-radius: var(--border-radius); padding: 15px; border: 1px solid var(--border); margin-top: 15px; }
@@ -301,6 +302,17 @@
         .person-type-container { margin-bottom: 15px; }
         .person-type-label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--dark); font-size: 0.85rem; }
         .person-type-select { width: 100%; padding: 10px 12px; background: var(--light); border: 1px solid var(--border); border-radius: var(--border-radius); font-size: 0.95rem; color: var(--dark); }
+        
+        /* استایل‌های جدید برای فاصله بین فرم و لیست */
+        .form-list-divider { margin: 25px 0; }
+        
+        /* استایل‌های جدید برای تب اسناد و فاکتورها */
+        .documents-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .document-tab { padding: 8px 16px; background: var(--light); border: 1px solid var(--border); border-radius: var(--border-radius); cursor: pointer; font-weight: 600; }
+        .document-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        /* استایل‌های جدید برای پیش‌نمایش فاکتور بدون مشخصات */
+        .invoice-preview-simple { background: white; border-radius: var(--border-radius); padding: 15px; border: 1px solid var(--border); margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -341,10 +353,10 @@
                     <div class="nav-item active" data-tab="dashboard"><i class="fas fa-user"></i><span class="nav-item-text">داشبورد</span></div>
                     <div class="nav-item" data-tab="parties"><i class="fas fa-users"></i><span class="nav-item-text">اشخاص</span></div>
                     <div class="nav-item" data-tab="products"><i class="fas fa-cubes"></i><span class="nav-item-text">کالا/خدمات</span></div>
-                    <div class="nav-item" data-tab="accounts"><i class="fas fa-sitemap"></i><span class="nav-item-text">حساب</span></div>
+                    <div class="nav-item" data-tab="accounts"><i class="fas fa-table"></i><span class="nav-item-text">جداول حساب</span></div>
                     <div class="nav-item" data-tab="invoice"><i class="fas fa-receipt"></i><span class="nav-item-text">فاکتور</span></div>
-                    <div class="nav-item" data-tab="register"><i class="fas fa-pen"></i><span class="nav-item-text">ثبت</span></div>
-                    <div class="nav-item" data-tab="documents"><i class="fas fa-file-alt"></i><span class="nav-item-text">اسناد</span></div>
+                    <div class="nav-item" data-tab="register"><i class="fas fa-file-invoice"></i><span class="nav-item-text">ثبت سند</span></div>
+                    <div class="nav-item" data-tab="documents"><i class="fas fa-archive"></i><span class="nav-item-text">اسناد</span></div>
                 </div>
             </div>
             
@@ -363,23 +375,55 @@
                                 <h2 class="card-title"><i class="fas fa-building"></i> اطلاعات شخص حقیقی/حقوقی</h2>
                             </div>
                             <div class="company-info-section">
-                                <div class="person-type-container">
-                                    <label class="person-type-label">نوع شخص</label>
-                                    <select id="company-type" class="person-type-select">
-                                        <option value="legal">حقوقی</option>
-                                        <option value="individual">حقیقی</option>
-                                    </select>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">نوع شخص</label>
+                                        <select id="company-type" class="form-control">
+                                            <option value="legal">حقوقی</option>
+                                            <option value="individual">حقیقی</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">نام شرکت/شخص</label>
+                                        <input type="text" id="company-name" class="form-control" placeholder="نام شرکت/شخص">
+                                    </div>
                                 </div>
-                                <div class="company-info-form">
-                                    <div class="form-group"><label for="company-name" class="form-label">نام شرکت/شخص</label><input type="text" id="company-name" class="form-control" placeholder="نام شرکت/شخص"></div>
-                                    <div class="form-group"><label for="company-economic-code" class="form-label">کد اقتصادی</label><input type="text" id="company-economic-code" class="form-control" placeholder="کد اقتصادی"></div>
-                                    <div class="form-group"><label for="company-national-id" class="form-label">شناسه ملی</label><input type="text" id="company-national-id" class="form-control" placeholder="شناسه ملی"></div>
-                                    <div class="form-group"><label for="company-registration-number" class="form-label">شماره ثبت</label><input type="text" id="company-registration-number" class="form-control" placeholder="شماره ثبت"></div>
-                                    <div class="form-group"><label for="company-phone" class="form-label">تلفن</label><input type="text" id="company-phone" class="form-control" placeholder="تلفن"></div>
-                                    <div class="form-group"><label for="company-mobile" class="form-label">شماره تماس</label><input type="text" id="company-mobile" class="form-control" placeholder="شماره تماس"></div>
-                                    <div class="form-group"><label for="company-postal-code" class="form-label">کد پستی</label><input type="text" id="company-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                    <div class="form-group"><label for="company-address" class="form-label">آدرس</label><textarea id="company-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
-                                    <div class="form-group"><button type="button" id="save-company-info" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره اطلاعات</button></div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">کد اقتصادی</label>
+                                        <input type="text" id="company-economic-code" class="form-control" placeholder="کد اقتصادی">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">شناسه ملی</label>
+                                        <input type="text" id="company-national-id" class="form-control" placeholder="شناسه ملی">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">شماره ثبت</label>
+                                        <input type="text" id="company-registration-number" class="form-control" placeholder="شماره ثبت">
+                                    </div>
+                                </div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">تلفن</label>
+                                        <input type="text" id="company-phone" class="form-control" placeholder="تلفن">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">شماره تماس</label>
+                                        <input type="text" id="company-mobile" class="form-control" placeholder="شماره تماس">
+                                    </div>
+                                </div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">کد پستی</label>
+                                        <input type="text" id="company-postal-code" class="form-control" placeholder="کد پستی">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">آدرس</label>
+                                        <textarea id="company-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" id="save-company-info" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره اطلاعات</button>
                                 </div>
                             </div>
                         </div>
@@ -390,9 +434,19 @@
                             </div>
                             <div class="fiscal-period-section">
                                 <div class="fiscal-period-form">
-                                    <div class="form-group"><label for="fiscal-period-start" class="form-label">تاریخ شروع دوره مالی</label><input type="text" id="fiscal-period-start" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵"></div>
-                                    <div class="form-group"><label for="fiscal-period-end" class="form-label">تاریخ پایان دوره مالی</label><input type="text" id="fiscal-period-end" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵"></div>
-                                    <div class="form-group"><button type="button" id="save-fiscal-period" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره دوره مالی</button></div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label for="fiscal-period-start" class="form-label">تاریخ شروع دوره مالی</label>
+                                            <input type="text" id="fiscal-period-start" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fiscal-period-end" class="form-label">تاریخ پایان دوره مالی</label>
+                                            <input type="text" id="fiscal-period-end" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="save-fiscal-period" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره دوره مالی</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -419,50 +473,114 @@
                                 <h2 class="card-title"><i class="fas fa-users"></i> مدیریت اشخاص</h2>
                             </div>
                             <div class="parties-section">
-                                <div class="person-type-container">
-                                    <label class="person-type-label">نوع شخص</label>
-                                    <select id="party-type" class="person-type-select">
-                                        <option value="legal">حقوقی</option>
-                                        <option value="individual">حقیقی</option>
-                                    </select>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">نوع شخص</label>
+                                        <select id="party-type" class="form-control">
+                                            <option value="legal">حقوقی</option>
+                                            <option value="individual">حقیقی</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">نام طرف حساب</label>
+                                        <input type="text" id="party-name" class="form-control" placeholder="نام طرف حساب">
+                                    </div>
                                 </div>
-                                <div class="party-form">
-                                    <div class="form-group"><label for="party-name" class="form-label">نام طرف حساب</label><input type="text" id="party-name" class="form-control" placeholder="نام طرف حساب"></div>
-                                    <div class="form-group"><label for="party-economic-code" class="form-label">کد اقتصادی</label><input type="text" id="party-economic-code" class="form-control" placeholder="کد اقتصادی"></div>
-                                    <div class="form-group"><label for="party-national-id" class="form-label">شناسه ملی</label><input type="text" id="party-national-id" class="form-control" placeholder="شناسه ملی"></div>
-                                    <div class="form-group"><label for="party-registration-number" class="form-label">شماره ثبت</label><input type="text" id="party-registration-number" class="form-control" placeholder="شماره ثبت"></div>
-                                    <div class="form-group"><label for="party-phone" class="form-label">تلفن</label><input type="text" id="party-phone" class="form-control" placeholder="تلفن"></div>
-                                    <div class="form-group"><label for="party-mobile" class="form-label">شماره تماس</label><input type="text" id="party-mobile" class="form-control" placeholder="شماره تماس"></div>
-                                    <div class="form-group"><label for="party-postal-code" class="form-label">کد پستی</label><input type="text" id="party-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                    <div class="form-group"><label for="party-address" class="form-label">آدرس</label><textarea id="party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
-                                    <div class="form-group"><button type="button" id="add-party" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن شخص</button></div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">کد اقتصادی</label>
+                                        <input type="text" id="party-economic-code" class="form-control" placeholder="کد اقتصادی">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">شناسه ملی</label>
+                                        <input type="text" id="party-national-id" class="form-control" placeholder="شناسه ملی">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">شماره ثبت</label>
+                                        <input type="text" id="party-registration-number" class="form-control" placeholder="شماره ثبت">
+                                    </div>
+                                </div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">تلفن</label>
+                                        <input type="text" id="party-phone" class="form-control" placeholder="تلفن">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">شماره تماس</label>
+                                        <input type="text" id="party-mobile" class="form-control" placeholder="شماره تماس">
+                                    </div>
+                                </div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">کد پستی</label>
+                                        <input type="text" id="party-postal-code" class="form-control" placeholder="کد پستی">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">آدرس</label>
+                                        <textarea id="party-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group add-party-button">
+                                    <button type="button" id="add-party" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن شخص</button>
                                 </div>
                                 
                                 <!-- فرم ویرایش شخص -->
                                 <div id="edit-party-form" class="edit-form-container hidden">
                                     <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش شخص</div>
-                                    <div class="party-form">
-                                        <div class="person-type-container">
-                                            <label class="person-type-label">نوع شخص</label>
-                                            <select id="edit-party-type" class="person-type-select">
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">نوع شخص</label>
+                                            <select id="edit-party-type" class="form-control">
                                                 <option value="legal">حقوقی</option>
                                                 <option value="individual">حقیقی</option>
                                             </select>
                                         </div>
-                                        <div class="form-group"><label for="edit-party-name" class="form-label">نام طرف حساب</label><input type="text" id="edit-party-name" class="form-control" placeholder="نام طرف حساب"></div>
-                                        <div class="form-group"><label for="edit-party-economic-code" class="form-label">کد اقتصادی</label><input type="text" id="edit-party-economic-code" class="form-control" placeholder="کد اقتصادی"></div>
-                                        <div class="form-group"><label for="edit-party-national-id" class="form-label">شناسه ملی</label><input type="text" id="edit-party-national-id" class="form-control" placeholder="شناسه ملی"></div>
-                                        <div class="form-group"><label for="edit-party-registration-number" class="form-label">شماره ثبت</label><input type="text" id="edit-party-registration-number" class="form-control" placeholder="شماره ثبت"></div>
-                                        <div class="form-group"><label for="edit-party-phone" class="form-label">تلفن</label><input type="text" id="edit-party-phone" class="form-control" placeholder="تلفن"></div>
-                                        <div class="form-group"><label for="edit-party-mobile" class="form-label">شماره تماس</label><input type="text" id="edit-party-mobile" class="form-control" placeholder="شماره تماس"></div>
-                                        <div class="form-group"><label for="edit-party-postal-code" class="form-label">کد پستی</label><input type="text" id="edit-party-postal-code" class="form-control" placeholder="کد پستی"></div>
-                                        <div class="form-group"><label for="edit-party-address" class="form-label">آدرس</label><textarea id="edit-party-address" class="form-control" rows="2" placeholder="آدرس"></textarea></div>
-                                        <div class="edit-form-actions">
-                                            <button type="button" id="update-party" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
-                                            <button type="button" id="cancel-edit-party" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
+                                        <div class="form-group">
+                                            <label class="form-label">نام طرف حساب</label>
+                                            <input type="text" id="edit-party-name" class="form-control" placeholder="نام طرف حساب">
                                         </div>
                                     </div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">کد اقتصادی</label>
+                                            <input type="text" id="edit-party-economic-code" class="form-control" placeholder="کد اقتصادی">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">شناسه ملی</label>
+                                            <input type="text" id="edit-party-national-id" class="form-control" placeholder="شناسه ملی">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">شماره ثبت</label>
+                                            <input type="text" id="edit-party-registration-number" class="form-control" placeholder="شماره ثبت">
+                                        </div>
+                                    </div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">تلفن</label>
+                                            <input type="text" id="edit-party-phone" class="form-control" placeholder="تلفن">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">شماره تماس</label>
+                                            <input type="text" id="edit-party-mobile" class="form-control" placeholder="شماره تماس">
+                                        </div>
+                                    </div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">کد پستی</label>
+                                            <input type="text" id="edit-party-postal-code" class="form-control" placeholder="کد پستی">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">آدرس</label>
+                                            <textarea id="edit-party-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="edit-form-actions">
+                                        <button type="button" id="update-party" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
+                                        <button type="button" id="cancel-edit-party" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
+                                    </div>
                                 </div>
+                                
+                                <div class="form-list-divider"></div>
                                 
                                 <div class="parties-list" id="parties-list">
                                     <div class="empty-state"><i class="fas fa-users"></i><p>هیچ شخصی ثبت نشده است</p></div>
@@ -478,38 +596,62 @@
                                 <h2 class="card-title"><i class="fas fa-cubes"></i> مدیریت کالا/خدمات</h2>
                             </div>
                             <div class="inventory-section">
-                                <div class="inventory-form">
-                                    <div class="form-group"><label for="product-code" class="form-label">کد کالا/خدمات</label><input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات"></div>
-                                    <div class="form-group"><label for="product-name" class="form-label">شرح کالا/خدمات</label><input type="text" id="product-name" class="form-control" placeholder="شرح کالا/خدمات"></div>
-                                    <div class="form-group"><label for="product-price" class="form-label">بهای واحد</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" id="product-price" class="form-control amount-input" placeholder="0"></div></div>
+                                <div class="form-grid-row">
                                     <div class="form-group">
-                                        <label for="product-unit" class="form-label">واحد اندازه‌گیری</label>
-                                        <div class="unit-input-container">
-                                            <input type="text" id="product-unit" class="form-control" placeholder="مثال: عدد، کیلوگرم، متر">
+                                        <label class="form-label">کد کالا/خدمات</label>
+                                        <input type="text" id="product-code" class="form-control" placeholder="کد کالا/خدمات">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">شرح کالا/خدمات</label>
+                                        <input type="text" id="product-name" class="form-control" placeholder="شرح کالا/خدمات">
+                                    </div>
+                                </div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">بهای واحد</label>
+                                        <div class="amount-input-container">
+                                            <span class="currency-symbol">﷼</span>
+                                            <input type="text" id="product-price" class="form-control amount-input" placeholder="0">
                                         </div>
                                     </div>
-                                    <div class="add-product-button-container">
-                                        <button type="button" id="add-product" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن کالا/خدمات</button>
+                                    <div class="form-group">
+                                        <label class="form-label">واحد اندازه‌گیری</label>
+                                        <input type="text" id="product-unit" class="form-control" placeholder="مثال: عدد، کیلوگرم، متر">
                                     </div>
+                                </div>
+                                <div class="add-product-button-container">
+                                    <button type="button" id="add-product" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن کالا/خدمات</button>
                                 </div>
                                 
                                 <!-- فرم ویرایش کالا -->
                                 <div id="edit-product-form" class="edit-form-container hidden">
                                     <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش کالا/خدمات</div>
-                                    <div class="inventory-form">
-                                        <div class="form-group"><label for="edit-product-code" class="form-label">کد کالا/خدمات</label><input type="text" id="edit-product-code" class="form-control" placeholder="کد کالا/خدمات"></div>
-                                        <div class="form-group"><label for="edit-product-name" class="form-label">شرح کالا/خدمات</label><input type="text" id="edit-product-name" class="form-control" placeholder="شرح کالا/خدمات"></div>
-                                        <div class="form-group"><label for="edit-product-price" class="form-label">بهای واحد</label><div class="amount-input-container"><span class="currency-symbol">﷼</span><input type="text" id="edit-product-price" class="form-control amount-input" placeholder="0"></div></div>
+                                    <div class="form-grid-row">
                                         <div class="form-group">
-                                            <label for="edit-product-unit" class="form-label">واحد اندازه‌گیری</label>
-                                            <div class="unit-input-container">
-                                                <input type="text" id="edit-product-unit" class="form-control" placeholder="مثال: عدد، کیلوگرم، متر">
+                                            <label class="form-label">کد کالا/خدمات</label>
+                                            <input type="text" id="edit-product-code" class="form-control" placeholder="کد کالا/خدمات">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">شرح کالا/خدمات</label>
+                                            <input type="text" id="edit-product-name" class="form-control" placeholder="شرح کالا/خدمات">
+                                        </div>
+                                    </div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">بهای واحد</label>
+                                            <div class="amount-input-container">
+                                                <span class="currency-symbol">﷼</span>
+                                                <input type="text" id="edit-product-price" class="form-control amount-input" placeholder="0">
                                             </div>
                                         </div>
-                                        <div class="edit-form-actions">
-                                            <button type="button" id="update-product" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
-                                            <button type="button" id="cancel-edit-product" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
+                                        <div class="form-group">
+                                            <label class="form-label">واحد اندازه‌گیری</label>
+                                            <input type="text" id="edit-product-unit" class="form-control" placeholder="مثال: عدد، کیلوگرم، متر">
                                         </div>
+                                    </div>
+                                    <div class="edit-form-actions">
+                                        <button type="button" id="update-product" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
+                                        <button type="button" id="cancel-edit-product" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
                                     </div>
                                 </div>
                                 
@@ -520,11 +662,11 @@
                         </div>
                     </div>
                     
-                    <!-- تب حساب -->
+                    <!-- تب جداول حساب -->
                     <div id="accounts-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-sitemap"></i> کدینگ حسابداری درختی</h2>
+                                <h2 class="card-title"><i class="fas fa-table"></i> کدینگ حسابداری درختی</h2>
                             </div>
                             <div class="accounting-tree" id="accounting-tree">
                                 <!-- ساختار درختی کدینگ حسابداری در اینجا قرار می‌گیرد -->
@@ -539,23 +681,51 @@
                                 <h2 class="card-title"><i class="fas fa-receipt"></i> فاکتور فروش/خدمات</h2>
                             </div>
                             <div class="invoice-section">
-                                <div class="invoice-form">
-                                    <div class="form-group"><label for="invoice-date" class="form-label">تاریخ فاکتور</label><input type="text" id="invoice-date" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵"></div>
-                                    <div class="form-group"><label for="invoice-party" class="form-label">خریدار</label><select id="invoice-party" class="form-control"><option value="">انتخاب کنید</option></select></div>
+                                <div class="form-grid-row">
+                                    <div class="form-group">
+                                        <label class="form-label">تاریخ فاکتور</label>
+                                        <input type="text" id="invoice-date" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">خریدار</label>
+                                        <select id="invoice-party" class="form-control">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="invoice-items">
                                     <h4>موارد فاکتور</h4>
-                                    <div class="invoice-item-row">
-                                        <div class="form-group"><label class="form-label">کد کالا/خدمات</label><select class="form-control invoice-product"><option value="">انتخاب کنید</option></select></div>
-                                        <div class="form-group"><label class="form-label">مقدار</label><input type="text" class="form-control invoice-quantity" placeholder="0"></div>
-                                        <div class="form-group"><label class="form-label">تخفیف (درصد)</label><input type="text" class="form-control invoice-item-discount" placeholder="0"></div>
-                                        <div class="form-group"><label class="form-label">مالیات (درصد)</label><input type="text" class="form-control invoice-item-tax" placeholder="9"></div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">کد کالا/خدمات</label>
+                                            <select class="form-control invoice-product">
+                                                <option value="">انتخاب کنید</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">مقدار</label>
+                                            <input type="text" class="form-control invoice-quantity" placeholder="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">تخفیف (درصد)</label>
+                                            <input type="text" class="form-control invoice-item-discount" placeholder="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">مالیات (درصد)</label>
+                                            <input type="text" class="form-control invoice-item-tax" placeholder="9">
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">نحوه پرداخت</label>
                                         <div class="invoice-payment-options">
-                                            <div class="invoice-payment-option"><input type="radio" id="payment-cash" name="payment-method" value="cash" class="invoice-payment-checkbox"><label for="payment-cash">نقدی</label></div>
-                                            <div class="invoice-payment-option"><input type="radio" id="payment-non-cash" name="payment-method" value="non-cash" class="invoice-payment-checkbox"><label for="payment-non-cash">غیر نقدی</label></div>
+                                            <div class="invoice-payment-option">
+                                                <input type="radio" id="payment-cash" name="payment-method" value="cash" class="invoice-payment-checkbox">
+                                                <label for="payment-cash">نقدی</label>
+                                            </div>
+                                            <div class="invoice-payment-option">
+                                                <input type="radio" id="payment-non-cash" name="payment-method" value="non-cash" class="invoice-payment-checkbox">
+                                                <label for="payment-non-cash">غیر نقدی</label>
+                                            </div>
                                         </div>
                                     </div>
                                     <button type="button" id="add-invoice-item" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن ردیف فاکتور</button>
@@ -579,7 +749,7 @@
                     <div id="register-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-pen"></i> ثبت سند حسابداری</h2>
+                                <h2 class="card-title"><i class="fas fa-file-invoice"></i> ثبت سند حسابداری</h2>
                             </div>
                             <div class="accounting-entry-container">
                                 <div class="accounting-entry-header">
@@ -618,10 +788,6 @@
                                     <div>جمع بستانکار: <span id="total-credit">0</span> ریال</div>
                                 </div>
                                 
-                                <div id="entry-balance-status" class="entry-balance entry-not-balanced">
-                                    تراز نیست! جمع بدهکار و بستانکار برابر نیست.
-                                </div>
-                                
                                 <div class="actions">
                                     <button id="save-entry" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ثبت سند</button>
                                     <button id="reset-entry" class="simple-btn simple-btn-warning"><i class="fas fa-undo"></i> بازگشت</button>
@@ -634,45 +800,74 @@
                     <div id="documents-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-file-alt"></i> مدیریت اسناد حسابداری</h2>
-                            </div>
-                            <div class="documents-list" id="documents-list">
-                                <div class="empty-state"><i class="fas fa-file-alt"></i><p>هیچ سندی ثبت نشده است</p></div>
+                                <h2 class="card-title"><i class="fas fa-archive"></i> مدیریت اسناد و فاکتورها</h2>
                             </div>
                             
-                            <!-- نمایش جزئیات سند -->
-                            <div id="document-details" class="document-details hidden">
-                                <div class="document-details-header">
-                                    <h3>مشاهده سند شماره <span id="document-number"></span></h3>
-                                    <div class="document-actions">
-                                        <button id="edit-document" class="simple-btn simple-btn-info"><i class="fas fa-edit"></i> ویرایش</button>
-                                        <button id="delete-document" class="simple-btn simple-btn-danger"><i class="fas fa-trash"></i> حذف</button>
-                                        <button id="close-document" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> بستن</button>
+                            <div class="documents-tabs">
+                                <div class="document-tab active" data-type="documents">اسناد حسابداری</div>
+                                <div class="document-tab" data-type="invoices">فاکتورها</div>
+                            </div>
+                            
+                            <!-- لیست اسناد حسابداری -->
+                            <div id="documents-list-container">
+                                <div class="documents-list" id="documents-list">
+                                    <div class="empty-state"><i class="fas fa-file-alt"></i><p>هیچ سندی ثبت نشده است</p></div>
+                                </div>
+                                
+                                <!-- نمایش جزئیات سند -->
+                                <div id="document-details" class="document-details hidden">
+                                    <div class="document-details-header">
+                                        <h3>مشاهده سند شماره <span id="document-number"></span></h3>
+                                        <div class="document-actions">
+                                            <button id="close-document" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> بستن</button>
+                                        </div>
+                                    </div>
+                                    <div class="document-info">
+                                        <p><strong>تاریخ:</strong> <span id="document-date"></span></p>
+                                        <p><strong>شرح:</strong> <span id="document-description"></span></p>
+                                    </div>
+                                    <table class="document-details-table" id="document-details-table">
+                                        <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>کد حساب</th>
+                                                <th>نام حساب</th>
+                                                <th>تفصیل</th>
+                                                <th>شرح</th>
+                                                <th>بدهکار</th>
+                                                <th>بستانکار</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="document-details-body">
+                                            <!-- جزئیات سند در اینجا نمایش داده می‌شود -->
+                                        </tbody>
+                                    </table>
+                                    <div class="entry-totals" id="document-totals">
+                                        <div>جمع بدهکار: <span id="document-total-debit">0</span> ریال</div>
+                                        <div>جمع بستانکار: <span id="document-total-credit">0</span> ریال</div>
                                     </div>
                                 </div>
-                                <div class="document-info">
-                                    <p><strong>تاریخ:</strong> <span id="document-date"></span></p>
-                                    <p><strong>شرح:</strong> <span id="document-description"></span></p>
+                            </div>
+                            
+                            <!-- لیست فاکتورها -->
+                            <div id="invoices-list-container" class="hidden">
+                                <div class="invoices-list" id="invoices-list">
+                                    <div class="empty-state"><i class="fas fa-receipt"></i><p>هیچ فاکتوری ثبت نشده است</p></div>
                                 </div>
-                                <table class="document-details-table" id="document-details-table">
-                                    <thead>
-                                        <tr>
-                                            <th>ردیف</th>
-                                            <th>کد حساب</th>
-                                            <th>نام حساب</th>
-                                            <th>تفصیل</th>
-                                            <th>شرح</th>
-                                            <th>بدهکار</th>
-                                            <th>بستانکار</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="document-details-body">
-                                        <!-- جزئیات سند در اینجا نمایش داده می‌شود -->
-                                    </tbody>
-                                </table>
-                                <div class="entry-totals" id="document-totals">
-                                    <div>جمع بدهکار: <span id="document-total-debit">0</span> ریال</div>
-                                    <div>جمع بستانکار: <span id="document-total-credit">0</span> ریال</div>
+                                
+                                <!-- نمایش جزئیات فاکتور -->
+                                <div id="invoice-details" class="document-details hidden">
+                                    <div class="document-details-header">
+                                        <h3>مشاهده فاکتور شماره <span id="invoice-view-number"></span></h3>
+                                        <div class="document-actions">
+                                            <button id="print-invoice-details" class="simple-btn simple-btn-info"><i class="fas fa-print"></i> چاپ فاکتور</button>
+                                            <button id="delete-invoice-details" class="simple-btn simple-btn-danger"><i class="fas fa-trash"></i> حذف</button>
+                                            <button id="close-invoice" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> بستن</button>
+                                        </div>
+                                    </div>
+                                    <div id="invoice-details-content">
+                                        <!-- محتوای فاکتور در اینجا نمایش داده می‌شود -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -689,7 +884,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 17; // افزایش نسخه برای اضافه شدن جداول جدید
+        const DB_VERSION = 18; // افزایش نسخه برای تغییرات جدید
         
         // نام جداول
         const STORE_NAMES = {
@@ -737,6 +932,8 @@
         let editingPartyId = null;
         let editingProductId = null;
         let editingDocumentId = null;
+        let viewingInvoiceId = null;
+        let currentDocumentType = 'documents'; // 'documents' یا 'invoices'
         
         // عناصر DOM
         const loginPage = document.getElementById('login-page');
@@ -803,7 +1000,6 @@
         const entryTableBody = document.getElementById('entry-table-body');
         const totalDebitSpan = document.getElementById('total-debit');
         const totalCreditSpan = document.getElementById('total-credit');
-        const entryBalanceStatus = document.getElementById('entry-balance-status');
         const saveEntryBtn = document.getElementById('save-entry');
         const resetEntryBtn = document.getElementById('reset-entry');
         
@@ -816,9 +1012,19 @@
         const documentDetailsBody = document.getElementById('document-details-body');
         const documentTotalDebitSpan = document.getElementById('document-total-debit');
         const documentTotalCreditSpan = document.getElementById('document-total-credit');
-        const editDocumentBtn = document.getElementById('edit-document');
-        const deleteDocumentBtn = document.getElementById('delete-document');
         const closeDocumentBtn = document.getElementById('close-document');
+        
+        // عناصر جدید برای تب اسناد - بخش فاکتورها
+        const documentTabs = document.querySelectorAll('.document-tab');
+        const documentsListContainer = document.getElementById('documents-list-container');
+        const invoicesListContainer = document.getElementById('invoices-list-container');
+        const invoicesList = document.getElementById('invoices-list');
+        const invoiceDetails = document.getElementById('invoice-details');
+        const invoiceViewNumberSpan = document.getElementById('invoice-view-number');
+        const invoiceDetailsContent = document.getElementById('invoice-details-content');
+        const printInvoiceDetailsBtn = document.getElementById('print-invoice-details');
+        const deleteInvoiceDetailsBtn = document.getElementById('delete-invoice-details');
+        const closeInvoiceBtn = document.getElementById('close-invoice');
         
         // عناصر جدید برای بخش فاکتور
         const invoiceItemsContainer = document.getElementById('invoice-items-container');
@@ -896,6 +1102,24 @@
                 }
                 if (tabId === 'documents') {
                     updateDocumentsList();
+                    updateInvoicesList();
+                }
+            });
+        });
+        
+        // مدیریت تب‌های اسناد و فاکتورها
+        documentTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                documentTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentDocumentType = this.getAttribute('data-type');
+                
+                if (currentDocumentType === 'documents') {
+                    documentsListContainer.classList.remove('hidden');
+                    invoicesListContainer.classList.add('hidden');
+                } else {
+                    documentsListContainer.classList.add('hidden');
+                    invoicesListContainer.classList.remove('hidden');
                 }
             });
         });
@@ -935,9 +1159,16 @@
         resetEntryBtn.addEventListener('click', resetEntryForm);
         
         // مدیریت تب اسناد
-        editDocumentBtn.addEventListener('click', editDocument);
-        deleteDocumentBtn.addEventListener('click', deleteDocument);
         closeDocumentBtn.addEventListener('click', closeDocumentDetails);
+        
+        // مدیریت تب اسناد - بخش فاکتورها
+        printInvoiceDetailsBtn.addEventListener('click', function() {
+            if (viewingInvoiceId) printInvoiceFromList(viewingInvoiceId);
+        });
+        deleteInvoiceDetailsBtn.addEventListener('click', function() {
+            if (viewingInvoiceId) deleteInvoiceFromList(viewingInvoiceId);
+        });
+        closeInvoiceBtn.addEventListener('click', closeInvoiceDetails);
         
         // مقداردهی اولیه برنامه پس از ورود
         function initializeApp() {
@@ -959,7 +1190,6 @@
                 updateAccountingTree();
                 updateSubsidiaryAccounts();
                 
-                // حذف پیام نمایش داده شده در نسخه قبلی
             }).catch(error => {
                 console.error('خطا در مقداردهی اولیه برنامه:', error);
                 showNotification('خطا در بارگذاری داده‌ها!', 'error');
@@ -1007,7 +1237,6 @@
                 request.onsuccess = () => {
                     accounts = request.result;
                     if (accounts.length === 0) {
-                        // ایجاد ساختار استاندارد حسابداری ایران
                         createStandardAccountingStructure();
                     }
                     resolve();
@@ -1259,10 +1488,10 @@
                 'dashboard': { title: 'داشبورد مدیریتی', description: 'نمایش کلی وضعیت مالی و مدیریت سیستم' },
                 'parties': { title: 'مدیریت اشخاص', description: 'در این بخش می‌توانید اشخاص و مشتریان خود را مدیریت کنید' },
                 'products': { title: 'مدیریت کالا/خدمات', description: 'در این بخش می‌توانید کالاها و خدمات خود را مدیریت کنید' },
-                'accounts': { title: 'کدینگ حسابداری', description: 'در این بخش می‌توانید ساختار حساب‌های مالی خود را مشاهده کنید' },
+                'accounts': { title: 'جداول حساب', description: 'در این بخش می‌توانید ساختار حساب‌های مالی خود را مشاهده کنید' },
                 'invoice': { title: 'فاکتور فروش/خدمات', description: 'در این بخش می‌توانید فاکتور صادر کنید' },
                 'register': { title: 'ثبت سند حسابداری', description: 'در این بخش می‌توانید اسناد حسابداری ثبت کنید' },
-                'documents': { title: 'مدیریت اسناد', description: 'در این بخش می‌توانید اسناد ثبت شده را مشاهده و مدیریت کنید' }
+                'documents': { title: 'مدیریت اسناد و فاکتورها', description: 'در این بخش می‌توانید اسناد و فاکتورهای ثبت شده را مشاهده و مدیریت کنید' }
             };
             
             const titleInfo = titles[tabId];
@@ -1274,7 +1503,7 @@
         function getTabIcon(tabId) {
             const icons = {
                 'dashboard': 'user', 'parties': 'users', 'products': 'cubes', 
-                'accounts': 'sitemap', 'invoice': 'receipt', 'register': 'pen', 'documents': 'file-alt'
+                'accounts': 'table', 'invoice': 'receipt', 'register': 'file-invoice', 'documents': 'archive'
             };
             return icons[tabId];
         }
@@ -1425,6 +1654,7 @@
             partyMobileInput.value = '';
             partyPostalCodeInput.value = '';
             partyAddressInput.value = '';
+            partyTypeSelect.value = 'legal';
             showNotification('شخص جدید با موفقیت افزوده شد!', 'success');
         }
         
@@ -1752,7 +1982,7 @@
                 itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode || '---'}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>${item.unit}</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(item.discountAmount)}</td><td>${formatCurrency(item.totalPrice - item.discountAmount)}</td><td>${formatCurrency(item.taxAmount)}</td><td>${formatCurrency(item.finalPrice)}</td></tr>`;
             });
             
-            // اضافه کردن مشخصات فروشنده و خریدار
+            // اضافه کردن مشخصات فروشنده و خریدار (بدون کادر)
             let sellerDetails = '';
             let buyerDetails = '';
             
@@ -1763,8 +1993,6 @@
                     ${companyInfo.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div></div>` : ''}
                     ${companyInfo.registrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${companyInfo.registrationNumber}</div></div>` : ''}
                     ${companyInfo.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div></div>` : ''}
-                    ${companyInfo.mobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${companyInfo.mobile}</div></div>` : ''}
-                    ${companyInfo.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${companyInfo.address}</div></div>` : ''}
                 `;
             }
             
@@ -1775,8 +2003,6 @@
                     ${party.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${party.nationalId}</div></div>` : ''}
                     ${party.registrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${party.registrationNumber}</div></div>` : ''}
                     ${party.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${party.phone}</div></div>` : ''}
-                    ${party.mobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${party.mobile}</div></div>` : ''}
-                    ${party.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${party.address}</div></div>` : ''}
                 `;
             }
             
@@ -1938,6 +2164,7 @@
             saveInvoiceCounter();
             showNotification('فاکتور با موفقیت ذخیره شد!', 'success');
             resetInvoice();
+            updateInvoicesList();
         }
         
         // تابع چاپ فاکتور
@@ -1949,7 +2176,7 @@
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-connected-title{font-size:1.5rem;font-weight:bold}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px;background:rgba(0,0,0,0.05);border:1px solid #000}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:5px}.invoice-connected-info-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${invoiceContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-connected-title{font-size:1.5rem;font-weight:bold}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:5px}.invoice-connected-info-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${invoiceContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -1974,11 +2201,7 @@
             
             let subsidiaryOptions = '<option value="">انتخاب کنید</option>';
             subsidiaries.forEach(subsidiary => {
-                // پیدا کردن کلاس و گروه مربوط به این معین
-                const cls = accounts.find(acc => acc.id === subsidiary.parentId);
-                const group = cls ? accounts.find(acc => acc.id === cls.parentId) : null;
-                
-                subsidiaryOptions += `<option value="${subsidiary.id}" data-group="${group ? group.code : ''}" data-class="${cls ? cls.code : ''}">${subsidiary.code} - ${subsidiary.name}</option>`;
+                subsidiaryOptions += `<option value="${subsidiary.id}">${subsidiary.code} - ${subsidiary.name}</option>`;
             });
             
             const rowHtml = `
@@ -2096,12 +2319,8 @@
             
             // بررسی تراز بودن سند
             if (Math.abs(totalDebit - totalCredit) < 0.01) { // مقایسه با دقت 0.01
-                entryBalanceStatus.textContent = 'تراز است!';
-                entryBalanceStatus.className = 'entry-balance entry-balanced';
                 saveEntryBtn.disabled = false;
             } else {
-                entryBalanceStatus.textContent = `تراز نیست! تفاوت: ${formatCurrency(Math.abs(totalDebit - totalCredit))} ریال`;
-                entryBalanceStatus.className = 'entry-balance entry-not-balanced';
                 saveEntryBtn.disabled = true;
             }
         }
@@ -2161,8 +2380,6 @@
             entryTableBody.innerHTML = '';
             totalDebitSpan.textContent = '0';
             totalCreditSpan.textContent = '0';
-            entryBalanceStatus.textContent = 'تراز نیست! جمع بدهکار و بستانکار برابر نیست.';
-            entryBalanceStatus.className = 'entry-balance entry-not-balanced';
             saveEntryBtn.disabled = true;
         }
         
@@ -2191,6 +2408,38 @@
                 </div>`;
             });
             documentsList.innerHTML = html;
+        }
+        
+        // تابع به‌روزرسانی لیست فاکتورها
+        function updateInvoicesList() {
+            if (savedInvoices.length === 0) {
+                invoicesList.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i><p>هیچ فاکتوری ثبت نشده است</p></div>`;
+                return;
+            }
+            
+            let html = '';
+            savedInvoices.forEach(invoice => {
+                let totalAmount = 0;
+                invoice.items.forEach(item => {
+                    totalAmount += item.finalPrice;
+                });
+                
+                html += `<div class="invoice-item" data-id="${invoice.id}">
+                    <div class="invoice-info">
+                        <div class="invoice-title">فاکتور شماره ${toPersianNumbers(invoice.number)} - ${invoice.partyName}</div>
+                        <div class="invoice-meta">
+                            <div class="invoice-meta-item"><i class="fas fa-calendar"></i><span>تاریخ: ${invoice.date}</span></div>
+                            <div class="invoice-meta-item"><i class="fas fa-money-bill-wave"></i><span>مبلغ کل: ${formatCurrency(totalAmount)} ریال</span></div>
+                            <div class="invoice-meta-item"><i class="fas fa-list-ol"></i><span>تعداد آیتم: ${toPersianNumbers(invoice.items.length)}</span></div>
+                        </div>
+                    </div>
+                    <div class="invoice-actions-list">
+                        <button class="simple-btn simple-btn-info" onclick="viewInvoice(${invoice.id})"><i class="fas fa-eye"></i> مشاهده</button>
+                        <button class="simple-btn simple-btn-danger" onclick="deleteInvoiceFromList(${invoice.id})"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                </div>`;
+            });
+            invoicesList.innerHTML = html;
         }
         
         // تابع مشاهده سند
@@ -2233,83 +2482,205 @@
             documentDetails.classList.remove('hidden');
         }
         
-        // تابع ویرایش سند
-        function editDocument() {
-            if (!editingDocumentId) return;
+        // تابع مشاهده فاکتور
+        function viewInvoice(invoiceId) {
+            const invoice = savedInvoices.find(i => i.id == invoiceId);
+            if (!invoice) {
+                showNotification('فاکتور مورد نظر یافت نشد!', 'error');
+                return;
+            }
             
-            // تغییر به تب ثبت
-            document.querySelector('.nav-item[data-tab="register"]').click();
+            viewingInvoiceId = invoiceId;
             
-            // پر کردن فرم با اطلاعات سند
-            const doc = savedDocuments.find(d => d.id === editingDocumentId);
-            if (!doc) return;
+            invoiceViewNumberSpan.textContent = toPersianNumbers(invoice.number);
             
-            resetEntryForm();
-            entryDateInput.value = doc.date;
-            entryDescriptionInput.value = doc.description || '';
+            // تولید محتوای فاکتور برای نمایش
+            let itemsHtml = '';
+            let totalAmount = 0;
             
-            // افزودن ردیف‌ها
-            doc.entries.forEach(entry => {
-                addEntryRow();
-                
-                // یافتن آخرین ردیف اضافه شده
-                const lastRow = documentEntries[documentEntries.length - 1];
-                if (lastRow) {
-                    lastRow.debit = entry.debit;
-                    lastRow.credit = entry.credit;
-                    lastRow.description = entry.description;
-                    lastRow.subsidiaryId = entry.subsidiaryId;
-                    lastRow.detailId = entry.detailId;
-                    
-                    // به‌روزرسانی مقادیر در فرم
-                    setTimeout(() => {
-                        const rowElement = document.querySelector(`#entry-row-${lastRow.id}`);
-                        if (rowElement) {
-                            const subsidiarySelect = rowElement.querySelector('.entry-subsidiary');
-                            const detailSelect = rowElement.querySelector('.entry-detail');
-                            const descriptionInput = rowElement.querySelector('.entry-description');
-                            const debitInput = rowElement.querySelector('.entry-debit');
-                            const creditInput = rowElement.querySelector('.entry-credit');
-                            
-                            if (subsidiarySelect) subsidiarySelect.value = entry.subsidiaryId;
-                            if (detailSelect) detailSelect.value = entry.detailId;
-                            if (descriptionInput) descriptionInput.value = entry.description || '';
-                            if (debitInput) debitInput.value = entry.debit;
-                            if (creditInput) creditInput.value = entry.credit;
-                            
-                            // به‌روزرسانی dropdown جزئیات
-                            if (entry.subsidiaryId) {
-                                updateEntryRowDetails(lastRow.id);
-                                setTimeout(() => {
-                                    if (detailSelect && entry.detailId) {
-                                        detailSelect.value = entry.detailId;
-                                    }
-                                }, 100);
-                            }
-                        }
-                    }, 100);
-                }
+            invoice.items.forEach((item, index) => {
+                itemsHtml += `<tr>
+                    <td>${index + 1}</td>
+                    <td>${item.productCode || '---'}</td>
+                    <td>${item.productName}</td>
+                    <td>${toPersianNumbers(item.quantity)}</td>
+                    <td>${item.unit}</td>
+                    <td>${formatCurrency(item.unitPrice)}</td>
+                    <td>${formatCurrency(item.totalPrice)}</td>
+                    <td>${formatCurrency(item.discountAmount)}</td>
+                    <td>${formatCurrency(item.totalPrice - item.discountAmount)}</td>
+                    <td>${formatCurrency(item.taxAmount)}</td>
+                    <td>${formatCurrency(item.finalPrice)}</td>
+                </tr>`;
+                totalAmount += item.finalPrice;
             });
             
-            // محاسبه جمع‌ها
-            setTimeout(() => {
-                calculateEntryTotals();
-            }, 200);
+            const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
             
-            showNotification('سند برای ویرایش بارگذاری شد. پس از ویرایش، سند جدیدی ثبت خواهد شد.', 'info');
+            const invoiceHtml = `
+                <div class="invoice-info">
+                    <p><strong>تاریخ:</strong> ${invoice.date}</p>
+                    <p><strong>خریدار:</strong> ${invoice.partyName} (${invoice.partyType === 'legal' ? 'حقوقی' : 'حقیقی'})</p>
+                    <p><strong>نحوه پرداخت:</strong> ${paymentMethodText}</p>
+                </div>
+                <table class="document-details-table">
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>کد کالا</th>
+                            <th>شرح کالا/خدمات</th>
+                            <th>مقدار</th>
+                            <th>واحد</th>
+                            <th>بهای واحد</th>
+                            <th>بهای کل</th>
+                            <th>مبلغ تخفیف</th>
+                            <th>بهای کل پس از تخفیف</th>
+                            <th>مالیات و عوارض</th>
+                            <th>بهای کل بعلاوه مالیات و عوارض</th>
+                        </tr>
+                    </thead>
+                    <tbody>${itemsHtml}</tbody>
+                </table>
+                <div class="entry-totals">
+                    <div>جمع کل فاکتور: <strong>${formatCurrency(totalAmount)} ریال</strong></div>
+                </div>
+            `;
+            
+            invoiceDetailsContent.innerHTML = invoiceHtml;
+            
+            // نمایش بخش جزئیات فاکتور
+            invoicesList.classList.add('hidden');
+            invoiceDetails.classList.remove('hidden');
         }
         
         // تابع حذف سند
-        function deleteDocument() {
-            if (!editingDocumentId) return;
-            
+        function deleteDocument(documentId) {
             if (confirm('آیا از حذف این سند اطمینان دارید؟')) {
-                savedDocuments = savedDocuments.filter(doc => doc.id !== editingDocumentId);
-                deleteDocumentFromDB(editingDocumentId);
+                savedDocuments = savedDocuments.filter(doc => doc.id !== documentId);
+                deleteDocumentFromDB(documentId);
                 updateDocumentsList();
-                closeDocumentDetails();
+                if (editingDocumentId === documentId) {
+                    closeDocumentDetails();
+                }
                 showNotification('سند با موفقیت حذف شد!', 'success');
             }
+        }
+        
+        // تابع حذف فاکتور از لیست
+        function deleteInvoiceFromList(invoiceId) {
+            if (confirm('آیا از حذف این فاکتور اطمینان دارید؟')) {
+                savedInvoices = savedInvoices.filter(inv => inv.id !== invoiceId);
+                deleteInvoiceFromDB(invoiceId);
+                updateInvoicesList();
+                if (viewingInvoiceId === invoiceId) {
+                    closeInvoiceDetails();
+                }
+                showNotification('فاکتور با موفقیت حذف شد!', 'success');
+            }
+        }
+        
+        // تابع چاپ فاکتور از لیست
+        function printInvoiceFromList(invoiceId) {
+            const invoice = savedInvoices.find(i => i.id == invoiceId);
+            if (!invoice) {
+                showNotification('فاکتور مورد نظر یافت نشد!', 'error');
+                return;
+            }
+            
+            let itemsHtml = '';
+            invoice.items.forEach((item, index) => {
+                itemsHtml += `<tr>
+                    <td>${index + 1}</td>
+                    <td>${item.productCode || '---'}</td>
+                    <td>${item.productName}</td>
+                    <td>${toPersianNumbers(item.quantity)}</td>
+                    <td>${item.unit}</td>
+                    <td>${formatCurrency(item.unitPrice)}</td>
+                    <td>${formatCurrency(item.totalPrice)}</td>
+                    <td>${formatCurrency(item.discountAmount)}</td>
+                    <td>${formatCurrency(item.totalPrice - item.discountAmount)}</td>
+                    <td>${formatCurrency(item.taxAmount)}</td>
+                    <td>${formatCurrency(item.finalPrice)}</td>
+                </tr>`;
+            });
+            
+            const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
+            let totalAmount = 0;
+            invoice.items.forEach(item => totalAmount += item.finalPrice);
+            
+            const printContent = `
+                <div class="invoice-connected-container">
+                    <div class="invoice-connected-header">
+                        <div class="invoice-connected-title">فاکتور فروش/خدمات</div>
+                        <div class="invoice-connected-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div>
+                        <div class="invoice-connected-date">تاریخ: ${invoice.date}</div>
+                    </div>
+                    <div class="invoice-connected-details">
+                        <div class="invoice-connected-seller">
+                            <div class="invoice-connected-section-title">فروشنده</div>
+                            <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name || '---'}</div></div>
+                            ${companyInfo.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div></div>` : ''}
+                            ${companyInfo.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div></div>` : ''}
+                        </div>
+                        <div class="invoice-connected-buyer">
+                            <div class="invoice-connected-section-title">خریدار</div>
+                            <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div></div>
+                            ${invoice.partyEconomicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${invoice.partyEconomicCode}</div></div>` : ''}
+                            ${invoice.partyPhone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${invoice.partyPhone}</div></div>` : ''}
+                        </div>
+                    </div>
+                    <table class="invoice-connected-table">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>کد کالا</th>
+                                <th>شرح کالا/خدمات</th>
+                                <th>مقدار</th>
+                                <th>واحد</th>
+                                <th>بهای واحد</th>
+                                <th>بهای کل</th>
+                                <th>مبلغ تخفیف</th>
+                                <th>بهای کل پس از تخفیف</th>
+                                <th>مالیات و عوارض</th>
+                                <th>بهای کل بعلاوه مالیات و عوارض</th>
+                            </tr>
+                        </thead>
+                        <tbody>${itemsHtml}</tbody>
+                    </table>
+                    <div class="invoice-connected-summary">
+                        <div class="invoice-connected-summary-row">
+                            <div class="invoice-connected-summary-label invoice-summary-small-font">جمع تمامی ستون ها به عدد:</div>
+                            <div class="invoice-connected-summary-value invoice-summary-small-font">${formatCurrency(totalAmount)} ریال</div>
+                        </div>
+                        <div class="invoice-connected-summary-row">
+                            <div class="invoice-connected-summary-label invoice-summary-small-font">جمع تمامی ستون ها به حروف:</div>
+                            <div class="invoice-connected-summary-value invoice-summary-small-font">${numberToWords(totalAmount)} ریال</div>
+                        </div>
+                        <div class="invoice-connected-summary-row">
+                            <div class="invoice-connected-summary-label invoice-summary-small-font">نحوه پرداخت:</div>
+                            <div class="invoice-connected-summary-value invoice-summary-small-font">
+                                <span>نقدی ${paymentMethodText === 'نقدی' ? '☑' : '☐'}</span>
+                                <span style="margin-right: 20px;">غیر نقدی ${paymentMethodText === 'غیر نقدی' ? '☑' : '☐'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invoice-connected-signatures">
+                        <div class="invoice-connected-signature">
+                            <div>مهر و امضای فروشنده</div>
+                            <div class="invoice-connected-signature-line"></div>
+                        </div>
+                        <div class="invoice-connected-signature">
+                            <div>مهر و امضای خریدار</div>
+                            <div class="invoice-connected-signature-line"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور شماره ${toPersianNumbers(invoice.number)}</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{text-align:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #000}.invoice-connected-title{font-size:1.5rem;font-weight:bold}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:5px}.invoice-connected-info-label{font-weight:600;width:120px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${printContent}</body></html>`);
+            printWindow.document.close();
+            printWindow.print();
         }
         
         // تابع بستن جزئیات سند
@@ -2317,6 +2688,13 @@
             documentDetails.classList.add('hidden');
             documentsList.classList.remove('hidden');
             editingDocumentId = null;
+        }
+        
+        // تابع بستن جزئیات فاکتور
+        function closeInvoiceDetails() {
+            invoiceDetails.classList.add('hidden');
+            invoicesList.classList.remove('hidden');
+            viewingInvoiceId = null;
         }
         
         // تابع صادر کردن داده‌ها به JSON
@@ -2394,6 +2772,7 @@
                                 updateInvoiceProductSelect();
                                 updateAccountingTree();
                                 updateDocumentsList();
+                                updateInvoicesList();
                                 fiscalPeriodStart.value = fiscalPeriod.startDate || '';
                                 fiscalPeriodEnd.value = fiscalPeriod.endDate || '';
                                 showNotification('داده‌ها با موفقیت وارد شدند!', 'success');
@@ -2450,6 +2829,7 @@
                         updateInvoiceProductSelect();
                         updateAccountingTree();
                         updateDocumentsList();
+                        updateInvoicesList();
                         fiscalPeriodStart.value = '';
                         fiscalPeriodEnd.value = '';
                         showNotification('تمامی داده‌ها با موفقیت بازنشانی شدند!', 'success');
@@ -2476,355 +2856,102 @@
         // تابع ایجاد ساختار استاندارد حسابداری ایران
         function createStandardAccountingStructure() {
             return new Promise((resolve, reject) => {
-                // ساختار استاندارد حسابداری ایران
+                // ساختار استاندارد حسابداری ایران با نام‌های سطح‌بندی شده
                 const standardAccounts = [
-                    // گروه دارایی‌ها
+                    // سطح ۱: گروه دارایی‌ها
                     { id: 1, code: '1', name: 'دارایی‌ها', level: 'group', parentId: null },
                     
-                    // کل دارایی‌های جاری
+                    // سطح ۲: کل دارایی‌های جاری
                     { id: 2, code: '11', name: 'دارایی‌های جاری', level: 'class', parentId: 1 },
                     
-                    // معین موجودی نقد و بانک
+                    // سطح ۳: معین موجودی نقد و بانک
                     { id: 3, code: '111', name: 'موجودی نقد و بانک', level: 'subsidiary', parentId: 2 },
                     
-                    // تفضیل موجودی نقد و بانک
+                    // سطح ۴: تفضیل موجودی نقد و بانک
                     { id: 4, code: '1111', name: 'تنخواه گردان', level: 'detail', parentId: 3 },
                     { id: 5, code: '1112', name: 'صندوق', level: 'detail', parentId: 3 },
                     { id: 6, code: '1113', name: 'بانک', level: 'detail', parentId: 3 },
-                    { id: 7, code: '1114', name: 'وجوه در راه', level: 'detail', parentId: 3 },
                     
-                    // معین سرمایه گذاری های کوتاه مدت
-                    { id: 8, code: '112', name: 'سرمایه گذاری های کوتاه مدت', level: 'subsidiary', parentId: 2 },
+                    // سطح ۳: معین حساب های دریافتنی
+                    { id: 7, code: '112', name: 'حساب های دریافتنی', level: 'subsidiary', parentId: 2 },
                     
-                    // تفضیل سرمایه گذاری های کوتاه مدت
-                    { id: 9, code: '1121', name: 'سرمایه گذاری در بورس', level: 'detail', parentId: 8 },
+                    // سطح ۴: تفضیل حساب های دریافتنی
+                    { id: 8, code: '1121', name: 'حساب های دریافتنی', level: 'detail', parentId: 7 },
+                    { id: 9, code: '1122', name: 'اسناد دریافتنی', level: 'detail', parentId: 7 },
                     
-                    // معین حساب های دریافتنی
-                    { id: 10, code: '113', name: 'حساب های دریافتنی', level: 'subsidiary', parentId: 2 },
+                    // سطح ۲: کل دارایی‌های غیر جاری
+                    { id: 10, code: '12', name: 'دارایی‌های غیر جاری', level: 'class', parentId: 1 },
                     
-                    // تفضیل حساب های دریافتنی
-                    { id: 11, code: '1131', name: 'حساب های دریافتنی', level: 'detail', parentId: 10 },
-                    { id: 12, code: '1132', name: 'ذخیره مطالبات مشکوک الوصول', level: 'detail', parentId: 10 },
-                    { id: 13, code: '1133', name: 'اسناد دریافتنی', level: 'detail', parentId: 10 },
-                    { id: 14, code: '1134', name: 'اسناد در جریان وصول', level: 'detail', parentId: 10 },
-                    { id: 15, code: '1135', name: 'سود تحقق نیافته فروش اقساطی', level: 'detail', parentId: 10 },
+                    // سطح ۳: معین دارایی های ثابت
+                    { id: 11, code: '121', name: 'دارایی های ثابت', level: 'subsidiary', parentId: 10 },
                     
-                    // معین سایر حساب های دریافتنی
-                    { id: 16, code: '114', name: 'سایر حساب های دریافتنی', level: 'subsidiary', parentId: 2 },
+                    // سطح ۴: تفضیل دارایی های ثابت
+                    { id: 12, code: '1211', name: 'زمین', level: 'detail', parentId: 11 },
+                    { id: 13, code: '1212', name: 'ساختمان', level: 'detail', parentId: 11 },
+                    { id: 14, code: '1213', name: 'وسائط نقلیه', level: 'detail', parentId: 11 },
                     
-                    // تفضیل سایر حساب های دریافتنی
-                    { id: 17, code: '1141', name: 'وام کارکنان', level: 'detail', parentId: 16 },
-                    { id: 18, code: '1142', name: 'سپرده شرکت در مناقصه و مزایده', level: 'detail', parentId: 16 },
-                    { id: 19, code: '1143', name: 'ضمانت نامه بانکی', level: 'detail', parentId: 16 },
-                    { id: 20, code: '1144', name: 'مالیات بر ارزش افزوده خرید', level: 'detail', parentId: 16 },
-                    { id: 21, code: '1145', name: 'سایر حساب های دریافتنی', level: 'detail', parentId: 16 },
+                    // سطح ۱: گروه بدهی‌ها
+                    { id: 15, code: '2', name: 'بدهی‌ها', level: 'group', parentId: null },
                     
-                    // معین پیش پرداخت ها
-                    { id: 22, code: '115', name: 'پیش پرداخت ها', level: 'subsidiary', parentId: 2 },
+                    // سطح ۲: کل بدهی‌های جاری
+                    { id: 16, code: '21', name: 'بدهی‌های جاری', level: 'class', parentId: 15 },
                     
-                    // معین موجودی کالا
-                    { id: 23, code: '116', name: 'موجودی کالا', level: 'subsidiary', parentId: 2 },
+                    // سطح ۳: معین حساب ها و اسناد پرداختنی
+                    { id: 17, code: '211', name: 'حساب ها و اسناد پرداختنی', level: 'subsidiary', parentId: 16 },
                     
-                    // معین موجودی کالای در جریان ساخت
-                    { id: 24, code: '117', name: 'موجودی کالای در جریان ساخت', level: 'subsidiary', parentId: 2 },
+                    // سطح ۴: تفضیل حساب ها و اسناد پرداختنی
+                    { id: 18, code: '2111', name: 'حساب های پرداختنی', level: 'detail', parentId: 17 },
+                    { id: 19, code: '2112', name: 'اسناد پرداختنی', level: 'detail', parentId: 17 },
                     
-                    // معین ملزومات
-                    { id: 25, code: '118', name: 'ملزومات', level: 'subsidiary', parentId: 2 },
+                    // سطح ۱: گروه حقوق صاحبان سهام
+                    { id: 20, code: '3', name: 'حقوق صاحبان سهام', level: 'group', parentId: null },
                     
-                    // کل دارایی‌های غیر جاری
-                    { id: 26, code: '12', name: 'دارایی‌های غیر جاری', level: 'class', parentId: 1 },
+                    // سطح ۳: معین سرمایه اولیه
+                    { id: 21, code: '31', name: 'سرمایه اولیه', level: 'subsidiary', parentId: 20 },
                     
-                    // معین دارایی های ثابت
-                    { id: 27, code: '121', name: 'دارایی های ثابت', level: 'subsidiary', parentId: 26 },
+                    // سطح ۱: گروه بهای تمام شده کالای فروخته شده
+                    { id: 22, code: '4', name: 'بهای تمام شده کالای فروخته شده', level: 'group', parentId: null },
                     
-                    // تفضیل دارایی های ثابت
-                    { id: 28, code: '1211', name: 'زمین', level: 'detail', parentId: 27 },
-                    { id: 29, code: '1212', name: 'ساختمان', level: 'detail', parentId: 27 },
-                    { id: 30, code: '1213', name: 'وسائط نقلیه', level: 'detail', parentId: 27 },
-                    { id: 31, code: '1214', name: 'اثاثیه اداری', level: 'detail', parentId: 27 },
+                    // سطح ۳: معین بهای تمام شده کالای فروخته شده
+                    { id: 23, code: '41', name: 'بهای تمام شده کالای فروخته شده', level: 'subsidiary', parentId: 22 },
                     
-                    // معین استهلاک انباشته
-                    { id: 32, code: '122', name: 'استهلاک انباشته', level: 'subsidiary', parentId: 26 },
+                    // سطح ۱: گروه فروش
+                    { id: 24, code: '5', name: 'فروش', level: 'group', parentId: null },
                     
-                    // تفضیل استهلاک انباشته
-                    { id: 33, code: '1221', name: 'استهلاک انباشته ساختمان', level: 'detail', parentId: 32 },
-                    { id: 34, code: '1222', name: 'استهلاک انباشته وسائط نقلیه', level: 'detail', parentId: 32 },
-                    { id: 35, code: '1223', name: 'استهلاک انباشته اثاثیه اداری', level: 'detail', parentId: 32 },
+                    // سطح ۳: معین فروش کالا
+                    { id: 25, code: '51', name: 'فروش کالا', level: 'subsidiary', parentId: 24 },
                     
-                    // معین سپرده های بلند مدت
-                    { id: 36, code: '123', name: 'سپرده های بلند مدت', level: 'subsidiary', parentId: 26 },
+                    // سطح ۱: گروه درآمد
+                    { id: 26, code: '6', name: 'درآمد', level: 'group', parentId: null },
                     
-                    // معین سایر دارائی ها
-                    { id: 37, code: '124', name: 'سایر دارائی ها', level: 'subsidiary', parentId: 26 },
+                    // سطح ۲: کل درآمد های عملیاتی
+                    { id: 27, code: '61', name: 'درآمد های عملیاتی', level: 'class', parentId: 26 },
                     
-                    // تفضیل سایر دارائی ها
-                    { id: 38, code: '1241', name: 'حق الامتیازها', level: 'detail', parentId: 37 },
-                    { id: 39, code: '1242', name: 'نرم افزارها', level: 'detail', parentId: 37 },
-                    { id: 40, code: '1243', name: 'سایر دارایی های نامشهود', level: 'detail', parentId: 37 },
+                    // سطح ۳: معین درآمد حاصل از فروش خدمات
+                    { id: 28, code: '611', name: 'درآمد حاصل از فروش خدمات', level: 'subsidiary', parentId: 27 },
                     
-                    // گروه بدهی‌ها
-                    { id: 41, code: '2', name: 'بدهی‌ها', level: 'group', parentId: null },
+                    // سطح ۱: گروه هزینه ها
+                    { id: 29, code: '7', name: 'هزینه ها', level: 'group', parentId: null },
                     
-                    // کل بدهی‌های جاری
-                    { id: 42, code: '21', name: 'بدهی‌های جاری', level: 'class', parentId: 41 },
+                    // سطح ۲: کل هزینه های پرسنلی
+                    { id: 30, code: '71', name: 'هزینه های پرسنلی', level: 'class', parentId: 29 },
                     
-                    // معین حساب ها و اسناد پرداختنی
-                    { id: 43, code: '211', name: 'حساب ها و اسناد پرداختنی', level: 'subsidiary', parentId: 42 },
+                    // سطح ۳: معین هزینه حقوق و دستمزد
+                    { id: 31, code: '711', name: 'هزینه حقوق و دستمزد', level: 'subsidiary', parentId: 30 },
                     
-                    // تفضیل حساب ها و اسناد پرداختنی
-                    { id: 44, code: '2111', name: 'حساب های پرداختنی', level: 'detail', parentId: 43 },
-                    { id: 45, code: '2112', name: 'اسناد پرداختنی', level: 'detail', parentId: 43 },
+                    // سطح ۴: تفضیل هزینه حقوق و دستمزد
+                    { id: 32, code: '7111', name: 'حقوق پایه', level: 'detail', parentId: 31 },
+                    { id: 33, code: '7112', name: 'اضافه کار', level: 'detail', parentId: 31 },
                     
-                    // معین ذخیره مالیات بر درآمد پرداختنی
-                    { id: 46, code: '212', name: 'ذخیره مالیات بر درآمد پرداختنی', level: 'subsidiary', parentId: 42 },
+                    // سطح ۲: کل هزینه های عملیاتی
+                    { id: 34, code: '72', name: 'هزینه های عملیاتی', level: 'class', parentId: 29 },
                     
-                    // معین مالیات بر درآمد پرداختنی
-                    { id: 47, code: '213', name: 'مالیات بر درآمد پرداختنی', level: 'subsidiary', parentId: 42 },
+                    // سطح ۳: معین هزینه های عمومی
+                    { id: 35, code: '721', name: 'هزینه های عمومی', level: 'subsidiary', parentId: 34 },
                     
-                    // معین سایر حساب های پرداختنی
-                    { id: 48, code: '214', name: 'سایر حساب های پرداختنی', level: 'subsidiary', parentId: 42 },
-                    
-                    // تفضیل سایر حساب های پرداختنی
-                    { id: 49, code: '2141', name: 'مالیات حقوق و دستمزد پرداختنی', level: 'detail', parentId: 48 },
-                    { id: 50, code: '2142', name: 'حق بیمه پرداختنی', level: 'detail', parentId: 48 },
-                    { id: 51, code: '2143', name: 'حقوق و دستمزد پرداختنی', level: 'detail', parentId: 48 },
-                    { id: 52, code: '2144', name: 'عیدی و پاداش پرداختنی', level: 'detail', parentId: 48 },
-                    { id: 53, code: '2145', name: 'سایر هزینه های پرداختنی', level: 'detail', parentId: 48 },
-                    { id: 54, code: '2146', name: 'مالیات برارزش افزوده فروش', level: 'detail', parentId: 48 },
-                    { id: 55, code: '2147', name: 'سربار تولید پرداختنی', level: 'detail', parentId: 48 },
-                    
-                    // معین پیش دریافت ها
-                    { id: 56, code: '215', name: 'پیش دریافت ها', level: 'subsidiary', parentId: 42 },
-                    
-                    // تفضیل پیش دریافت ها
-                    { id: 57, code: '2151', name: 'پیش دریافت فروش', level: 'detail', parentId: 56 },
-                    { id: 58, code: '2152', name: 'سایر پیش دریافت ها', level: 'detail', parentId: 56 },
-                    
-                    // کل بدهی‌های غیرتجاری
-                    { id: 59, code: '22', name: 'بدهی‌های غیرتجاری', level: 'class', parentId: 41 },
-                    
-                    // معین حساب ها و اسناد پرداختنی بلندمدت
-                    { id: 60, code: '221', name: 'حساب ها و اسناد پرداختنی بلندمدت', level: 'subsidiary', parentId: 59 },
-                    
-                    // تفضیل حساب ها و اسناد پرداختنی بلندمدت
-                    { id: 61, code: '2211', name: 'حساب های پرداختنی بلندمدت', level: 'detail', parentId: 60 },
-                    { id: 62, code: '2212', name: 'اسناد پرداختنی بلندمدت', level: 'detail', parentId: 60 },
-                    
-                    // معین وام پرداختنی
-                    { id: 63, code: '222', name: 'وام پرداختنی', level: 'subsidiary', parentId: 59 },
-                    
-                    // معین ذخیره مزایای پایان خدمت کارکنان
-                    { id: 64, code: '223', name: 'ذخیره مزایای پایان خدمت کارکنان', level: 'subsidiary', parentId: 59 },
-                    
-                    // گروه حقوق صاحبان سهام
-                    { id: 65, code: '3', name: 'حقوق صاحبان سهام', level: 'group', parentId: null },
-                    
-                    // معین سرمایه اولیه
-                    { id: 66, code: '31', name: 'سرمایه اولیه', level: 'subsidiary', parentId: 65 },
-                    
-                    // معین افزایش یا کاهش سرمایه
-                    { id: 67, code: '32', name: 'افزایش یا کاهش سرمایه', level: 'subsidiary', parentId: 65 },
-                    
-                    // معین اندوخته قانونی
-                    { id: 68, code: '33', name: 'اندوخته قانونی', level: 'subsidiary', parentId: 65 },
-                    
-                    // معین برداشت ها
-                    { id: 69, code: '34', name: 'برداشت ها', level: 'subsidiary', parentId: 65 },
-                    
-                    // معین سهم سود و زیان
-                    { id: 70, code: '35', name: 'سهم سود و زیان', level: 'subsidiary', parentId: 65 },
-                    
-                    // معین سود یا زیان انباشته (سنواتی)
-                    { id: 71, code: '36', name: 'سود یا زیان انباشته (سنواتی)', level: 'subsidiary', parentId: 65 },
-                    
-                    // گروه بهای تمام شده کالای فروخته شده
-                    { id: 72, code: '4', name: 'بهای تمام شده کالای فروخته شده', level: 'group', parentId: null },
-                    
-                    // معین بهای تمام شده کالای فروخته شده
-                    { id: 73, code: '41', name: 'بهای تمام شده کالای فروخته شده', level: 'subsidiary', parentId: 72 },
-                    
-                    // معین برگشت از خرید
-                    { id: 74, code: '42', name: 'برگشت از خرید', level: 'subsidiary', parentId: 72 },
-                    
-                    // معین تخفیفات نقدی خرید
-                    { id: 75, code: '43', name: 'تخفیفات نقدی خرید', level: 'subsidiary', parentId: 72 },
-                    
-                    // گروه فروش
-                    { id: 76, code: '5', name: 'فروش', level: 'group', parentId: null },
-                    
-                    // معین فروش کالا
-                    { id: 77, code: '51', name: 'فروش کالا', level: 'subsidiary', parentId: 76 },
-                    
-                    // معین برگشت از فروش
-                    { id: 78, code: '52', name: 'برگشت از فروش', level: 'subsidiary', parentId: 76 },
-                    
-                    // معین تخفیفات نقدی فروش
-                    { id: 79, code: '53', name: 'تخفیفات نقدی فروش', level: 'subsidiary', parentId: 76 },
-                    
-                    // گروه درآمد
-                    { id: 80, code: '6', name: 'درآمد', level: 'group', parentId: null },
-                    
-                    // کل درآمد های عملیاتی
-                    { id: 81, code: '61', name: 'درآمد های عملیاتی', level: 'class', parentId: 80 },
-                    
-                    // معین درآمد حاصل از فروش خدمات
-                    { id: 82, code: '611', name: 'درآمد حاصل از فروش خدمات', level: 'subsidiary', parentId: 81 },
-                    
-                    // معین برگشت از خرید خدمات
-                    { id: 83, code: '612', name: 'برگشت از خرید خدمات', level: 'subsidiary', parentId: 81 },
-                    
-                    // معین درآمد اضافه کالا
-                    { id: 84, code: '613', name: 'درآمد اضافه کالا', level: 'subsidiary', parentId: 81 },
-                    
-                    // معین درآمد حمل کالا
-                    { id: 85, code: '614', name: 'درآمد حمل کالا', level: 'subsidiary', parentId: 81 },
-                    
-                    // کل درآمد های غیر عملیاتی
-                    { id: 86, code: '62', name: 'درآمد های غیر عملیاتی', level: 'class', parentId: 80 },
-                    
-                    // معین درآمد حاصل از سرمایه گذاری
-                    { id: 87, code: '621', name: 'درآمد حاصل از سرمایه گذاری', level: 'subsidiary', parentId: 86 },
-                    
-                    // معین درآمد سود سپرده ها
-                    { id: 88, code: '622', name: 'درآمد سود سپرده ها', level: 'subsidiary', parentId: 86 },
-                    
-                    // معین سایر درآمد ها
-                    { id: 89, code: '623', name: 'سایر درآمد ها', level: 'subsidiary', parentId: 86 },
-                    
-                    // معین درآمد تسعیر ارز
-                    { id: 90, code: '624', name: 'درآمد تسعیر ارز', level: 'subsidiary', parentId: 86 },
-                    
-                    // معین سود فروش اقساطی
-                    { id: 91, code: '625', name: 'سود فروش اقساطی', level: 'subsidiary', parentId: 86 },
-                    
-                    // گروه هزینه ها
-                    { id: 92, code: '7', name: 'هزینه ها', level: 'group', parentId: null },
-                    
-                    // کل هزینه های پرسنلی
-                    { id: 93, code: '71', name: 'هزینه های پرسنلی', level: 'class', parentId: 92 },
-                    
-                    // معین هزینه حقوق و دستمزد
-                    { id: 94, code: '711', name: 'هزینه حقوق و دستمزد', level: 'subsidiary', parentId: 93 },
-                    
-                    // تفضیل هزینه حقوق و دستمزد
-                    { id: 95, code: '7111', name: 'حقوق پایه', level: 'detail', parentId: 94 },
-                    { id: 96, code: '7112', name: 'اضافه کار', level: 'detail', parentId: 94 },
-                    { id: 97, code: '7113', name: 'حق شیفت و شب کاری', level: 'detail', parentId: 94 },
-                    { id: 98, code: '7114', name: 'حق نوبت کاری', level: 'detail', parentId: 94 },
-                    { id: 99, code: '7115', name: 'حق ماموریت', level: 'detail', parentId: 94 },
-                    { id: 100, code: '7116', name: 'فوق العاده مسکن', level: 'detail', parentId: 94 },
-                    { id: 101, code: '7117', name: 'خواروبار', level: 'detail', parentId: 94 },
-                    { id: 102, code: '7118', name: 'حق اولاد', level: 'detail', parentId: 94 },
-                    { id: 103, code: '7119', name: 'عیدی و پاداش', level: 'detail', parentId: 94 },
-                    { id: 104, code: '71110', name: 'بازخرید سنوات خدمت کارکنان', level: 'detail', parentId: 94 },
-                    { id: 105, code: '71111', name: 'بازخرید مرخصی', level: 'detail', parentId: 94 },
-                    { id: 106, code: '71112', name: 'بیمه سهم کارفرما', level: 'detail', parentId: 94 },
-                    { id: 107, code: '71113', name: 'بیمه بیکاری', level: 'detail', parentId: 94 },
-                    { id: 108, code: '71114', name: 'حقوق مزایای متفرقه', level: 'detail', parentId: 94 },
-                    
-                    // معین سایر هزینه های کارکنان
-                    { id: 109, code: '712', name: 'سایر هزینه های کارکنان', level: 'subsidiary', parentId: 93 },
-                    
-                    // تفضیل سایر هزینه های کارکنان
-                    { id: 110, code: '7121', name: 'سفر و ماموریت', level: 'detail', parentId: 109 },
-                    { id: 111, code: '7122', name: 'ایاب و ذهاب', level: 'detail', parentId: 109 },
-                    { id: 112, code: '7123', name: 'سایر هزینه های کارکنان', level: 'detail', parentId: 109 },
-                    
-                    // کل هزینه های عملیاتی
-                    { id: 113, code: '72', name: 'هزینه های عملیاتی', level: 'class', parentId: 92 },
-                    
-                    // معین خرید خدمات
-                    { id: 114, code: '721', name: 'خرید خدمات', level: 'subsidiary', parentId: 113 },
-                    
-                    // معین برگشت از فروش خدمات
-                    { id: 115, code: '722', name: 'برگشت از فروش خدمات', level: 'subsidiary', parentId: 113 },
-                    
-                    // معین هزینه حمل کالا
-                    { id: 116, code: '723', name: 'هزینه حمل کالا', level: 'subsidiary', parentId: 113 },
-                    
-                    // معین تعمیر و نگهداری اموال و اثاثیه
-                    { id: 117, code: '724', name: 'تعمیر و نگهداری اموال و اثاثیه', level: 'subsidiary', parentId: 113 },
-                    
-                    // معین هزینه اجاره محل
-                    { id: 118, code: '725', name: 'هزینه اجاره محل', level: 'subsidiary', parentId: 113 },
-                    
-                    // معین هزینه های عمومی
-                    { id: 119, code: '726', name: 'هزینه های عمومی', level: 'subsidiary', parentId: 113 },
-                    
-                    // تفضیل هزینه های عمومی
-                    { id: 120, code: '7261', name: 'هزینه آب و برق و گاز و تلفن', level: 'detail', parentId: 119 },
-                    { id: 121, code: '7262', name: 'هزینه پذیرایی و آبدارخانه', level: 'detail', parentId: 119 },
-                    
-                    // معین هزینه ملزومات مصرفی
-                    { id: 122, code: '727', name: 'هزینه ملزومات مصرفی', level: 'subsidiary', parentId: 113 },
-                    
-                    // معین هزینه کسری و ضایعات کالا
-                    { id: 123, code: '728', name: 'هزینه کسری و ضایعات کالا', level: 'subsidiary', parentId: 113 },
-                    
-                    // معین بیمه دارایی های ثابت
-                    { id: 124, code: '729', name: 'بیمه دارایی های ثابت', level: 'subsidiary', parentId: 113 },
-                    
-                    // کل هزینه های استهلاک
-                    { id: 125, code: '73', name: 'هزینه های استهلاک', level: 'class', parentId: 92 },
-                    
-                    // معین هزینه استهلاک ساختمان
-                    { id: 126, code: '731', name: 'هزینه استهلاک ساختمان', level: 'subsidiary', parentId: 125 },
-                    
-                    // معین هزینه استهلاک وسائط نقلیه
-                    { id: 127, code: '732', name: 'هزینه استهلاک وسائط نقلیه', level: 'subsidiary', parentId: 125 },
-                    
-                    // معین هزینه استهلاک اثاثیه
-                    { id: 128, code: '733', name: 'هزینه استهلاک اثاثیه', level: 'subsidiary', parentId: 125 },
-                    
-                    // کل هزینه های بازاریابی و توزیع و فروش
-                    { id: 129, code: '74', name: 'هزینه های بازاریابی و توزیع و فروش', level: 'class', parentId: 92 },
-                    
-                    // معین هزینه آگهی و تبلیغات
-                    { id: 130, code: '741', name: 'هزینه آگهی و تبلیغات', level: 'subsidiary', parentId: 129 },
-                    
-                    // معین هزینه بازاریابی و پورسانت
-                    { id: 131, code: '742', name: 'هزینه بازاریابی و پورسانت', level: 'subsidiary', parentId: 129 },
-                    
-                    // معین سایر هزینه های توزیع و فروش
-                    { id: 132, code: '743', name: 'سایر هزینه های توزیع و فروش', level: 'subsidiary', parentId: 129 },
-                    
-                    // کل هزینه های غیر عملیاتی
-                    { id: 133, code: '75', name: 'هزینه های غیر عملیاتی', level: 'class', parentId: 92 },
-                    
-                    // معین هزینه های بانکی
-                    { id: 134, code: '751', name: 'هزینه های بانکی', level: 'subsidiary', parentId: 133 },
-                    
-                    // تفضیل هزینه های بانکی
-                    { id: 135, code: '7511', name: 'سود و کارمزد وامها', level: 'detail', parentId: 134 },
-                    { id: 136, code: '7512', name: 'کارمزد خدمات بانکی', level: 'detail', parentId: 134 },
-                    { id: 137, code: '7513', name: 'جرائم دیرکرد بانکی', level: 'detail', parentId: 134 },
-                    
-                    // معین هزینه تسعیر ارز
-                    { id: 138, code: '752', name: 'هزینه تسعیر ارز', level: 'subsidiary', parentId: 133 },
-                    
-                    // معین هزینه مطالبات سوخت شده
-                    { id: 139, code: '753', name: 'هزینه مطالبات سوخت شده', level: 'subsidiary', parentId: 133 },
-                    
-                    // گروه سایر حساب ها
-                    { id: 140, code: '8', name: 'سایر حساب ها', level: 'group', parentId: null },
-                    
-                    // معین حساب های انتظامی
-                    { id: 141, code: '81', name: 'حساب های انتظامی', level: 'subsidiary', parentId: 140 },
-                    
-                    // معین طرف حساب های انتظامی
-                    { id: 142, code: '82', name: 'طرف حساب های انتظامی', level: 'subsidiary', parentId: 140 },
-                    
-                    // معین حساب های کنترلی
-                    { id: 143, code: '83', name: 'حساب های کنترلی', level: 'subsidiary', parentId: 140 },
-                    
-                    // تفضیل حساب های کنترلی
-                    { id: 144, code: '831', name: 'کنترل کسری و اضافه کالا', level: 'detail', parentId: 143 },
-                    
-                    // معین حساب خلاصه سود و زیان
-                    { id: 145, code: '84', name: 'حساب خلاصه سود و زیان', level: 'subsidiary', parentId: 140 },
-                    
-                    // تفضیل حساب خلاصه سود و زیان
-                    { id: 146, code: '841', name: 'خلاصه سود و زیان', level: 'detail', parentId: 145 }
+                    // سطح ۴: تفضیل هزینه های عمومی
+                    { id: 36, code: '7211', name: 'هزینه آب و برق و گاز و تلفن', level: 'detail', parentId: 35 },
+                    { id: 37, code: '7212', name: 'هزینه پذیرایی و آبدارخانه', level: 'detail', parentId: 35 }
                 ];
                 
                 accounts = standardAccounts;
@@ -2852,50 +2979,50 @@
             
             let html = '';
             
-            // گروه‌ها (سطح اول)
+            // سطح ۱: گروه‌ها
             const groups = accounts.filter(account => account.level === 'group');
             
             groups.forEach(group => {
-                // کلاس‌های این گروه (سطح دوم)
+                // سطح ۲: کلاس‌های این گروه
                 const classes = accounts.filter(account => account.parentId === group.id);
                 
-                html += `<div class="tree-node">
+                html += `<div class="tree-node level-1">
                     <div class="tree-node-header" onclick="toggleTreeNode(this)">
                         <i class="fas fa-chevron-right tree-node-icon"></i>
                         <span class="account-code">${group.code}</span>
-                        <span class="account-name">${group.name}</span>
+                        <span class="account-name">${group.name} (سطح ۱)</span>
                     </div>
                     <div class="tree-node-content">`;
                 
                 classes.forEach(cls => {
-                    // معین‌های این کلاس (سطح سوم)
+                    // سطح ۳: معین‌های این کلاس
                     const subsidiaries = accounts.filter(account => account.parentId === cls.id);
                     
-                    html += `<div class="tree-node">
+                    html += `<div class="tree-node level-2">
                         <div class="tree-node-header" onclick="toggleTreeNode(this)">
                             <i class="fas fa-chevron-right tree-node-icon"></i>
                             <span class="account-code">${cls.code}</span>
-                            <span class="account-name">${cls.name}</span>
+                            <span class="account-name">${cls.name} (سطح ۲)</span>
                         </div>
                         <div class="tree-node-content">`;
                     
                     subsidiaries.forEach(subsidiary => {
-                        // تفضیل‌های این معین (سطح چهارم)
+                        // سطح ۴: تفضیل‌های این معین
                         const details = accounts.filter(account => account.parentId === subsidiary.id);
                         
-                        html += `<div class="tree-node">
+                        html += `<div class="tree-node level-3">
                             <div class="tree-node-header" onclick="toggleTreeNode(this)">
                                 <i class="fas fa-chevron-right tree-node-icon"></i>
                                 <span class="account-code">${subsidiary.code}</span>
-                                <span class="account-name">${subsidiary.name}</span>
+                                <span class="account-name">${subsidiary.name} (سطح ۳)</span>
                             </div>
                             <div class="tree-node-content">`;
                         
                         details.forEach(detail => {
-                            html += `<div class="tree-node">
+                            html += `<div class="tree-node level-4">
                                 <div class="tree-node-header">
                                     <span class="account-code">${detail.code}</span>
-                                    <span class="account-name">${detail.name}</span>
+                                    <span class="account-name">${detail.name} (سطح ۴)</span>
                                 </div>
                             </div>`;
                         });
