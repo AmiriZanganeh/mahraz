@@ -14,7 +14,7 @@
             --success: #28a745; --danger: #dc3545; --warning: #ffc107; --info: #17a2b8;
             --sidebar-width: 250px; --border-radius: 8px; --shadow: 0 2px 8px rgba(0,0,0,0.1);
             --transition: all 0.2s ease;
-            --level1: #000000; --level2: #4a76c4; --level3: #2ecc71; --level4: #e74c3c;
+            --level1: #000000; --level2: #0000FF; --level3: #00CC66; --level4: #FF0000;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
         body { background-color: #f5f5f5; color: var(--dark); line-height: 1.6; min-height: 100vh; }
@@ -355,25 +355,25 @@
                     </div>
                 </div>
                 <div class="sidebar-nav">
-                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i><span class="nav-item-text">داشبورد</span></div>
+                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-info-circle"></i><span class="nav-item-text">اطلاعات</span></div>
                     <div class="nav-item" data-tab="parties"><i class="fas fa-users"></i><span class="nav-item-text">اشخاص</span></div>
                     <div class="nav-item" data-tab="products"><i class="fas fa-cubes"></i><span class="nav-item-text">کالا/خدمات</span></div>
                     <div class="nav-item" data-tab="accounts"><i class="fas fa-sitemap"></i><span class="nav-item-text">جداول حساب</span></div>
                     <div class="nav-item" data-tab="invoice"><i class="fas fa-receipt"></i><span class="nav-item-text">فاکتور</span></div>
                     <div class="nav-item" data-tab="register"><i class="fas fa-file-signature"></i><span class="nav-item-text">ثبت سند</span></div>
-                    <div class="nav-item" data-tab="documents"><i class="fas fa-folder-open"></i><span class="nav-item-text">اسناد</span></div>
+                    <div class="nav-item" data-tab="documents"><i class="fas fa-file-invoice"></i><span class="nav-item-text">اسناد</span></div>
                 </div>
             </div>
             
             <!-- محتوای اصلی -->
             <div class="main-content">
                 <div class="content-header">
-                    <h1 class="page-title" id="page-title"><i class="fas fa-tachometer-alt"></i> داشبورد مدیریتی</h1>
-                    <p class="page-description" id="page-description">نمایش کلی وضعیت مالی و مدیریت سیستم</p>
+                    <h1 class="page-title" id="page-title"><i class="fas fa-info-circle"></i> اطلاعات سیستم</h1>
+                    <p class="page-description" id="page-description">تنظیمات پایه و اطلاعات سیستم حسابداری</p>
                 </div>
                 
                 <div class="content-body">
-                    <!-- تب داشبورد -->
+                    <!-- تب اطلاعات -->
                     <div id="dashboard-tab" class="tab-content">
                         <div class="card">
                             <div class="card-header">
@@ -805,7 +805,7 @@
                     <div id="documents-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-folder-open"></i> مدیریت اسناد و فاکتورها</h2>
+                                <h2 class="card-title"><i class="fas fa-file-invoice"></i> مدیریت اسناد و فاکتورها</h2>
                             </div>
                             
                             <div class="documents-tabs">
@@ -935,7 +935,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 19; // افزایش نسخه برای تغییرات جدید
+        const DB_VERSION = 20; // افزایش نسخه برای تغییرات جدید
         
         // نام جداول
         const STORE_NAMES = {
@@ -1553,7 +1553,7 @@
         // تابع به‌روزرسانی عنوان صفحه
         function updatePageTitle(tabId) {
             const titles = {
-                'dashboard': { title: 'داشبورد مدیریتی', description: 'نمایش کلی وضعیت مالی و مدیریت سیستم' },
+                'dashboard': { title: 'اطلاعات سیستم', description: 'تنظیمات پایه و اطلاعات سیستم حسابداری' },
                 'parties': { title: 'مدیریت اشخاص', description: 'در این بخش می‌توانید اشخاص و مشتریان خود را مدیریت کنید' },
                 'products': { title: 'مدیریت کالا/خدمات', description: 'در این بخش می‌توانید کالاها و خدمات خود را مدیریت کنید' },
                 'accounts': { title: 'جداول حساب', description: 'در این بخش می‌توانید ساختار حساب‌های مالی خود را مشاهده کنید' },
@@ -1564,8 +1564,8 @@
             
             const titleInfo = titles[tabId];
             const icons = {
-                'dashboard': 'tachometer-alt', 'parties': 'users', 'products': 'cubes', 
-                'accounts': 'sitemap', 'invoice': 'receipt', 'register': 'file-signature', 'documents': 'folder-open'
+                'dashboard': 'info-circle', 'parties': 'users', 'products': 'cubes', 
+                'accounts': 'sitemap', 'invoice': 'receipt', 'register': 'file-signature', 'documents': 'file-invoice'
             };
             
             pageTitle.innerHTML = `<i class="fas fa-${icons[tabId]}"></i> ${titleInfo.title}`;
@@ -3167,105 +3167,348 @@
             showNotification('دوره مالی با موفقیت ذخیره شد!', 'success');
         }
         
-        // تابع ایجاد ساختار استاندارد حسابداری ایران با سطح‌بندی ۱ تا ۴
+        // تابع ایجاد ساختار استاندارد حسابداری ایران با ساختار جدید
         function createStandardAccountingStructure() {
             return new Promise((resolve, reject) => {
-                // ساختار استاندارد حسابداری ایران با سطح‌بندی ۱ تا ۴
+                // ساختار استاندارد حسابداری ایران با سطح‌بندی ۱ تا ۴ مطابق درخواست
                 const standardAccounts = [
-                    // سطح ۱: گروه دارایی‌ها
+                    // سطح ۱: دارایی‌ها
                     { id: 1, code: '1', name: 'دارایی‌ها', level: '1', parentId: null },
                     
-                    // سطح ۲: زیرگروه دارایی‌های جاری
+                    // سطح ۲: دارایی‌های جاری
                     { id: 2, code: '11', name: 'دارایی‌های جاری', level: '2', parentId: 1 },
                     
-                    // سطح ۳: حساب سطح ۳ موجودی نقد و بانک
+                    // سطح ۳: موجودی نقد و بانک
                     { id: 3, code: '111', name: 'موجودی نقد و بانک', level: '3', parentId: 2 },
-                    
-                    // سطح ۴: حساب سطح ۴ موجودی نقد و بانک
+                    // سطح ۴: موجودی نقد و بانک
                     { id: 4, code: '1111', name: 'تنخواه گردان', level: '4', parentId: 3 },
                     { id: 5, code: '1112', name: 'صندوق', level: '4', parentId: 3 },
                     { id: 6, code: '1113', name: 'بانک', level: '4', parentId: 3 },
+                    { id: 7, code: '1114', name: 'وجوه در راه', level: '4', parentId: 3 },
                     
-                    // سطح ۳: حساب سطح ۳ حساب های دریافتنی
-                    { id: 7, code: '112', name: 'حساب های دریافتنی', level: '3', parentId: 2 },
+                    // سطح ۳: سرمایه گذاری های کوتاه مدت
+                    { id: 8, code: '112', name: 'سرمایه گذاری های کوتاه مدت', level: '3', parentId: 2 },
+                    // سطح ۴: سرمایه گذاری های کوتاه مدت
+                    { id: 9, code: '1121', name: 'سرمایه گذاری در بورس', level: '4', parentId: 8 },
                     
-                    // سطح ۴: حساب سطح ۴ حساب های دریافتنی
-                    { id: 8, code: '1121', name: 'حساب های دریافتنی', level: '4', parentId: 7 },
-                    { id: 9, code: '1122', name: 'اسناد دریافتنی', level: '4', parentId: 7 },
+                    // سطح ۳: حساب های دریافتنی
+                    { id: 10, code: '113', name: 'حساب های دریافتنی', level: '3', parentId: 2 },
+                    // سطح ۴: حساب های دریافتنی
+                    { id: 11, code: '1131', name: 'حساب های دریافتنی', level: '4', parentId: 10 },
+                    { id: 12, code: '1132', name: 'ذخیره مطالبات مشکوک الوصول', level: '4', parentId: 10 },
+                    { id: 13, code: '1133', name: 'اسناد دریافتنی', level: '4', parentId: 10 },
+                    { id: 14, code: '1134', name: 'اسناد در جریان وصول', level: '4', parentId: 10 },
+                    { id: 15, code: '1135', name: 'سود تحقق نیافته فروش اقساطی', level: '4', parentId: 10 },
                     
-                    // سطح ۲: زیرگروه دارایی‌های غیر جاری
-                    { id: 10, code: '12', name: 'دارایی‌های غیر جاری', level: '2', parentId: 1 },
+                    // سطح ۳: سایر حساب های دریافتنی
+                    { id: 16, code: '114', name: 'سایر حساب های دریافتنی', level: '3', parentId: 2 },
+                    // سطح ۴: سایر حساب های دریافتنی
+                    { id: 17, code: '1141', name: 'وام کارکنان', level: '4', parentId: 16 },
+                    { id: 18, code: '1142', name: 'سپرده شرکت در مناقصه و مزایده', level: '4', parentId: 16 },
+                    { id: 19, code: '1143', name: 'ضمانت نامه بانکی', level: '4', parentId: 16 },
+                    { id: 20, code: '1144', name: 'مالیات بر ارزش افزوده خرید', level: '4', parentId: 16 },
+                    { id: 21, code: '1145', name: 'سایر حساب های دریافتنی', level: '4', parentId: 16 },
                     
-                    // سطح ۳: حساب سطح ۳ دارایی های ثابت
-                    { id: 11, code: '121', name: 'دارایی های ثابت', level: '3', parentId: 10 },
+                    // سطح ۳: پیش پرداخت ها
+                    { id: 22, code: '115', name: 'پیش پرداخت ها', level: '3', parentId: 2 },
                     
-                    // سطح ۴: حساب سطح ۴ دارایی های ثابت
-                    { id: 12, code: '1211', name: 'زمین', level: '4', parentId: 11 },
-                    { id: 13, code: '1212', name: 'ساختمان', level: '4', parentId: 11 },
-                    { id: 14, code: '1213', name: 'وسائط نقلیه', level: '4', parentId: 11 },
+                    // سطح ۳: موجودی کالا
+                    { id: 23, code: '116', name: 'موجودی کالا', level: '3', parentId: 2 },
                     
-                    // سطح ۱: گروه بدهی‌ها
-                    { id: 15, code: '2', name: 'بدهی‌ها', level: '1', parentId: null },
+                    // سطح ۳: موجودی کالای در جریان ساخت
+                    { id: 24, code: '117', name: 'موجودی کالای در جریان ساخت', level: '3', parentId: 2 },
                     
-                    // سطح ۲: زیرگروه بدهی‌های جاری
-                    { id: 16, code: '21', name: 'بدهی‌های جاری', level: '2', parentId: 15 },
+                    // سطح ۳: ملزومات
+                    { id: 25, code: '118', name: 'ملزومات', level: '3', parentId: 2 },
                     
-                    // سطح ۳: حساب سطح ۳ حساب ها و اسناد پرداختنی
-                    { id: 17, code: '211', name: 'حساب ها و اسناد پرداختنی', level: '3', parentId: 16 },
+                    // سطح ۲: دارایی‌های غیرجاری
+                    { id: 26, code: '12', name: 'دارایی‌های غیرجاری', level: '2', parentId: 1 },
                     
-                    // سطح ۴: حساب سطح ۴ حساب ها و اسناد پرداختنی
-                    { id: 18, code: '2111', name: 'حساب های پرداختنی', level: '4', parentId: 17 },
-                    { id: 19, code: '2112', name: 'اسناد پرداختنی', level: '4', parentId: 17 },
+                    // سطح ۳: دارایی های ثابت
+                    { id: 27, code: '121', name: 'دارایی های ثابت', level: '3', parentId: 26 },
+                    // سطح ۴: دارایی های ثابت
+                    { id: 28, code: '1211', name: 'زمین', level: '4', parentId: 27 },
+                    { id: 29, code: '1212', name: 'ساختمان', level: '4', parentId: 27 },
+                    { id: 30, code: '1213', name: 'وسائط نقلیه', level: '4', parentId: 27 },
+                    { id: 31, code: '1214', name: 'اثاثیه اداری', level: '4', parentId: 27 },
                     
-                    // سطح ۱: گروه حقوق صاحبان سهام
-                    { id: 20, code: '3', name: 'حقوق صاحبان سهام', level: '1', parentId: null },
+                    // سطح ۳: استهلاک انباشته
+                    { id: 32, code: '122', name: 'استهلاک انباشته', level: '3', parentId: 26 },
+                    // سطح ۴: استهلاک انباشته
+                    { id: 33, code: '1221', name: 'استهلاک انباشته ساختمان', level: '4', parentId: 32 },
+                    { id: 34, code: '1222', name: 'استهلاک انباشته وسائط نقلیه', level: '4', parentId: 32 },
+                    { id: 35, code: '1223', name: 'استهلاک انباشته اثاثیه اداری', level: '4', parentId: 32 },
                     
-                    // سطح ۳: حساب سطح ۳ سرمایه اولیه
-                    { id: 21, code: '31', name: 'سرمایه اولیه', level: '3', parentId: 20 },
+                    // سطح ۳: سپرده های بلندمدت
+                    { id: 36, code: '123', name: 'سپرده های بلندمدت', level: '3', parentId: 26 },
                     
-                    // سطح ۱: گروه بهای تمام شده کالای فروخته شده
-                    { id: 22, code: '4', name: 'بهای تمام شده کالای فروخته شده', level: '1', parentId: null },
+                    // سطح ۳: سایر دارائی ها
+                    { id: 37, code: '124', name: 'سایر دارائی ها', level: '3', parentId: 26 },
+                    // سطح ۴: سایر دارائی ها
+                    { id: 38, code: '1241', name: 'حق الامتیاز ها', level: '4', parentId: 37 },
+                    { id: 39, code: '1242', name: 'نرم افزار ها', level: '4', parentId: 37 },
+                    { id: 40, code: '1243', name: 'سایر دارایی های نامشهود', level: '4', parentId: 37 },
                     
-                    // سطح ۳: حساب سطح ۳ بهای تمام شده کالای فروخته شده
-                    { id: 23, code: '41', name: 'بهای تمام شده کالای فروخته شده', level: '3', parentId: 22 },
+                    // سطح ۱: بدهی‌ها
+                    { id: 41, code: '2', name: 'بدهی‌ها', level: '1', parentId: null },
                     
-                    // سطح ۱: گروه فروش
-                    { id: 24, code: '5', name: 'فروش', level: '1', parentId: null },
+                    // سطح ۲: بدهی‌های جاری
+                    { id: 42, code: '21', name: 'بدهی‌های جاری', level: '2', parentId: 41 },
                     
-                    // سطح ۳: حساب سطح ۳ فروش کالا
-                    { id: 25, code: '51', name: 'فروش کالا', level: '3', parentId: 24 },
+                    // سطح ۳: حساب ها و اسناد پرداختنی
+                    { id: 43, code: '211', name: 'حساب ها و اسناد پرداختنی', level: '3', parentId: 42 },
+                    // سطح ۴: حساب ها و اسناد پرداختنی
+                    { id: 44, code: '2111', name: 'حساب های پرداختنی', level: '4', parentId: 43 },
+                    { id: 45, code: '2112', name: 'اسناد پرداختنی', level: '4', parentId: 43 },
                     
-                    // سطح ۱: گروه درآمد
-                    { id: 26, code: '6', name: 'درآمد', level: '1', parentId: null },
+                    // سطح ۳: ذخیره مالیات بر درآمد پرداختنی
+                    { id: 46, code: '212', name: 'ذخیره مالیات بر درآمد پرداختنی', level: '3', parentId: 42 },
                     
-                    // سطح ۲: زیرگروه درآمد های عملیاتی
-                    { id: 27, code: '61', name: 'درآمد های عملیاتی', level: '2', parentId: 26 },
+                    // سطح ۳: مالیات بر درآمد پرداختنی
+                    { id: 47, code: '213', name: 'مالیات بر درآمد پرداختنی', level: '3', parentId: 42 },
                     
-                    // سطح ۳: حساب سطح ۳ درآمد حاصل از فروش خدمات
-                    { id: 28, code: '611', name: 'درآمد حاصل از فروش خدمات', level: '3', parentId: 27 },
+                    // سطح ۳: سایر حساب های پرداختنی
+                    { id: 48, code: '214', name: 'سایر حساب های پرداختنی', level: '3', parentId: 42 },
+                    // سطح ۴: سایر حساب های پرداختنی
+                    { id: 49, code: '2141', name: 'مالیات حقوق و دستمزد پرداختنی', level: '4', parentId: 48 },
+                    { id: 50, code: '2142', name: 'حق بیمه پرداختنی', level: '4', parentId: 48 },
+                    { id: 51, code: '2143', name: 'حقوق و دستمزد پرداختنی', level: '4', parentId: 48 },
+                    { id: 52, code: '2144', name: 'عیدی و پاداش پرداختنی', level: '4', parentId: 48 },
+                    { id: 53, code: '2145', name: 'سایر هزینه های پرداختنی', level: '4', parentId: 48 },
+                    { id: 54, code: '2146', name: 'مالیات بر ارزش افزوده فروش', level: '4', parentId: 48 },
+                    { id: 55, code: '2147', name: 'سربار تولید پرداختنی', level: '4', parentId: 48 },
                     
-                    // سطح ۱: گروه هزینه ها
-                    { id: 29, code: '7', name: 'هزینه ها', level: '1', parentId: null },
+                    // سطح ۳: پیش دریافت ها
+                    { id: 56, code: '215', name: 'پیش دریافت ها', level: '3', parentId: 42 },
+                    // سطح ۴: پیش دریافت ها
+                    { id: 57, code: '2151', name: 'پیش دریافت فروش', level: '4', parentId: 56 },
+                    { id: 58, code: '2152', name: 'سایر پیش دریافت ها', level: '4', parentId: 56 },
                     
-                    // سطح ۲: زیرگروه هزینه های پرسنلی
-                    { id: 30, code: '71', name: 'هزینه های پرسنلی', level: '2', parentId: 29 },
+                    // سطح ۲: بدهی‌های غیرجاری
+                    { id: 59, code: '22', name: 'بدهی‌های غیرجاری', level: '2', parentId: 41 },
                     
-                    // سطح ۳: حساب سطح ۳ هزینه حقوق و دستمزد
-                    { id: 31, code: '711', name: 'هزینه حقوق و دستمزد', level: '3', parentId: 30 },
+                    // سطح ۳: حساب ها و اسناد پرداختنی بلندمدت
+                    { id: 60, code: '221', name: 'حساب ها و اسناد پرداختنی بلندمدت', level: '3', parentId: 59 },
+                    // سطح ۴: حساب ها و اسناد پرداختنی بلندمدت
+                    { id: 61, code: '2211', name: 'حساب های پرداختنی بلندمدت', level: '4', parentId: 60 },
+                    { id: 62, code: '2212', name: 'اسناد پرداختنی بلند مدت', level: '4', parentId: 60 },
                     
-                    // سطح ۴: حساب سطح ۴ هزینه حقوق و دستمزد
-                    { id: 32, code: '7111', name: 'حقوق پایه', level: '4', parentId: 31 },
-                    { id: 33, code: '7112', name: 'اضافه کار', level: '4', parentId: 31 },
+                    // سطح ۳: وام پرداختنی
+                    { id: 63, code: '222', name: 'وام پرداختنی', level: '3', parentId: 59 },
                     
-                    // سطح ۲: زیرگروه هزینه های عملیاتی
-                    { id: 34, code: '72', name: 'هزینه های عملیاتی', level: '2', parentId: 29 },
+                    // سطح ۳: ذخیره مزایای پایان خدمت کارکنان
+                    { id: 64, code: '223', name: 'ذخیره مزایای پایان خدمت کارکنان', level: '3', parentId: 59 },
                     
-                    // سطح ۳: حساب سطح ۳ هزینه های عمومی
-                    { id: 35, code: '721', name: 'هزینه های عمومی', level: '3', parentId: 34 },
+                    // سطح ۱: حقوق صاحبان سهام
+                    { id: 65, code: '3', name: 'حقوق صاحبان سهام', level: '1', parentId: null },
                     
-                    // سطح ۴: حساب سطح ۴ هزینه های عمومی
-                    { id: 36, code: '7211', name: 'هزینه آب و برق و گاز و تلفن', level: '4', parentId: 35 },
-                    { id: 37, code: '7212', name: 'هزینه پذیرایی و آبدارخانه', level: '4', parentId: 35 }
+                    // سطح ۲: حقوق صاحبان سهام
+                    { id: 66, code: '31', name: 'حقوق صاحبان سهام', level: '2', parentId: 65 },
+                    
+                    // سطح ۳: سرمایه اولیه
+                    { id: 67, code: '311', name: 'سرمایه اولیه', level: '3', parentId: 66 },
+                    
+                    // سطح ۳: افزایش یا کاهش سرمایه
+                    { id: 68, code: '312', name: 'افزایش یا کاهش سرمایه', level: '3', parentId: 66 },
+                    
+                    // سطح ۳: اندوخته قانونی
+                    { id: 69, code: '313', name: 'اندوخته قانونی', level: '3', parentId: 66 },
+                    
+                    // سطح ۳: برداشت ها
+                    { id: 70, code: '314', name: 'برداشت ها', level: '3', parentId: 66 },
+                    
+                    // سطح ۳: سهم سود و زیان
+                    { id: 71, code: '315', name: 'سهم سود و زیان', level: '3', parentId: 66 },
+                    
+                    // سطح ۳: سود یا زیان انباشته(سنواتی)
+                    { id: 72, code: '316', name: 'سود یا زیان انباشته(سنواتی)', level: '3', parentId: 66 },
+                    
+                    // سطح ۱: بهای تمام شده کالای فروخته شده
+                    { id: 73, code: '4', name: 'بهای تمام شده کالای فروخته شده', level: '1', parentId: null },
+                    
+                    // سطح ۲: بهای تمام شده کالای فروخته شده
+                    { id: 74, code: '41', name: 'بهای تمام شده کالای فروخته شده', level: '2', parentId: 73 },
+                    
+                    // سطح ۲: برگشت از خرید
+                    { id: 75, code: '42', name: 'برگشت از خرید', level: '2', parentId: 73 },
+                    
+                    // سطح ۲: تخفیفات نقدی خرید
+                    { id: 76, code: '43', name: 'تخفیفات نقدی خرید', level: '2', parentId: 73 },
+                    
+                    // سطح ۱: فروش
+                    { id: 77, code: '5', name: 'فروش', level: '1', parentId: null },
+                    
+                    // سطح ۲: فروش کالا
+                    { id: 78, code: '51', name: 'فروش کالا', level: '2', parentId: 77 },
+                    
+                    // سطح ۲: برگشت از فروش
+                    { id: 79, code: '52', name: 'برگشت از فروش', level: '2', parentId: 77 },
+                    
+                    // سطح ۲: تخفیفات نقدی فروش
+                    { id: 80, code: '53', name: 'تخفیفات نقدی فروش', level: '2', parentId: 77 },
+                    
+                    // سطح ۱: درآمد
+                    { id: 81, code: '6', name: 'درآمد', level: '1', parentId: null },
+                    
+                    // سطح ۲: درآمد های عملیاتی
+                    { id: 82, code: '61', name: 'درآمد های عملیاتی', level: '2', parentId: 81 },
+                    
+                    // سطح ۳: درآمد حاصل از فروش خدمات
+                    { id: 83, code: '611', name: 'درآمد حاصل از فروش خدمات', level: '3', parentId: 82 },
+                    
+                    // سطح ۳: برگشت از خرید خدمات
+                    { id: 84, code: '612', name: 'برگشت از خرید خدمات', level: '3', parentId: 82 },
+                    
+                    // سطح ۳: درآمد اضافه کالا
+                    { id: 85, code: '613', name: 'درآمد اضافه کالا', level: '3', parentId: 82 },
+                    
+                    // سطح ۳: درآمد حمل کالا
+                    { id: 86, code: '614', name: 'درآمد حمل کالا', level: '3', parentId: 82 },
+                    
+                    // سطح ۲: درآمد های غیر عملیاتی
+                    { id: 87, code: '62', name: 'درآمد های غیر عملیاتی', level: '2', parentId: 81 },
+                    
+                    // سطح ۳: درآمد حاصل از سرمایه گذاری
+                    { id: 88, code: '621', name: 'درآمد حاصل از سرمایه گذاری', level: '3', parentId: 87 },
+                    
+                    // سطح ۳: درآمد سود سپرده ها
+                    { id: 89, code: '622', name: 'درآمد سود سپرده ها', level: '3', parentId: 87 },
+                    
+                    // سطح ۳: سایر درآمد ها
+                    { id: 90, code: '623', name: 'سایر درآمد ها', level: '3', parentId: 87 },
+                    
+                    // سطح ۳: درآمد تسعیر ارز
+                    { id: 91, code: '624', name: 'درآمد تسعیر ارز', level: '3', parentId: 87 },
+                    
+                    // سطح ۳: سود فروش اقساطی
+                    { id: 92, code: '625', name: 'سود فروش اقساطی', level: '3', parentId: 87 },
+                    
+                    // سطح ۱: هزینه ها
+                    { id: 93, code: '7', name: 'هزینه ها', level: '1', parentId: null },
+                    
+                    // سطح ۲: هزینه های پرسنلی
+                    { id: 94, code: '71', name: 'هزینه های پرسنلی', level: '2', parentId: 93 },
+                    
+                    // سطح ۳: هزینه حقوق و دستمزد
+                    { id: 95, code: '711', name: 'هزینه حقوق و دستمزد', level: '3', parentId: 94 },
+                    // سطح ۴: هزینه حقوق و دستمزد
+                    { id: 96, code: '7111', name: 'حقوق پایه', level: '4', parentId: 95 },
+                    { id: 97, code: '7112', name: 'اضافه کار', level: '4', parentId: 95 },
+                    { id: 98, code: '7113', name: 'حق شیفت و شب کاری', level: '4', parentId: 95 },
+                    { id: 99, code: '7114', name: 'حق نوبت کاری', level: '4', parentId: 95 },
+                    { id: 100, code: '7115', name: 'حق ماموریت', level: '4', parentId: 95 },
+                    { id: 101, code: '7116', name: 'فوق العاده مسکن و خواروبار', level: '4', parentId: 95 },
+                    { id: 102, code: '7117', name: 'حق اولاد', level: '4', parentId: 95 },
+                    { id: 103, code: '7118', name: 'عیدی و پاداش', level: '4', parentId: 95 },
+                    { id: 104, code: '7119', name: 'بازخرید سنوات خدمت کارکنان', level: '4', parentId: 95 },
+                    { id: 105, code: '7120', name: 'بازخرید مرخصی', level: '4', parentId: 95 },
+                    { id: 106, code: '7121', name: 'بیمه سهم کارفرما', level: '4', parentId: 95 },
+                    { id: 107, code: '7122', name: 'بیمه بیکاری', level: '4', parentId: 95 },
+                    { id: 108, code: '7123', name: 'حقوق مزایای متفرقه', level: '4', parentId: 95 },
+                    
+                    // سطح ۳: سایر هزینه های کارکنان
+                    { id: 109, code: '712', name: 'سایر هزینه های کارکنان', level: '3', parentId: 94 },
+                    // سطح ۴: سایر هزینه های کارکنان
+                    { id: 110, code: '7124', name: 'سفر و ماموریت', level: '4', parentId: 109 },
+                    { id: 111, code: '7125', name: 'ایاب و ذهاب', level: '4', parentId: 109 },
+                    { id: 112, code: '7126', name: 'سایر هزینه های کارکنان', level: '4', parentId: 109 },
+                    
+                    // سطح ۲: هزینه های عملیاتی
+                    { id: 113, code: '72', name: 'هزینه های عملیاتی', level: '2', parentId: 93 },
+                    
+                    // سطح ۳: خرید خدمات
+                    { id: 114, code: '721', name: 'خرید خدمات', level: '3', parentId: 113 },
+                    
+                    // سطح ۳: برگشت از فروش خدمات
+                    { id: 115, code: '722', name: 'برگشت از فروش خدمات', level: '3', parentId: 113 },
+                    
+                    // سطح ۳: هزینه حمل کالا
+                    { id: 116, code: '723', name: 'هزینه حمل کالا', level: '3', parentId: 113 },
+                    
+                    // سطح ۳: تعمیر و نگهداری اموال و اثاثیه
+                    { id: 117, code: '724', name: 'تعمیر و نگهداری اموال و اثاثیه', level: '3', parentId: 113 },
+                    
+                    // سطح ۳: هزینه اجاره محل
+                    { id: 118, code: '725', name: 'هزینه اجاره محل', level: '3', parentId: 113 },
+                    
+                    // سطح ۳: هزینه های عمومی
+                    { id: 119, code: '726', name: 'هزینه های عمومی', level: '3', parentId: 113 },
+                    // سطح ۴: هزینه های عمومی
+                    { id: 120, code: '7261', name: 'هزینه آب و برق و گاز و تلفن', level: '4', parentId: 119 },
+                    { id: 121, code: '7262', name: 'هزینه پذیرایی و آبدارخانه', level: '4', parentId: 119 },
+                    
+                    // سطح ۳: هزینه ملزومات مصرفی
+                    { id: 122, code: '727', name: 'هزینه ملزومات مصرفی', level: '3', parentId: 113 },
+                    
+                    // سطح ۳: هزینه کسری و ضایعات کالا
+                    { id: 123, code: '728', name: 'هزینه کسری و ضایعات کالا', level: '3', parentId: 113 },
+                    
+                    // سطح ۳: بیمه دارایی های ثابت
+                    { id: 124, code: '729', name: 'بیمه دارایی های ثابت', level: '3', parentId: 113 },
+                    
+                    // سطح ۲: هزینه های استهلاک
+                    { id: 125, code: '73', name: 'هزینه های استهلاک', level: '2', parentId: 93 },
+                    
+                    // سطح ۳: هزینه استهلاک ساختمان
+                    { id: 126, code: '731', name: 'هزینه استهلاک ساختمان', level: '3', parentId: 125 },
+                    
+                    // سطح ۳: هزینه استهلاک وسائط نقلیه
+                    { id: 127, code: '732', name: 'هزینه استهلاک وسائط نقلیه', level: '3', parentId: 125 },
+                    
+                    // سطح ۳: هزینه استهلاک اثاثیه
+                    { id: 128, code: '733', name: 'هزینه استهلاک اثاثیه', level: '3', parentId: 125 },
+                    
+                    // سطح ۲: هزینه های بازاریابی و توزیع و فروش
+                    { id: 129, code: '74', name: 'هزینه های بازاریابی و توزیع و فروش', level: '2', parentId: 93 },
+                    
+                    // سطح ۳: هزینه آگهی و تبلیغات
+                    { id: 130, code: '741', name: 'هزینه آگهی و تبلیغات', level: '3', parentId: 129 },
+                    
+                    // سطح ۳: هزینه بازاریابی و پورسانت
+                    { id: 131, code: '742', name: 'هزینه بازاریابی و پورسانت', level: '3', parentId: 129 },
+                    
+                    // سطح ۳: سایر هزینه های توزیع و فروش
+                    { id: 132, code: '743', name: 'سایر هزینه های توزیع و فروش', level: '3', parentId: 129 },
+                    
+                    // سطح ۲: هزینه های غیر عملیاتی
+                    { id: 133, code: '75', name: 'هزینه های غیر عملیاتی', level: '2', parentId: 93 },
+                    
+                    // سطح ۳: هزینه های بانکی
+                    { id: 134, code: '751', name: 'هزینه های بانکی', level: '3', parentId: 133 },
+                    // سطح ۴: هزینه های بانکی
+                    { id: 135, code: '7511', name: 'سود و کارمزد وامها', level: '4', parentId: 134 },
+                    { id: 136, code: '7512', name: 'کارمزد خدمات بانکی', level: '4', parentId: 134 },
+                    { id: 137, code: '7513', name: 'جرائم دیرکرد بانکی', level: '4', parentId: 134 },
+                    
+                    // سطح ۳: هزینه تسعیر ارز
+                    { id: 138, code: '752', name: 'هزینه تسعیر ارز', level: '3', parentId: 133 },
+                    
+                    // سطح ۳: هزینه مطالبات سوخت شده
+                    { id: 139, code: '753', name: 'هزینه مطالبات سوخت شده', level: '3', parentId: 133 },
+                    
+                    // سطح ۱: سایر حساب ها
+                    { id: 140, code: '8', name: 'سایر حساب ها', level: '1', parentId: null },
+                    
+                    // سطح ۲: حساب های انتظامی
+                    { id: 141, code: '81', name: 'حساب های انتظامی', level: '2', parentId: 140 },
+                    
+                    // سطح ۳: حساب های انتظامی
+                    { id: 142, code: '811', name: 'حساب های انتظامی', level: '3', parentId: 141 },
+                    
+                    // سطح ۳: طرف حساب های انتظامی
+                    { id: 143, code: '812', name: 'طرف حساب های انتظامی', level: '3', parentId: 141 },
+                    
+                    // سطح ۲: حساب های کنترلی
+                    { id: 144, code: '82', name: 'حساب های کنترلی', level: '2', parentId: 140 },
+                    
+                    // سطح ۳: کنترل کسری و اضافه کالا
+                    { id: 145, code: '821', name: 'کنترل کسری و اضافه کالا', level: '3', parentId: 144 },
+                    
+                    // سطح ۲: حساب خلاصه سود و زیان
+                    { id: 146, code: '83', name: 'حساب خلاصه سود و زیان', level: '2', parentId: 140 },
+                    
+                    // سطح ۳: خلاصه سود و زیان
+                    { id: 147, code: '831', name: 'خلاصه سود و زیان', level: '3', parentId: 146 }
                 ];
                 
                 accounts = standardAccounts;
@@ -3304,7 +3547,7 @@
                     <div class="tree-node-header" onclick="toggleTreeNode(this)">
                         <i class="fas fa-chevron-right tree-node-icon"></i>
                         <span class="account-code">${level1.code}</span>
-                        <span class="account-name">${level1.name} (سطح ۱)</span>
+                        <span class="account-name">${level1.name}</span>
                     </div>
                     <div class="tree-node-content">`;
                 
@@ -3316,7 +3559,7 @@
                         <div class="tree-node-header" onclick="toggleTreeNode(this)">
                             <i class="fas fa-chevron-right tree-node-icon"></i>
                             <span class="account-code">${level2.code}</span>
-                            <span class="account-name">${level2.name} (سطح ۲)</span>
+                            <span class="account-name">${level2.name}</span>
                         </div>
                         <div class="tree-node-content">`;
                     
@@ -3328,7 +3571,7 @@
                             <div class="tree-node-header" onclick="toggleTreeNode(this)">
                                 <i class="fas fa-chevron-right tree-node-icon"></i>
                                 <span class="account-code">${level3.code}</span>
-                                <span class="account-name">${level3.name} (سطح ۳)</span>
+                                <span class="account-name">${level3.name}</span>
                             </div>
                             <div class="tree-node-content">`;
                         
@@ -3336,7 +3579,7 @@
                             html += `<div class="tree-node level-4">
                                 <div class="tree-node-header">
                                     <span class="account-code">${level4.code}</span>
-                                    <span class="account-name">${level4.name} (سطح ۴)</span>
+                                    <span class="account-name">${level4.name}</span>
                                 </div>
                             </div>`;
                         });
