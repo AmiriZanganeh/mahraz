@@ -138,6 +138,7 @@
             .backup-actions .btn { width: 100%; }
             .form-type-selector { flex-direction: column; }
             .form-grid-row { grid-template-columns: 1fr !important; }
+            .three-fields-row { grid-template-columns: 1fr !important; }
         }
 
         /* نمایش متن در حالت بزرگتر */
@@ -172,6 +173,10 @@
         .type-btn:hover:not(.active) { background: rgba(44, 90, 160, 0.1); border-color: var(--primary); }
         .form-grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         .form-grid-row .form-group { margin-bottom: 0; }
+        
+        /* استایل‌های جدید برای سه فیلد کنار هم */
+        .three-fields-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .three-fields-row .form-group { margin-bottom: 0; }
         
         /* استایل‌های جدید برای چک‌باکس */
         .checkbox-container { display: flex; align-items: center; gap: 8px; cursor: pointer; }
@@ -213,7 +218,7 @@
         .account-code { font-weight: 600; min-width: 60px; }
         .account-name { flex: 1; }
         
-        /* استایل‌های جدید برای سطح‌بندی کدینگ */
+        /* استایل‌های جدید برای سطح‌بندی کدینگ - با رنگ‌های جدید */
         .level-1 .account-code, .level-1 .account-name { color: var(--level1); font-weight: 800; }
         .level-2 .account-code, .level-2 .account-name { color: var(--level2); font-weight: 700; }
         .level-3 .account-code, .level-3 .account-name { color: var(--level3); font-weight: 600; }
@@ -350,20 +355,20 @@
                     </div>
                 </div>
                 <div class="sidebar-nav">
-                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-user"></i><span class="nav-item-text">داشبورد</span></div>
+                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i><span class="nav-item-text">داشبورد</span></div>
                     <div class="nav-item" data-tab="parties"><i class="fas fa-users"></i><span class="nav-item-text">اشخاص</span></div>
                     <div class="nav-item" data-tab="products"><i class="fas fa-cubes"></i><span class="nav-item-text">کالا/خدمات</span></div>
-                    <div class="nav-item" data-tab="accounts"><i class="fas fa-table"></i><span class="nav-item-text">جداول حساب</span></div>
+                    <div class="nav-item" data-tab="accounts"><i class="fas fa-sitemap"></i><span class="nav-item-text">جداول حساب</span></div>
                     <div class="nav-item" data-tab="invoice"><i class="fas fa-receipt"></i><span class="nav-item-text">فاکتور</span></div>
-                    <div class="nav-item" data-tab="register"><i class="fas fa-file-invoice"></i><span class="nav-item-text">ثبت سند</span></div>
-                    <div class="nav-item" data-tab="documents"><i class="fas fa-archive"></i><span class="nav-item-text">اسناد</span></div>
+                    <div class="nav-item" data-tab="register"><i class="fas fa-file-signature"></i><span class="nav-item-text">ثبت سند</span></div>
+                    <div class="nav-item" data-tab="documents"><i class="fas fa-folder-open"></i><span class="nav-item-text">اسناد</span></div>
                 </div>
             </div>
             
             <!-- محتوای اصلی -->
             <div class="main-content">
                 <div class="content-header">
-                    <h1 class="page-title" id="page-title"><i class="fas fa-user"></i> داشبورد مدیریتی</h1>
+                    <h1 class="page-title" id="page-title"><i class="fas fa-tachometer-alt"></i> داشبورد مدیریتی</h1>
                     <p class="page-description" id="page-description">نمایش کلی وضعیت مالی و مدیریت سیستم</p>
                 </div>
                 
@@ -388,7 +393,7 @@
                                         <input type="text" id="company-name" class="form-control" placeholder="نام شرکت/شخص">
                                     </div>
                                 </div>
-                                <div class="form-grid-row">
+                                <div class="three-fields-row">
                                     <div class="form-group">
                                         <label class="form-label">کد اقتصادی</label>
                                         <input type="text" id="company-economic-code" class="form-control" placeholder="کد اقتصادی">
@@ -486,7 +491,7 @@
                                         <input type="text" id="party-name" class="form-control" placeholder="نام طرف حساب">
                                     </div>
                                 </div>
-                                <div class="form-grid-row">
+                                <div class="three-fields-row">
                                     <div class="form-group">
                                         <label class="form-label">کد اقتصادی</label>
                                         <input type="text" id="party-economic-code" class="form-control" placeholder="کد اقتصادی">
@@ -540,7 +545,7 @@
                                             <input type="text" id="edit-party-name" class="form-control" placeholder="نام طرف حساب">
                                         </div>
                                     </div>
-                                    <div class="form-grid-row">
+                                    <div class="three-fields-row">
                                         <div class="form-group">
                                             <label class="form-label">کد اقتصادی</label>
                                             <input type="text" id="edit-party-economic-code" class="form-control" placeholder="کد اقتصادی">
@@ -666,7 +671,7 @@
                     <div id="accounts-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-table"></i> کدینگ حسابداری درختی</h2>
+                                <h2 class="card-title"><i class="fas fa-sitemap"></i> کدینگ حسابداری درختی</h2>
                             </div>
                             <div class="accounting-tree" id="accounting-tree">
                                 <!-- ساختار درختی کدینگ حسابداری در اینجا قرار می‌گیرد -->
@@ -749,7 +754,7 @@
                     <div id="register-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-file-invoice"></i> ثبت سند حسابداری</h2>
+                                <h2 class="card-title"><i class="fas fa-file-signature"></i> ثبت سند حسابداری</h2>
                             </div>
                             <div class="accounting-entry-container">
                                 <div class="accounting-entry-header">
@@ -769,8 +774,8 @@
                                         <thead>
                                             <tr>
                                                 <th>ردیف</th>
-                                                <th>حساب معین</th>
-                                                <th>تفصیل</th>
+                                                <th>حساب سطح ۳</th>
+                                                <th>حساب سطح ۴</th>
                                                 <th>شرح</th>
                                                 <th>بدهکار</th>
                                                 <th>بستانکار</th>
@@ -800,7 +805,7 @@
                     <div id="documents-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-archive"></i> مدیریت اسناد و فاکتورها</h2>
+                                <h2 class="card-title"><i class="fas fa-folder-open"></i> مدیریت اسناد و فاکتورها</h2>
                             </div>
                             
                             <div class="documents-tabs">
@@ -819,6 +824,7 @@
                                     <div class="document-details-header">
                                         <h3>مشاهده سند شماره <span id="document-number"></span></h3>
                                         <div class="document-actions">
+                                            <button id="edit-document-btn" class="simple-btn simple-btn-info"><i class="fas fa-edit"></i> ویرایش سند</button>
                                             <button id="close-document" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> بستن</button>
                                         </div>
                                     </div>
@@ -830,9 +836,9 @@
                                         <thead>
                                             <tr>
                                                 <th>ردیف</th>
-                                                <th>کد حساب</th>
-                                                <th>نام حساب</th>
-                                                <th>تفصیل</th>
+                                                <th>کد حساب سطح ۳</th>
+                                                <th>نام حساب سطح ۳</th>
+                                                <th>حساب سطح ۴</th>
                                                 <th>شرح</th>
                                                 <th>بدهکار</th>
                                                 <th>بستانکار</th>
@@ -845,6 +851,51 @@
                                     <div class="entry-totals" id="document-totals">
                                         <div>جمع بدهکار: <span id="document-total-debit">0</span> ریال</div>
                                         <div>جمع بستانکار: <span id="document-total-credit">0</span> ریال</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- فرم ویرایش سند -->
+                                <div id="edit-document-form" class="edit-form-container hidden">
+                                    <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش سند حسابداری</div>
+                                    <div class="accounting-entry-header">
+                                        <div class="form-group">
+                                            <label for="edit-entry-date" class="form-label">تاریخ سند</label>
+                                            <input type="text" id="edit-entry-date" class="form-control" placeholder="مثال: ۱۴۰۴/۸/۱۵">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="edit-entry-description" class="form-label">شرح سند</label>
+                                            <input type="text" id="edit-entry-description" class="form-control" placeholder="شرح سند حسابداری">
+                                        </div>
+                                        <button type="button" id="add-edit-entry-row" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن ردیف</button>
+                                    </div>
+                                    
+                                    <div class="entry-details-container">
+                                        <table class="entry-table" id="edit-entry-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ردیف</th>
+                                                    <th>حساب سطح ۳</th>
+                                                    <th>حساب سطح ۴</th>
+                                                    <th>شرح</th>
+                                                    <th>بدهکار</th>
+                                                    <th>بستانکار</th>
+                                                    <th>عملیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="edit-entry-table-body">
+                                                <!-- ردیف‌های ویرایش سند در اینجا اضافه می‌شوند -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="entry-totals" id="edit-entry-totals">
+                                        <div>جمع بدهکار: <span id="edit-total-debit">0</span> ریال</div>
+                                        <div>جمع بستانکار: <span id="edit-total-credit">0</span> ریال</div>
+                                    </div>
+                                    
+                                    <div class="edit-form-actions">
+                                        <button id="save-edit-document" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> ذخیره تغییرات</button>
+                                        <button id="cancel-edit-document" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
                                     </div>
                                 </div>
                             </div>
@@ -884,7 +935,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 18; // افزایش نسخه برای تغییرات جدید
+        const DB_VERSION = 19; // افزایش نسخه برای تغییرات جدید
         
         // نام جداول
         const STORE_NAMES = {
@@ -924,6 +975,9 @@
         
         // آرایه برای ذخیره ردیف‌های سند حسابداری
         let documentEntries = [];
+        
+        // آرایه برای ذخیره ردیف‌های ویرایش سند
+        let editDocumentEntries = [];
         
         // متغیر پایگاه داده
         let db;
@@ -1013,6 +1067,16 @@
         const documentTotalDebitSpan = document.getElementById('document-total-debit');
         const documentTotalCreditSpan = document.getElementById('document-total-credit');
         const closeDocumentBtn = document.getElementById('close-document');
+        const editDocumentBtn = document.getElementById('edit-document-btn');
+        const editDocumentForm = document.getElementById('edit-document-form');
+        const editEntryDateInput = document.getElementById('edit-entry-date');
+        const editEntryDescriptionInput = document.getElementById('edit-entry-description');
+        const addEditEntryRowBtn = document.getElementById('add-edit-entry-row');
+        const editEntryTableBody = document.getElementById('edit-entry-table-body');
+        const editTotalDebitSpan = document.getElementById('edit-total-debit');
+        const editTotalCreditSpan = document.getElementById('edit-total-credit');
+        const saveEditDocumentBtn = document.getElementById('save-edit-document');
+        const cancelEditDocumentBtn = document.getElementById('cancel-edit-document');
         
         // عناصر جدید برای تب اسناد - بخش فاکتورها
         const documentTabs = document.querySelectorAll('.document-tab');
@@ -1097,7 +1161,7 @@
                     updateInvoiceProductSelect();
                 }
                 if (tabId === 'register') {
-                    updateSubsidiaryAccounts();
+                    updateLevel3Accounts();
                     resetEntryForm();
                 }
                 if (tabId === 'documents') {
@@ -1160,6 +1224,10 @@
         
         // مدیریت تب اسناد
         closeDocumentBtn.addEventListener('click', closeDocumentDetails);
+        editDocumentBtn.addEventListener('click', editDocument);
+        addEditEntryRowBtn.addEventListener('click', addEditEntryRow);
+        saveEditDocumentBtn.addEventListener('click', saveEditDocument);
+        cancelEditDocumentBtn.addEventListener('click', cancelEditDocument);
         
         // مدیریت تب اسناد - بخش فاکتورها
         printInvoiceDetailsBtn.addEventListener('click', function() {
@@ -1188,7 +1256,7 @@
                 updateInvoicePartySelect();
                 updateInvoiceProductSelect();
                 updateAccountingTree();
-                updateSubsidiaryAccounts();
+                updateLevel3Accounts();
                 
             }).catch(error => {
                 console.error('خطا در مقداردهی اولیه برنامه:', error);
@@ -1207,7 +1275,7 @@
                     if (!db.objectStoreNames.contains(STORE_NAMES.ACCOUNTS)) {
                         const accountsStore = db.createObjectStore(STORE_NAMES.ACCOUNTS, { keyPath: 'id' });
                         accountsStore.createIndex('name', 'name', { unique: false });
-                        accountsStore.createIndex('group', 'group', { unique: false });
+                        accountsStore.createIndex('level', 'level', { unique: false });
                     }
                     if (!db.objectStoreNames.contains(STORE_NAMES.PARTIES)) db.createObjectStore(STORE_NAMES.PARTIES, { keyPath: 'id' });
                     if (!db.objectStoreNames.contains(STORE_NAMES.INVENTORY)) db.createObjectStore(STORE_NAMES.INVENTORY, { keyPath: 'id' });
@@ -1495,17 +1563,13 @@
             };
             
             const titleInfo = titles[tabId];
-            pageTitle.innerHTML = `<i class="fas fa-${getTabIcon(tabId)}"></i> ${titleInfo.title}`;
-            pageDescription.textContent = titleInfo.description;
-        }
-        
-        // تابع دریافت آیکون مربوط به تب
-        function getTabIcon(tabId) {
             const icons = {
-                'dashboard': 'user', 'parties': 'users', 'products': 'cubes', 
-                'accounts': 'table', 'invoice': 'receipt', 'register': 'file-invoice', 'documents': 'archive'
+                'dashboard': 'tachometer-alt', 'parties': 'users', 'products': 'cubes', 
+                'accounts': 'sitemap', 'invoice': 'receipt', 'register': 'file-signature', 'documents': 'folder-open'
             };
-            return icons[tabId];
+            
+            pageTitle.innerHTML = `<i class="fas fa-${icons[tabId]}"></i> ${titleInfo.title}`;
+            pageDescription.textContent = titleInfo.description;
         }
         
         // تابع فرمت ارز به فارسی
@@ -1607,8 +1671,8 @@
             invoiceProductSelect.innerHTML = html;
         }
         
-        // تابع به‌روزرسانی dropdown حساب‌های معین در تب ثبت
-        function updateSubsidiaryAccounts() {
+        // تابع به‌روزرسانی dropdown حساب‌های سطح ۳ در تب ثبت
+        function updateLevel3Accounts() {
             // این تابع در هنگام افزودن ردیف سند فراخوانی می‌شود
         }
         
@@ -1993,6 +2057,9 @@
                     ${companyInfo.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div></div>` : ''}
                     ${companyInfo.registrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${companyInfo.registrationNumber}</div></div>` : ''}
                     ${companyInfo.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div></div>` : ''}
+                    ${companyInfo.mobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${companyInfo.mobile}</div></div>` : ''}
+                    ${companyInfo.postalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${companyInfo.postalCode}</div></div>` : ''}
+                    ${companyInfo.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${companyInfo.address}</div></div>` : ''}
                 `;
             }
             
@@ -2003,6 +2070,9 @@
                     ${party.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${party.nationalId}</div></div>` : ''}
                     ${party.registrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${party.registrationNumber}</div></div>` : ''}
                     ${party.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${party.phone}</div></div>` : ''}
+                    ${party.mobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${party.mobile}</div></div>` : ''}
+                    ${party.postalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${party.postalCode}</div></div>` : ''}
+                    ${party.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${party.address}</div></div>` : ''}
                 `;
             }
             
@@ -2197,23 +2267,23 @@
         // تابع افزودن ردیف به سند حسابداری
         function addEntryRow() {
             const rowId = Date.now();
-            const subsidiaries = accounts.filter(account => account.level === 'subsidiary');
+            const level3Accounts = accounts.filter(account => account.level === '3');
             
-            let subsidiaryOptions = '<option value="">انتخاب کنید</option>';
-            subsidiaries.forEach(subsidiary => {
-                subsidiaryOptions += `<option value="${subsidiary.id}">${subsidiary.code} - ${subsidiary.name}</option>`;
+            let level3Options = '<option value="">انتخاب کنید</option>';
+            level3Accounts.forEach(account => {
+                level3Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
             });
             
             const rowHtml = `
                 <tr id="entry-row-${rowId}">
                     <td>${documentEntries.length + 1}</td>
                     <td>
-                        <select class="form-control entry-subsidiary" onchange="updateEntryRowDetails(${rowId})">
-                            ${subsidiaryOptions}
+                        <select class="form-control entry-level3" onchange="updateEntryRowLevel4(${rowId})">
+                            ${level3Options}
                         </select>
                     </td>
                     <td>
-                        <select class="form-control entry-detail" id="entry-detail-${rowId}">
+                        <select class="form-control entry-level4" id="entry-level4-${rowId}">
                             <option value="">انتخاب کنید</option>
                         </select>
                     </td>
@@ -2229,38 +2299,38 @@
             entryTableBody.innerHTML += rowHtml;
             documentEntries.push({
                 id: rowId,
-                subsidiaryId: null,
-                detailId: null,
+                level3Id: null,
+                level4Id: null,
                 description: '',
                 debit: 0,
                 credit: 0
             });
         }
         
-        // تابع به‌روزرسانی جزئیات ردیف سند
-        function updateEntryRowDetails(rowId) {
+        // تابع به‌روزرسانی حساب‌های سطح ۴ برای ردیف سند
+        function updateEntryRowLevel4(rowId) {
             const rowIndex = documentEntries.findIndex(entry => entry.id === rowId);
             if (rowIndex === -1) return;
             
-            const select = document.querySelector(`#entry-row-${rowId} .entry-subsidiary`);
-            const subsidiaryId = select.value;
-            const subsidiary = accounts.find(acc => acc.id == subsidiaryId);
+            const select = document.querySelector(`#entry-row-${rowId} .entry-level3`);
+            const level3Id = select.value;
+            const level3Account = accounts.find(acc => acc.id == level3Id);
             
-            if (!subsidiary) return;
+            if (!level3Account) return;
             
             // به‌روزرسانی اطلاعات ردیف
-            documentEntries[rowIndex].subsidiaryId = subsidiaryId;
+            documentEntries[rowIndex].level3Id = level3Id;
             
-            // پیدا کردن تفضیل‌های مربوط به این معین
-            const details = accounts.filter(account => account.parentId == subsidiaryId && account.level === 'detail');
+            // پیدا کردن حساب‌های سطح ۴ مربوط به این سطح ۳
+            const level4Accounts = accounts.filter(account => account.parentId == level3Id && account.level === '4');
             
-            const detailSelect = document.querySelector(`#entry-detail-${rowId}`);
-            let detailOptions = '<option value="">انتخاب کنید</option>';
-            details.forEach(detail => {
-                detailOptions += `<option value="${detail.id}">${detail.code} - ${detail.name}</option>`;
+            const level4Select = document.querySelector(`#entry-level4-${rowId}`);
+            let level4Options = '<option value="">انتخاب کنید</option>';
+            level4Accounts.forEach(account => {
+                level4Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
             });
             
-            detailSelect.innerHTML = detailOptions;
+            level4Select.innerHTML = level4Options;
         }
         
         // تابع حذف ردیف سند
@@ -2292,8 +2362,8 @@
                 const debitInput = document.querySelector(`#entry-row-${entry.id} .entry-debit`);
                 const creditInput = document.querySelector(`#entry-row-${entry.id} .entry-credit`);
                 const descriptionInput = document.querySelector(`#entry-row-${entry.id} .entry-description`);
-                const subsidiarySelect = document.querySelector(`#entry-row-${entry.id} .entry-subsidiary`);
-                const detailSelect = document.querySelector(`#entry-detail-${entry.id}`);
+                const level3Select = document.querySelector(`#entry-row-${entry.id} .entry-level3`);
+                const level4Select = document.querySelector(`#entry-level4-${entry.id}`);
                 
                 if (debitInput) {
                     entry.debit = parseAmount(debitInput.value);
@@ -2306,11 +2376,11 @@
                 if (descriptionInput) {
                     entry.description = descriptionInput.value;
                 }
-                if (subsidiarySelect) {
-                    entry.subsidiaryId = subsidiarySelect.value;
+                if (level3Select) {
+                    entry.level3Id = level3Select.value;
                 }
-                if (detailSelect) {
-                    entry.detailId = detailSelect.value;
+                if (level4Select) {
+                    entry.level4Id = level4Select.value;
                 }
             });
             
@@ -2459,14 +2529,14 @@
             // نمایش جزئیات سند
             let detailsHtml = '';
             doc.entries.forEach((entry, index) => {
-                const subsidiary = accounts.find(acc => acc.id == entry.subsidiaryId);
-                const detail = accounts.find(acc => acc.id == entry.detailId);
+                const level3Account = accounts.find(acc => acc.id == entry.level3Id);
+                const level4Account = accounts.find(acc => acc.id == entry.level4Id);
                 
                 detailsHtml += `<tr>
                     <td>${index + 1}</td>
-                    <td>${subsidiary ? subsidiary.code : '---'}</td>
-                    <td>${subsidiary ? subsidiary.name : '---'}</td>
-                    <td>${detail ? detail.name : '---'}</td>
+                    <td>${level3Account ? level3Account.code : '---'}</td>
+                    <td>${level3Account ? level3Account.name : '---'}</td>
+                    <td>${level4Account ? level4Account.name : '---'}</td>
                     <td>${entry.description || '---'}</td>
                     <td>${formatCurrency(entry.debit)}</td>
                     <td>${formatCurrency(entry.credit)}</td>
@@ -2480,6 +2550,239 @@
             // نمایش بخش جزئیات
             documentsList.classList.add('hidden');
             documentDetails.classList.remove('hidden');
+            editDocumentForm.classList.add('hidden');
+        }
+        
+        // تابع ویرایش سند
+        function editDocument() {
+            const doc = savedDocuments.find(d => d.id === editingDocumentId);
+            if (!doc) {
+                showNotification('سند مورد نظر یافت نشد!', 'error');
+                return;
+            }
+            
+            // پر کردن فرم ویرایش
+            editEntryDateInput.value = doc.date;
+            editEntryDescriptionInput.value = doc.description || '';
+            
+            // کپی کردن ردیف‌های سند برای ویرایش
+            editDocumentEntries = JSON.parse(JSON.stringify(doc.entries));
+            
+            // نمایش فرم ویرایش
+            documentDetails.classList.add('hidden');
+            editDocumentForm.classList.remove('hidden');
+            
+            // پر کردن جدول ویرایش
+            updateEditDocumentTable();
+            calculateEditDocumentTotals();
+        }
+        
+        // تابع به‌روزرسانی جدول ویرایش سند
+        function updateEditDocumentTable() {
+            editEntryTableBody.innerHTML = '';
+            
+            if (editDocumentEntries.length === 0) return;
+            
+            const level3Accounts = accounts.filter(account => account.level === '3');
+            let level3Options = '<option value="">انتخاب کنید</option>';
+            level3Accounts.forEach(account => {
+                level3Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
+            });
+            
+            editDocumentEntries.forEach((entry, index) => {
+                const level3Account = accounts.find(acc => acc.id == entry.level3Id);
+                const level4Accounts = accounts.filter(account => account.parentId == entry.level3Id && account.level === '4');
+                
+                let level4Options = '<option value="">انتخاب کنید</option>';
+                level4Accounts.forEach(account => {
+                    const selected = account.id == entry.level4Id ? 'selected' : '';
+                    level4Options += `<option value="${account.id}" ${selected}>${account.code} - ${account.name}</option>`;
+                });
+                
+                const rowHtml = `
+                    <tr id="edit-entry-row-${entry.id}">
+                        <td>${index + 1}</td>
+                        <td>
+                            <select class="form-control edit-entry-level3" onchange="updateEditEntryRowLevel4(${entry.id})">
+                                ${level3Options}
+                                ${level3Account ? `<option value="${level3Account.id}" selected>${level3Account.code} - ${level3Account.name}</option>` : ''}
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control edit-entry-level4" id="edit-entry-level4-${entry.id}">
+                                ${level4Options}
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control edit-entry-description" value="${entry.description || ''}" placeholder="شرح"></td>
+                        <td><input type="text" class="form-control edit-entry-debit" value="${entry.debit || 0}" placeholder="0" oninput="calculateEditDocumentTotals()"></td>
+                        <td><input type="text" class="form-control edit-entry-credit" value="${entry.credit || 0}" placeholder="0" oninput="calculateEditDocumentTotals()"></td>
+                        <td class="entry-row-actions">
+                            <button class="simple-btn simple-btn-danger" onclick="removeEditEntryRow(${entry.id})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+                
+                editEntryTableBody.innerHTML += rowHtml;
+                
+                // انتخاب سطح ۳
+                if (level3Account) {
+                    const level3Select = document.querySelector(`#edit-entry-row-${entry.id} .edit-entry-level3`);
+                    if (level3Select) level3Select.value = level3Account.id;
+                }
+            });
+        }
+        
+        // تابع به‌روزرسانی حساب‌های سطح ۴ برای ردیف ویرایش سند
+        function updateEditEntryRowLevel4(rowId) {
+            const rowIndex = editDocumentEntries.findIndex(entry => entry.id === rowId);
+            if (rowIndex === -1) return;
+            
+            const select = document.querySelector(`#edit-entry-row-${rowId} .edit-entry-level3`);
+            const level3Id = select.value;
+            
+            // به‌روزرسانی اطلاعات ردیف
+            editDocumentEntries[rowIndex].level3Id = level3Id;
+            editDocumentEntries[rowIndex].level4Id = null;
+            
+            // پیدا کردن حساب‌های سطح ۴ مربوط به این سطح ۳
+            const level4Accounts = accounts.filter(account => account.parentId == level3Id && account.level === '4');
+            
+            const level4Select = document.querySelector(`#edit-entry-level4-${rowId}`);
+            let level4Options = '<option value="">انتخاب کنید</option>';
+            level4Accounts.forEach(account => {
+                level4Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
+            });
+            
+            level4Select.innerHTML = level4Options;
+        }
+        
+        // تابع حذف ردیف ویرایش سند
+        function removeEditEntryRow(rowId) {
+            const rowIndex = editDocumentEntries.findIndex(entry => entry.id === rowId);
+            if (rowIndex !== -1) {
+                editDocumentEntries.splice(rowIndex, 1);
+                updateEditDocumentTable();
+                calculateEditDocumentTotals();
+            }
+        }
+        
+        // تابع افزودن ردیف به سند ویرایش
+        function addEditEntryRow() {
+            const rowId = Date.now();
+            
+            editDocumentEntries.push({
+                id: rowId,
+                level3Id: null,
+                level4Id: null,
+                description: '',
+                debit: 0,
+                credit: 0
+            });
+            
+            updateEditDocumentTable();
+        }
+        
+        // تابع محاسبه جمع سند ویرایش
+        function calculateEditDocumentTotals() {
+            let totalDebit = 0;
+            let totalCredit = 0;
+            
+            // به‌روزرسانی مقادیر در آرایه editDocumentEntries
+            editDocumentEntries.forEach((entry, index) => {
+                const row = document.querySelector(`#edit-entry-row-${entry.id}`);
+                if (row) {
+                    const debitInput = row.querySelector('.edit-entry-debit');
+                    const creditInput = row.querySelector('.edit-entry-credit');
+                    const descriptionInput = row.querySelector('.edit-entry-description');
+                    const level3Select = row.querySelector('.edit-entry-level3');
+                    const level4Select = row.querySelector(`#edit-entry-level4-${entry.id}`);
+                    
+                    if (debitInput) {
+                        entry.debit = parseAmount(debitInput.value);
+                        totalDebit += entry.debit;
+                    }
+                    if (creditInput) {
+                        entry.credit = parseAmount(creditInput.value);
+                        totalCredit += entry.credit;
+                    }
+                    if (descriptionInput) {
+                        entry.description = descriptionInput.value;
+                    }
+                    if (level3Select) {
+                        entry.level3Id = level3Select.value;
+                    }
+                    if (level4Select) {
+                        entry.level4Id = level4Select.value;
+                    }
+                }
+            });
+            
+            editTotalDebitSpan.textContent = formatCurrency(totalDebit);
+            editTotalCreditSpan.textContent = formatCurrency(totalCredit);
+            
+            // بررسی تراز بودن سند
+            if (Math.abs(totalDebit - totalCredit) < 0.01) {
+                saveEditDocumentBtn.disabled = false;
+            } else {
+                saveEditDocumentBtn.disabled = true;
+            }
+        }
+        
+        // تابع ذخیره ویرایش سند
+        function saveEditDocument() {
+            const doc = savedDocuments.find(d => d.id === editingDocumentId);
+            if (!doc) {
+                showNotification('سند مورد نظر یافت نشد!', 'error');
+                return;
+            }
+            
+            const date = editEntryDateInput.value;
+            const description = editEntryDescriptionInput.value;
+            
+            if (!date) {
+                showNotification('لطفاً تاریخ سند را وارد کنید!', 'error');
+                return;
+            }
+            
+            if (editDocumentEntries.length === 0) {
+                showNotification('لطفاً حداقل یک ردیف به سند اضافه کنید!', 'error');
+                return;
+            }
+            
+            // محاسبه جمع‌ها برای اطمینان از تراز بودن
+            let totalDebit = 0;
+            let totalCredit = 0;
+            
+            editDocumentEntries.forEach(entry => {
+                totalDebit += entry.debit;
+                totalCredit += entry.credit;
+            });
+            
+            if (Math.abs(totalDebit - totalCredit) > 0.01) {
+                showNotification('سند تراز نیست! لطفاً جمع بدهکار و بستانکار را برابر کنید.', 'error');
+                return;
+            }
+            
+            // به‌روزرسانی سند
+            doc.date = date;
+            doc.description = description;
+            doc.entries = [...editDocumentEntries];
+            doc.totalDebit = totalDebit;
+            doc.totalCredit = totalCredit;
+            
+            saveDocumentToDB(doc);
+            showNotification(`سند شماره ${toPersianNumbers(doc.number)} با موفقیت به‌روزرسانی شد!`, 'success');
+            
+            // بازگشت به نمایش سند
+            editDocumentForm.classList.add('hidden');
+            viewDocument(editingDocumentId);
+            updateDocumentsList();
+        }
+        
+        // تابع انصراف از ویرایش سند
+        function cancelEditDocument() {
+            editDocumentForm.classList.add('hidden');
+            viewDocument(editingDocumentId);
         }
         
         // تابع مشاهده فاکتور
@@ -2620,13 +2923,23 @@
                             <div class="invoice-connected-section-title">فروشنده</div>
                             <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name || '---'}</div></div>
                             ${companyInfo.economicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div></div>` : ''}
+                            ${companyInfo.nationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div></div>` : ''}
+                            ${companyInfo.registrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${companyInfo.registrationNumber}</div></div>` : ''}
                             ${companyInfo.phone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div></div>` : ''}
+                            ${companyInfo.mobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${companyInfo.mobile}</div></div>` : ''}
+                            ${companyInfo.postalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${companyInfo.postalCode}</div></div>` : ''}
+                            ${companyInfo.address ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${companyInfo.address}</div></div>` : ''}
                         </div>
                         <div class="invoice-connected-buyer">
                             <div class="invoice-connected-section-title">خریدار</div>
                             <div class="invoice-connected-info-row"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div></div>
                             ${invoice.partyEconomicCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${invoice.partyEconomicCode}</div></div>` : ''}
+                            ${invoice.partyNationalId ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${invoice.partyNationalId}</div></div>` : ''}
+                            ${invoice.partyRegistrationNumber ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره ثبت:</div><div class="invoice-connected-info-value">${invoice.partyRegistrationNumber}</div></div>` : ''}
                             ${invoice.partyPhone ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${invoice.partyPhone}</div></div>` : ''}
+                            ${invoice.partyMobile ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">شماره تماس:</div><div class="invoice-connected-info-value">${invoice.partyMobile}</div></div>` : ''}
+                            ${invoice.partyPostalCode ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${invoice.partyPostalCode}</div></div>` : ''}
+                            ${invoice.partyAddress ? `<div class="invoice-connected-info-row"><div class="invoice-connected-info-label">آدرس:</div><div class="invoice-connected-info-value">${invoice.partyAddress}</div></div>` : ''}
                         </div>
                     </div>
                     <table class="invoice-connected-table">
@@ -2686,6 +2999,7 @@
         // تابع بستن جزئیات سند
         function closeDocumentDetails() {
             documentDetails.classList.add('hidden');
+            editDocumentForm.classList.add('hidden');
             documentsList.classList.remove('hidden');
             editingDocumentId = null;
         }
@@ -2853,105 +3167,105 @@
             showNotification('دوره مالی با موفقیت ذخیره شد!', 'success');
         }
         
-        // تابع ایجاد ساختار استاندارد حسابداری ایران
+        // تابع ایجاد ساختار استاندارد حسابداری ایران با سطح‌بندی ۱ تا ۴
         function createStandardAccountingStructure() {
             return new Promise((resolve, reject) => {
-                // ساختار استاندارد حسابداری ایران با نام‌های سطح‌بندی شده
+                // ساختار استاندارد حسابداری ایران با سطح‌بندی ۱ تا ۴
                 const standardAccounts = [
                     // سطح ۱: گروه دارایی‌ها
-                    { id: 1, code: '1', name: 'دارایی‌ها', level: 'group', parentId: null },
+                    { id: 1, code: '1', name: 'دارایی‌ها', level: '1', parentId: null },
                     
-                    // سطح ۲: کل دارایی‌های جاری
-                    { id: 2, code: '11', name: 'دارایی‌های جاری', level: 'class', parentId: 1 },
+                    // سطح ۲: زیرگروه دارایی‌های جاری
+                    { id: 2, code: '11', name: 'دارایی‌های جاری', level: '2', parentId: 1 },
                     
-                    // سطح ۳: معین موجودی نقد و بانک
-                    { id: 3, code: '111', name: 'موجودی نقد و بانک', level: 'subsidiary', parentId: 2 },
+                    // سطح ۳: حساب سطح ۳ موجودی نقد و بانک
+                    { id: 3, code: '111', name: 'موجودی نقد و بانک', level: '3', parentId: 2 },
                     
-                    // سطح ۴: تفضیل موجودی نقد و بانک
-                    { id: 4, code: '1111', name: 'تنخواه گردان', level: 'detail', parentId: 3 },
-                    { id: 5, code: '1112', name: 'صندوق', level: 'detail', parentId: 3 },
-                    { id: 6, code: '1113', name: 'بانک', level: 'detail', parentId: 3 },
+                    // سطح ۴: حساب سطح ۴ موجودی نقد و بانک
+                    { id: 4, code: '1111', name: 'تنخواه گردان', level: '4', parentId: 3 },
+                    { id: 5, code: '1112', name: 'صندوق', level: '4', parentId: 3 },
+                    { id: 6, code: '1113', name: 'بانک', level: '4', parentId: 3 },
                     
-                    // سطح ۳: معین حساب های دریافتنی
-                    { id: 7, code: '112', name: 'حساب های دریافتنی', level: 'subsidiary', parentId: 2 },
+                    // سطح ۳: حساب سطح ۳ حساب های دریافتنی
+                    { id: 7, code: '112', name: 'حساب های دریافتنی', level: '3', parentId: 2 },
                     
-                    // سطح ۴: تفضیل حساب های دریافتنی
-                    { id: 8, code: '1121', name: 'حساب های دریافتنی', level: 'detail', parentId: 7 },
-                    { id: 9, code: '1122', name: 'اسناد دریافتنی', level: 'detail', parentId: 7 },
+                    // سطح ۴: حساب سطح ۴ حساب های دریافتنی
+                    { id: 8, code: '1121', name: 'حساب های دریافتنی', level: '4', parentId: 7 },
+                    { id: 9, code: '1122', name: 'اسناد دریافتنی', level: '4', parentId: 7 },
                     
-                    // سطح ۲: کل دارایی‌های غیر جاری
-                    { id: 10, code: '12', name: 'دارایی‌های غیر جاری', level: 'class', parentId: 1 },
+                    // سطح ۲: زیرگروه دارایی‌های غیر جاری
+                    { id: 10, code: '12', name: 'دارایی‌های غیر جاری', level: '2', parentId: 1 },
                     
-                    // سطح ۳: معین دارایی های ثابت
-                    { id: 11, code: '121', name: 'دارایی های ثابت', level: 'subsidiary', parentId: 10 },
+                    // سطح ۳: حساب سطح ۳ دارایی های ثابت
+                    { id: 11, code: '121', name: 'دارایی های ثابت', level: '3', parentId: 10 },
                     
-                    // سطح ۴: تفضیل دارایی های ثابت
-                    { id: 12, code: '1211', name: 'زمین', level: 'detail', parentId: 11 },
-                    { id: 13, code: '1212', name: 'ساختمان', level: 'detail', parentId: 11 },
-                    { id: 14, code: '1213', name: 'وسائط نقلیه', level: 'detail', parentId: 11 },
+                    // سطح ۴: حساب سطح ۴ دارایی های ثابت
+                    { id: 12, code: '1211', name: 'زمین', level: '4', parentId: 11 },
+                    { id: 13, code: '1212', name: 'ساختمان', level: '4', parentId: 11 },
+                    { id: 14, code: '1213', name: 'وسائط نقلیه', level: '4', parentId: 11 },
                     
                     // سطح ۱: گروه بدهی‌ها
-                    { id: 15, code: '2', name: 'بدهی‌ها', level: 'group', parentId: null },
+                    { id: 15, code: '2', name: 'بدهی‌ها', level: '1', parentId: null },
                     
-                    // سطح ۲: کل بدهی‌های جاری
-                    { id: 16, code: '21', name: 'بدهی‌های جاری', level: 'class', parentId: 15 },
+                    // سطح ۲: زیرگروه بدهی‌های جاری
+                    { id: 16, code: '21', name: 'بدهی‌های جاری', level: '2', parentId: 15 },
                     
-                    // سطح ۳: معین حساب ها و اسناد پرداختنی
-                    { id: 17, code: '211', name: 'حساب ها و اسناد پرداختنی', level: 'subsidiary', parentId: 16 },
+                    // سطح ۳: حساب سطح ۳ حساب ها و اسناد پرداختنی
+                    { id: 17, code: '211', name: 'حساب ها و اسناد پرداختنی', level: '3', parentId: 16 },
                     
-                    // سطح ۴: تفضیل حساب ها و اسناد پرداختنی
-                    { id: 18, code: '2111', name: 'حساب های پرداختنی', level: 'detail', parentId: 17 },
-                    { id: 19, code: '2112', name: 'اسناد پرداختنی', level: 'detail', parentId: 17 },
+                    // سطح ۴: حساب سطح ۴ حساب ها و اسناد پرداختنی
+                    { id: 18, code: '2111', name: 'حساب های پرداختنی', level: '4', parentId: 17 },
+                    { id: 19, code: '2112', name: 'اسناد پرداختنی', level: '4', parentId: 17 },
                     
                     // سطح ۱: گروه حقوق صاحبان سهام
-                    { id: 20, code: '3', name: 'حقوق صاحبان سهام', level: 'group', parentId: null },
+                    { id: 20, code: '3', name: 'حقوق صاحبان سهام', level: '1', parentId: null },
                     
-                    // سطح ۳: معین سرمایه اولیه
-                    { id: 21, code: '31', name: 'سرمایه اولیه', level: 'subsidiary', parentId: 20 },
+                    // سطح ۳: حساب سطح ۳ سرمایه اولیه
+                    { id: 21, code: '31', name: 'سرمایه اولیه', level: '3', parentId: 20 },
                     
                     // سطح ۱: گروه بهای تمام شده کالای فروخته شده
-                    { id: 22, code: '4', name: 'بهای تمام شده کالای فروخته شده', level: 'group', parentId: null },
+                    { id: 22, code: '4', name: 'بهای تمام شده کالای فروخته شده', level: '1', parentId: null },
                     
-                    // سطح ۳: معین بهای تمام شده کالای فروخته شده
-                    { id: 23, code: '41', name: 'بهای تمام شده کالای فروخته شده', level: 'subsidiary', parentId: 22 },
+                    // سطح ۳: حساب سطح ۳ بهای تمام شده کالای فروخته شده
+                    { id: 23, code: '41', name: 'بهای تمام شده کالای فروخته شده', level: '3', parentId: 22 },
                     
                     // سطح ۱: گروه فروش
-                    { id: 24, code: '5', name: 'فروش', level: 'group', parentId: null },
+                    { id: 24, code: '5', name: 'فروش', level: '1', parentId: null },
                     
-                    // سطح ۳: معین فروش کالا
-                    { id: 25, code: '51', name: 'فروش کالا', level: 'subsidiary', parentId: 24 },
+                    // سطح ۳: حساب سطح ۳ فروش کالا
+                    { id: 25, code: '51', name: 'فروش کالا', level: '3', parentId: 24 },
                     
                     // سطح ۱: گروه درآمد
-                    { id: 26, code: '6', name: 'درآمد', level: 'group', parentId: null },
+                    { id: 26, code: '6', name: 'درآمد', level: '1', parentId: null },
                     
-                    // سطح ۲: کل درآمد های عملیاتی
-                    { id: 27, code: '61', name: 'درآمد های عملیاتی', level: 'class', parentId: 26 },
+                    // سطح ۲: زیرگروه درآمد های عملیاتی
+                    { id: 27, code: '61', name: 'درآمد های عملیاتی', level: '2', parentId: 26 },
                     
-                    // سطح ۳: معین درآمد حاصل از فروش خدمات
-                    { id: 28, code: '611', name: 'درآمد حاصل از فروش خدمات', level: 'subsidiary', parentId: 27 },
+                    // سطح ۳: حساب سطح ۳ درآمد حاصل از فروش خدمات
+                    { id: 28, code: '611', name: 'درآمد حاصل از فروش خدمات', level: '3', parentId: 27 },
                     
                     // سطح ۱: گروه هزینه ها
-                    { id: 29, code: '7', name: 'هزینه ها', level: 'group', parentId: null },
+                    { id: 29, code: '7', name: 'هزینه ها', level: '1', parentId: null },
                     
-                    // سطح ۲: کل هزینه های پرسنلی
-                    { id: 30, code: '71', name: 'هزینه های پرسنلی', level: 'class', parentId: 29 },
+                    // سطح ۲: زیرگروه هزینه های پرسنلی
+                    { id: 30, code: '71', name: 'هزینه های پرسنلی', level: '2', parentId: 29 },
                     
-                    // سطح ۳: معین هزینه حقوق و دستمزد
-                    { id: 31, code: '711', name: 'هزینه حقوق و دستمزد', level: 'subsidiary', parentId: 30 },
+                    // سطح ۳: حساب سطح ۳ هزینه حقوق و دستمزد
+                    { id: 31, code: '711', name: 'هزینه حقوق و دستمزد', level: '3', parentId: 30 },
                     
-                    // سطح ۴: تفضیل هزینه حقوق و دستمزد
-                    { id: 32, code: '7111', name: 'حقوق پایه', level: 'detail', parentId: 31 },
-                    { id: 33, code: '7112', name: 'اضافه کار', level: 'detail', parentId: 31 },
+                    // سطح ۴: حساب سطح ۴ هزینه حقوق و دستمزد
+                    { id: 32, code: '7111', name: 'حقوق پایه', level: '4', parentId: 31 },
+                    { id: 33, code: '7112', name: 'اضافه کار', level: '4', parentId: 31 },
                     
-                    // سطح ۲: کل هزینه های عملیاتی
-                    { id: 34, code: '72', name: 'هزینه های عملیاتی', level: 'class', parentId: 29 },
+                    // سطح ۲: زیرگروه هزینه های عملیاتی
+                    { id: 34, code: '72', name: 'هزینه های عملیاتی', level: '2', parentId: 29 },
                     
-                    // سطح ۳: معین هزینه های عمومی
-                    { id: 35, code: '721', name: 'هزینه های عمومی', level: 'subsidiary', parentId: 34 },
+                    // سطح ۳: حساب سطح ۳ هزینه های عمومی
+                    { id: 35, code: '721', name: 'هزینه های عمومی', level: '3', parentId: 34 },
                     
-                    // سطح ۴: تفضیل هزینه های عمومی
-                    { id: 36, code: '7211', name: 'هزینه آب و برق و گاز و تلفن', level: 'detail', parentId: 35 },
-                    { id: 37, code: '7212', name: 'هزینه پذیرایی و آبدارخانه', level: 'detail', parentId: 35 }
+                    // سطح ۴: حساب سطح ۴ هزینه های عمومی
+                    { id: 36, code: '7211', name: 'هزینه آب و برق و گاز و تلفن', level: '4', parentId: 35 },
+                    { id: 37, code: '7212', name: 'هزینه پذیرایی و آبدارخانه', level: '4', parentId: 35 }
                 ];
                 
                 accounts = standardAccounts;
@@ -2980,49 +3294,49 @@
             let html = '';
             
             // سطح ۱: گروه‌ها
-            const groups = accounts.filter(account => account.level === 'group');
+            const level1Accounts = accounts.filter(account => account.level === '1');
             
-            groups.forEach(group => {
-                // سطح ۲: کلاس‌های این گروه
-                const classes = accounts.filter(account => account.parentId === group.id);
+            level1Accounts.forEach(level1 => {
+                // سطح ۲: زیرگروه‌های این سطح ۱
+                const level2Accounts = accounts.filter(account => account.parentId === level1.id);
                 
                 html += `<div class="tree-node level-1">
                     <div class="tree-node-header" onclick="toggleTreeNode(this)">
                         <i class="fas fa-chevron-right tree-node-icon"></i>
-                        <span class="account-code">${group.code}</span>
-                        <span class="account-name">${group.name} (سطح ۱)</span>
+                        <span class="account-code">${level1.code}</span>
+                        <span class="account-name">${level1.name} (سطح ۱)</span>
                     </div>
                     <div class="tree-node-content">`;
                 
-                classes.forEach(cls => {
-                    // سطح ۳: معین‌های این کلاس
-                    const subsidiaries = accounts.filter(account => account.parentId === cls.id);
+                level2Accounts.forEach(level2 => {
+                    // سطح ۳: حساب‌های سطح ۳ این زیرگروه
+                    const level3Accounts = accounts.filter(account => account.parentId === level2.id);
                     
                     html += `<div class="tree-node level-2">
                         <div class="tree-node-header" onclick="toggleTreeNode(this)">
                             <i class="fas fa-chevron-right tree-node-icon"></i>
-                            <span class="account-code">${cls.code}</span>
-                            <span class="account-name">${cls.name} (سطح ۲)</span>
+                            <span class="account-code">${level2.code}</span>
+                            <span class="account-name">${level2.name} (سطح ۲)</span>
                         </div>
                         <div class="tree-node-content">`;
                     
-                    subsidiaries.forEach(subsidiary => {
-                        // سطح ۴: تفضیل‌های این معین
-                        const details = accounts.filter(account => account.parentId === subsidiary.id);
+                    level3Accounts.forEach(level3 => {
+                        // سطح ۴: حساب‌های سطح ۴ این حساب سطح ۳
+                        const level4Accounts = accounts.filter(account => account.parentId === level3.id);
                         
                         html += `<div class="tree-node level-3">
                             <div class="tree-node-header" onclick="toggleTreeNode(this)">
                                 <i class="fas fa-chevron-right tree-node-icon"></i>
-                                <span class="account-code">${subsidiary.code}</span>
-                                <span class="account-name">${subsidiary.name} (سطح ۳)</span>
+                                <span class="account-code">${level3.code}</span>
+                                <span class="account-name">${level3.name} (سطح ۳)</span>
                             </div>
                             <div class="tree-node-content">`;
                         
-                        details.forEach(detail => {
+                        level4Accounts.forEach(level4 => {
                             html += `<div class="tree-node level-4">
                                 <div class="tree-node-header">
-                                    <span class="account-code">${detail.code}</span>
-                                    <span class="account-name">${detail.name} (سطح ۴)</span>
+                                    <span class="account-code">${level4.code}</span>
+                                    <span class="account-name">${level4.name} (سطح ۴)</span>
                                 </div>
                             </div>`;
                         });
