@@ -246,19 +246,20 @@
         .invoice-connected-preview { background: white; border-radius: var(--border-radius); padding: 20px; border: 1px solid var(--border); margin-top: 15px; }
         .invoice-connected-container { border: 1px solid var(--border); border-radius: var(--border-radius); margin-bottom: 20px; }
         .invoice-connected-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--border); }
-        .invoice-connected-number { font-size: 1rem; font-weight: 700; }
+        .invoice-connected-number { font-size: 0.8rem; font-weight: 700; }
         .invoice-connected-title { font-size: 1.5rem; font-weight: 700; text-align: center; flex: 1; }
-        .invoice-connected-date { font-size: 1rem; font-weight: 700; }
+        .invoice-connected-date { font-size: 0.8rem; font-weight: 700; }
         .invoice-connected-details { display: flex; justify-content: space-between; margin-bottom: 0; }
         .invoice-connected-seller, .invoice-connected-buyer { flex: 1; padding: 15px; }
         .invoice-connected-seller { margin-left: 0; border-bottom: none; border-radius: 0 0 0 0; }
         .invoice-connected-buyer { margin-right: 0; border-bottom: none; border-radius: 0 0 0 0; }
-        .invoice-connected-section-title { font-weight: 700; margin-bottom: 10px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 5px; }
-        .invoice-connected-info-row { display: flex; margin-bottom: 5px; align-items: center; }
-        .invoice-connected-info-label { font-weight: 600; min-width: 100px; font-size: 0.7rem; }
+        .invoice-connected-section-title { font-weight: 700; margin-bottom: 8px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 5px; font-size: 0.9rem; }
+        .invoice-connected-info-row { display: flex; margin-bottom: 2px; align-items: center; }
+        .invoice-connected-info-label { font-weight: 600; min-width: 80px; font-size: 0.7rem; }
         .invoice-connected-info-value { flex: 1; font-size: 0.7rem; margin-right: 5px; }
-        .invoice-connected-info-pair { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-        .invoice-connected-info-pair .invoice-connected-info-label { min-width: auto; }
+        .invoice-connected-info-pair { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
+        .invoice-connected-info-pair .invoice-connected-info-label { min-width: auto; font-size: 0.65rem; }
+        .invoice-connected-info-pair .invoice-connected-info-value { font-size: 0.65rem; }
         .invoice-connected-table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 0.75rem; }
         .invoice-connected-table th { background: var(--primary); color: white; padding: 8px; text-align: center; border: 1px solid var(--border); }
         .invoice-connected-table td { padding: 6px; border: 1px solid var(--border); text-align: center; }
@@ -267,9 +268,9 @@
         .invoice-connected-summary-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .invoice-connected-summary-label { font-weight: 600; }
         .invoice-connected-summary-value { font-weight: 700; }
-        .invoice-connected-signatures { display: flex; justify-content: space-between; margin-top: 30px; }
-        .invoice-connected-signature { text-align: center; width: 45%; }
-        .invoice-connected-signature-line { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 5px; }
+        .invoice-connected-signatures { display: flex; justify-content: space-between; margin-top: 15px; }
+        .invoice-connected-signature { text-align: center; width: 45%; font-size: 0.7rem; }
+        .invoice-connected-signature-line { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 5px; }
         .invoice-summary-small-font { font-size: 0.65rem !important; }
         
         /* استایل‌های جدید برای فاکتور با فونت‌های کوچکتر */
@@ -323,6 +324,13 @@
         
         /* استایل‌های جدید برای بخش توضیحات در فاکتور */
         .invoice-description-container { margin-top: 15px; }
+        
+        /* استایل‌های جدید برای تب ثبت سند - ساده‌سازی */
+        .simple-entry-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .simple-entry-table th { background: var(--primary); color: white; padding: 8px; text-align: center; border: 1px solid var(--border); font-size: 0.85rem; }
+        .simple-entry-table td { padding: 6px; border: 1px solid var(--border); text-align: center; font-size: 0.85rem; }
+        .simple-entry-table input { font-size: 0.85rem; padding: 6px 8px; }
+        .simple-entry-table select { font-size: 0.85rem; padding: 6px 8px; }
     </style>
 </head>
 <body>
@@ -781,19 +789,18 @@
                                 </div>
                                 
                                 <div class="entry-details-container">
-                                    <table class="entry-table" id="entry-table">
+                                    <table class="simple-entry-table" id="simple-entry-table">
                                         <thead>
                                             <tr>
                                                 <th>ردیف</th>
-                                                <th>حساب سطح ۳</th>
-                                                <th>حساب سطح ۴</th>
+                                                <th>حساب</th>
                                                 <th>شرح</th>
                                                 <th>بدهکار</th>
                                                 <th>بستانکار</th>
                                                 <th>عملیات</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="entry-table-body">
+                                        <tbody id="simple-entry-table-body">
                                             <!-- ردیف‌های سند در اینجا اضافه می‌شوند -->
                                         </tbody>
                                     </table>
@@ -843,13 +850,12 @@
                                         <p><strong>تاریخ:</strong> <span id="document-date"></span></p>
                                         <p><strong>شرح:</strong> <span id="document-description"></span></p>
                                     </div>
-                                    <table class="document-details-table" id="document-details-table">
+                                    <table class="simple-entry-table" id="document-details-table">
                                         <thead>
                                             <tr>
                                                 <th>ردیف</th>
-                                                <th>کد حساب سطح ۳</th>
-                                                <th>نام حساب سطح ۳</th>
-                                                <th>حساب سطح ۴</th>
+                                                <th>کد حساب</th>
+                                                <th>نام حساب</th>
                                                 <th>شرح</th>
                                                 <th>بدهکار</th>
                                                 <th>بستانکار</th>
@@ -881,19 +887,18 @@
                                     </div>
                                     
                                     <div class="entry-details-container">
-                                        <table class="entry-table" id="edit-entry-table">
+                                        <table class="simple-entry-table" id="edit-simple-entry-table">
                                             <thead>
                                                 <tr>
                                                     <th>ردیف</th>
-                                                    <th>حساب سطح ۳</th>
-                                                    <th>حساب سطح ۴</th>
+                                                    <th>حساب</th>
                                                     <th>شرح</th>
                                                     <th>بدهکار</th>
                                                     <th>بستانکار</th>
                                                     <th>عملیات</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="edit-entry-table-body">
+                                            <tbody id="edit-simple-entry-table-body">
                                                 <!-- ردیف‌های ویرایش سند در اینجا اضافه می‌شوند -->
                                             </tbody>
                                         </table>
@@ -946,7 +951,7 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 20;
+        const DB_VERSION = 21;
         
         // نام جداول
         const STORE_NAMES = {
@@ -1063,7 +1068,7 @@
         const entryDateInput = document.getElementById('entry-date');
         const entryDescriptionInput = document.getElementById('entry-description');
         const addEntryRowBtn = document.getElementById('add-entry-row');
-        const entryTableBody = document.getElementById('entry-table-body');
+        const simpleEntryTableBody = document.getElementById('simple-entry-table-body');
         const totalDebitSpan = document.getElementById('total-debit');
         const totalCreditSpan = document.getElementById('total-credit');
         const saveEntryBtn = document.getElementById('save-entry');
@@ -1084,7 +1089,7 @@
         const editEntryDateInput = document.getElementById('edit-entry-date');
         const editEntryDescriptionInput = document.getElementById('edit-entry-description');
         const addEditEntryRowBtn = document.getElementById('add-edit-entry-row');
-        const editEntryTableBody = document.getElementById('edit-entry-table-body');
+        const editSimpleEntryTableBody = document.getElementById('edit-simple-entry-table-body');
         const editTotalDebitSpan = document.getElementById('edit-total-debit');
         const editTotalCreditSpan = document.getElementById('edit-total-credit');
         const saveEditDocumentBtn = document.getElementById('save-edit-document');
@@ -1173,7 +1178,7 @@
                     updateInvoiceProductSelect();
                 }
                 if (tabId === 'register') {
-                    updateLevel3Accounts();
+                    updateLeafAccounts();
                     resetEntryForm();
                 }
                 if (tabId === 'documents') {
@@ -1230,14 +1235,14 @@
         cancelEditProductBtn.addEventListener('click', cancelEditProduct);
         
         // مدیریت تب ثبت
-        addEntryRowBtn.addEventListener('click', addEntryRow);
+        addEntryRowBtn.addEventListener('click', addSimpleEntryRow);
         saveEntryBtn.addEventListener('click', saveDocument);
         resetEntryBtn.addEventListener('click', resetEntryForm);
         
         // مدیریت تب اسناد
         closeDocumentBtn.addEventListener('click', closeDocumentDetails);
         editDocumentBtn.addEventListener('click', editDocument);
-        addEditEntryRowBtn.addEventListener('click', addEditEntryRow);
+        addEditEntryRowBtn.addEventListener('click', addEditSimpleEntryRow);
         saveEditDocumentBtn.addEventListener('click', saveEditDocument);
         cancelEditDocumentBtn.addEventListener('click', cancelEditDocument);
         
@@ -1268,7 +1273,7 @@
                 updateInvoicePartySelect();
                 updateInvoiceProductSelect();
                 updateAccountingTree();
-                updateLevel3Accounts();
+                updateLeafAccounts();
                 
             }).catch(error => {
                 console.error('خطا در مقداردهی اولیه برنامه:', error);
@@ -1683,9 +1688,26 @@
             invoiceProductSelect.innerHTML = html;
         }
         
-        // تابع به‌روزرسانی dropdown حساب‌های سطح ۳ در تب ثبت
-        function updateLevel3Accounts() {
-            // این تابع در هنگام افزودن ردیف سند فراخوانی می‌شود
+        // تابع به‌روزرسانی حساب‌های برگ (آخرین سطح) در تب ثبت
+        function updateLeafAccounts() {
+            // این تابع حساب‌های برگ (آخرین سطح هر شاخه) را پیدا می‌کند
+        }
+        
+        // تابع پیدا کردن حساب‌های برگ (آخرین سطح هر شاخه)
+        function getLeafAccounts() {
+            const leafAccounts = [];
+            
+            accounts.forEach(account => {
+                // بررسی می‌کنیم که آیا این حساب فرزند دارد یا نه
+                const hasChildren = accounts.some(acc => acc.parentId === account.id);
+                
+                // اگر فرزند نداشته باشد، یک حساب برگ است
+                if (!hasChildren) {
+                    leafAccounts.push(account);
+                }
+            });
+            
+            return leafAccounts;
         }
         
         // تابع افزودن طرف حساب
@@ -2059,10 +2081,10 @@
                 itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode || '---'}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>${item.unit}</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(item.discountAmount)}</td><td>${formatCurrency(item.totalPrice - item.discountAmount)}</td><td>${formatCurrency(item.taxAmount)}</td><td>${formatCurrency(item.finalPrice)}</td></tr>`;
             });
             
-            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید
+            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید و فاصله‌های کمتر
             let sellerDetails = '';
             if (companyInfo.name) {
-                // نام و کد اقتصادی در یک ردیف
+                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
                 let nameRow = '';
                 if (companyInfo.name) {
                     nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
@@ -2072,7 +2094,7 @@
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف
+                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
                 let nationalRow = '';
                 if (companyInfo.nationalId || companyInfo.registrationNumber) {
                     nationalRow = '<div class="invoice-connected-info-pair">';
@@ -2085,7 +2107,7 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف
+                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
                 let phoneRow = '';
                 if (companyInfo.phone || companyInfo.mobile) {
                     phoneRow = '<div class="invoice-connected-info-pair">';
@@ -2098,7 +2120,7 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف
+                // کد پستی و آدرس در یک ردیف با فاصله کمتر
                 let addressRow = '';
                 if (companyInfo.postalCode || companyInfo.address) {
                     addressRow = '<div class="invoice-connected-info-pair">';
@@ -2116,7 +2138,7 @@
             
             let buyerDetails = '';
             if (party) {
-                // نام و کد اقتصادی در یک ردیف
+                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
                 let nameRow = '';
                 if (party.name) {
                     nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${party.name}</div>`;
@@ -2126,7 +2148,7 @@
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف
+                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
                 let nationalRow = '';
                 if (party.nationalId || party.registrationNumber) {
                     nationalRow = '<div class="invoice-connected-info-pair">';
@@ -2139,7 +2161,7 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف
+                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
                 let phoneRow = '';
                 if (party.phone || party.mobile) {
                     phoneRow = '<div class="invoice-connected-info-pair">';
@@ -2152,7 +2174,7 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف
+                // کد پستی و آدرس در یک ردیف با فاصله کمتر
                 let addressRow = '';
                 if (party.postalCode || party.address) {
                     addressRow = '<div class="invoice-connected-info-pair">';
@@ -2171,7 +2193,7 @@
             let html = `
                 <div class="invoice-connected-container">
                     <div class="invoice-connected-header">
-                        <div class="invoice-connected-number">شماره: ${toPersianNumbers(invoiceCounter)}</div>
+                        <div class="invoice-connected-number">شماره فاکتور: ${toPersianNumbers(invoiceCounter)}</div>
                         <div class="invoice-connected-title">فاکتور فروش</div>
                         <div class="invoice-connected-date">تاریخ: ${date}</div>
                     </div>
@@ -2344,7 +2366,7 @@
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:1rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:1rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:5px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:100px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:10px;margin-bottom:5px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${invoiceContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:0.8rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:0.8rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:15px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:20px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:2px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:80px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:5px;margin-bottom:3px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto;font-size:0.65rem}.invoice-connected-info-pair .invoice-connected-info-value{font-size:0.65rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${invoiceContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -2363,106 +2385,75 @@
             invoiceConnectedPreview.innerHTML = `<div class="empty-state"><i class="fas fa-receipt"></i><p>پس از پر کردن فرم، پیش‌نمایش فاکتور در اینجا نمایش داده می‌شود</p></div>`;
         }
         
-        // تابع افزودن ردیف به سند حسابداری
-        function addEntryRow() {
+        // تابع افزودن ردیف به سند حسابداری (ساده‌سازی شده)
+        function addSimpleEntryRow() {
             const rowId = Date.now();
-            const level3Accounts = accounts.filter(account => account.level === '3');
             
-            let level3Options = '<option value="">انتخاب کنید</option>';
-            level3Accounts.forEach(account => {
-                level3Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
+            // گرفتن حساب‌های برگ (آخرین سطح هر شاخه)
+            const leafAccounts = getLeafAccounts();
+            
+            let accountOptions = '<option value="">انتخاب کنید</option>';
+            leafAccounts.forEach(account => {
+                accountOptions += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
             });
             
             const rowHtml = `
-                <tr id="entry-row-${rowId}">
+                <tr id="simple-entry-row-${rowId}">
                     <td>${documentEntries.length + 1}</td>
                     <td>
-                        <select class="form-control entry-level3" onchange="updateEntryRowLevel4(${rowId})">
-                            ${level3Options}
+                        <select class="form-control simple-entry-account">
+                            ${accountOptions}
                         </select>
                     </td>
-                    <td>
-                        <select class="form-control entry-level4" id="entry-level4-${rowId}">
-                            <option value="">انتخاب کنید</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control entry-description" placeholder="شرح"></td>
-                    <td><input type="text" class="form-control entry-debit" placeholder="0" oninput="calculateEntryTotals()"></td>
-                    <td><input type="text" class="form-control entry-credit" placeholder="0" oninput="calculateEntryTotals()"></td>
+                    <td><input type="text" class="form-control simple-entry-description" placeholder="شرح"></td>
+                    <td><input type="text" class="form-control simple-entry-debit" placeholder="0" oninput="calculateSimpleEntryTotals()"></td>
+                    <td><input type="text" class="form-control simple-entry-credit" placeholder="0" oninput="calculateSimpleEntryTotals()"></td>
                     <td class="entry-row-actions">
-                        <button class="simple-btn simple-btn-danger" onclick="removeEntryRow(${rowId})"><i class="fas fa-trash"></i></button>
+                        <button class="simple-btn simple-btn-danger" onclick="removeSimpleEntryRow(${rowId})"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             `;
             
-            entryTableBody.innerHTML += rowHtml;
+            simpleEntryTableBody.innerHTML += rowHtml;
             documentEntries.push({
                 id: rowId,
-                level3Id: null,
-                level4Id: null,
+                accountId: null,
                 description: '',
                 debit: 0,
                 credit: 0
             });
         }
         
-        // تابع به‌روزرسانی حساب‌های سطح ۴ برای ردیف سند
-        function updateEntryRowLevel4(rowId) {
-            const rowIndex = documentEntries.findIndex(entry => entry.id === rowId);
-            if (rowIndex === -1) return;
-            
-            const select = document.querySelector(`#entry-row-${rowId} .entry-level3`);
-            const level3Id = select.value;
-            const level3Account = accounts.find(acc => acc.id == level3Id);
-            
-            if (!level3Account) return;
-            
-            // به‌روزرسانی اطلاعات ردیف
-            documentEntries[rowIndex].level3Id = level3Id;
-            
-            // پیدا کردن حساب‌های سطح ۴ مربوط به این سطح ۳
-            const level4Accounts = accounts.filter(account => account.parentId == level3Id && account.level === '4');
-            
-            const level4Select = document.querySelector(`#entry-level4-${rowId}`);
-            let level4Options = '<option value="">انتخاب کنید</option>';
-            level4Accounts.forEach(account => {
-                level4Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
-            });
-            
-            level4Select.innerHTML = level4Options;
-        }
-        
-        // تابع حذف ردیف سند
-        function removeEntryRow(rowId) {
+        // تابع حذف ردیف سند ساده
+        function removeSimpleEntryRow(rowId) {
             const rowIndex = documentEntries.findIndex(entry => entry.id === rowId);
             if (rowIndex !== -1) {
                 documentEntries.splice(rowIndex, 1);
-                document.querySelector(`#entry-row-${rowId}`).remove();
-                updateEntryRowNumbers();
-                calculateEntryTotals();
+                document.querySelector(`#simple-entry-row-${rowId}`).remove();
+                updateSimpleEntryRowNumbers();
+                calculateSimpleEntryTotals();
             }
         }
         
-        // تابع به‌روزرسانی شماره ردیف‌ها
-        function updateEntryRowNumbers() {
-            const rows = entryTableBody.querySelectorAll('tr');
+        // تابع به‌روزرسانی شماره ردیف‌های سند ساده
+        function updateSimpleEntryRowNumbers() {
+            const rows = simpleEntryTableBody.querySelectorAll('tr');
             rows.forEach((row, index) => {
                 row.querySelector('td:first-child').textContent = index + 1;
             });
         }
         
-        // تابع محاسبه جمع سند
-        function calculateEntryTotals() {
+        // تابع محاسبه جمع سند ساده
+        function calculateSimpleEntryTotals() {
             let totalDebit = 0;
             let totalCredit = 0;
             
             // به‌روزرسانی مقادیر در آرایه documentEntries
             documentEntries.forEach((entry, index) => {
-                const debitInput = document.querySelector(`#entry-row-${entry.id} .entry-debit`);
-                const creditInput = document.querySelector(`#entry-row-${entry.id} .entry-credit`);
-                const descriptionInput = document.querySelector(`#entry-row-${entry.id} .entry-description`);
-                const level3Select = document.querySelector(`#entry-row-${entry.id} .entry-level3`);
-                const level4Select = document.querySelector(`#entry-level4-${entry.id}`);
+                const debitInput = document.querySelector(`#simple-entry-row-${entry.id} .simple-entry-debit`);
+                const creditInput = document.querySelector(`#simple-entry-row-${entry.id} .simple-entry-credit`);
+                const descriptionInput = document.querySelector(`#simple-entry-row-${entry.id} .simple-entry-description`);
+                const accountSelect = document.querySelector(`#simple-entry-row-${entry.id} .simple-entry-account`);
                 
                 if (debitInput) {
                     entry.debit = parseAmount(debitInput.value);
@@ -2475,11 +2466,8 @@
                 if (descriptionInput) {
                     entry.description = descriptionInput.value;
                 }
-                if (level3Select) {
-                    entry.level3Id = level3Select.value;
-                }
-                if (level4Select) {
-                    entry.level4Id = level4Select.value;
+                if (accountSelect) {
+                    entry.accountId = accountSelect.value;
                 }
             });
             
@@ -2546,7 +2534,7 @@
             entryDateInput.value = getTodayPersianDate();
             entryDescriptionInput.value = '';
             documentEntries = [];
-            entryTableBody.innerHTML = '';
+            simpleEntryTableBody.innerHTML = '';
             totalDebitSpan.textContent = '0';
             totalCreditSpan.textContent = '0';
             saveEntryBtn.disabled = true;
@@ -2628,14 +2616,12 @@
             // نمایش جزئیات سند
             let detailsHtml = '';
             doc.entries.forEach((entry, index) => {
-                const level3Account = accounts.find(acc => acc.id == entry.level3Id);
-                const level4Account = accounts.find(acc => acc.id == entry.level4Id);
+                const account = accounts.find(acc => acc.id == entry.accountId);
                 
                 detailsHtml += `<tr>
                     <td>${index + 1}</td>
-                    <td>${level3Account ? level3Account.code : '---'}</td>
-                    <td>${level3Account ? level3Account.name : '---'}</td>
-                    <td>${level4Account ? level4Account.name : '---'}</td>
+                    <td>${account ? account.code : '---'}</td>
+                    <td>${account ? account.name : '---'}</td>
                     <td>${entry.description || '---'}</td>
                     <td>${formatCurrency(entry.debit)}</td>
                     <td>${formatCurrency(entry.credit)}</td>
@@ -2672,129 +2658,87 @@
             editDocumentForm.classList.remove('hidden');
             
             // پر کردن جدول ویرایش
-            updateEditDocumentTable();
-            calculateEditDocumentTotals();
+            updateEditSimpleDocumentTable();
+            calculateEditSimpleDocumentTotals();
         }
         
-        // تابع به‌روزرسانی جدول ویرایش سند
-        function updateEditDocumentTable() {
-            editEntryTableBody.innerHTML = '';
+        // تابع به‌روزرسانی جدول ویرایش سند ساده
+        function updateEditSimpleDocumentTable() {
+            editSimpleEntryTableBody.innerHTML = '';
             
             if (editDocumentEntries.length === 0) return;
             
-            const level3Accounts = accounts.filter(account => account.level === '3');
-            let level3Options = '<option value="">انتخاب کنید</option>';
-            level3Accounts.forEach(account => {
-                level3Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
-            });
+            // گرفتن حساب‌های برگ (آخرین سطح هر شاخه)
+            const leafAccounts = getLeafAccounts();
             
             editDocumentEntries.forEach((entry, index) => {
-                const level3Account = accounts.find(acc => acc.id == entry.level3Id);
-                const level4Accounts = accounts.filter(account => account.parentId == entry.level3Id && account.level === '4');
+                const account = accounts.find(acc => acc.id == entry.accountId);
                 
-                let level4Options = '<option value="">انتخاب کنید</option>';
-                level4Accounts.forEach(account => {
-                    const selected = account.id == entry.level4Id ? 'selected' : '';
-                    level4Options += `<option value="${account.id}" ${selected}>${account.code} - ${account.name}</option>`;
+                let accountOptions = '<option value="">انتخاب کنید</option>';
+                leafAccounts.forEach(acc => {
+                    const selected = acc.id == entry.accountId ? 'selected' : '';
+                    accountOptions += `<option value="${acc.id}" ${selected}>${acc.code} - ${acc.name}</option>`;
                 });
                 
                 const rowHtml = `
-                    <tr id="edit-entry-row-${entry.id}">
+                    <tr id="edit-simple-entry-row-${entry.id}">
                         <td>${index + 1}</td>
                         <td>
-                            <select class="form-control edit-entry-level3" onchange="updateEditEntryRowLevel4(${entry.id})">
-                                ${level3Options}
-                                ${level3Account ? `<option value="${level3Account.id}" selected>${level3Account.code} - ${level3Account.name}</option>` : ''}
+                            <select class="form-control edit-simple-entry-account">
+                                ${accountOptions}
                             </select>
                         </td>
-                        <td>
-                            <select class="form-control edit-entry-level4" id="edit-entry-level4-${entry.id}">
-                                ${level4Options}
-                            </select>
-                        </td>
-                        <td><input type="text" class="form-control edit-entry-description" value="${entry.description || ''}" placeholder="شرح"></td>
-                        <td><input type="text" class="form-control edit-entry-debit" value="${entry.debit || 0}" placeholder="0" oninput="calculateEditDocumentTotals()"></td>
-                        <td><input type="text" class="form-control edit-entry-credit" value="${entry.credit || 0}" placeholder="0" oninput="calculateEditDocumentTotals()"></td>
+                        <td><input type="text" class="form-control edit-simple-entry-description" value="${entry.description || ''}" placeholder="شرح"></td>
+                        <td><input type="text" class="form-control edit-simple-entry-debit" value="${entry.debit || 0}" placeholder="0" oninput="calculateEditSimpleDocumentTotals()"></td>
+                        <td><input type="text" class="form-control edit-simple-entry-credit" value="${entry.credit || 0}" placeholder="0" oninput="calculateEditSimpleDocumentTotals()"></td>
                         <td class="entry-row-actions">
-                            <button class="simple-btn simple-btn-danger" onclick="removeEditEntryRow(${entry.id})"><i class="fas fa-trash"></i></button>
+                            <button class="simple-btn simple-btn-danger" onclick="removeEditSimpleEntryRow(${entry.id})"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
                 
-                editEntryTableBody.innerHTML += rowHtml;
-                
-                // انتخاب سطح ۳
-                if (level3Account) {
-                    const level3Select = document.querySelector(`#edit-entry-row-${entry.id} .edit-entry-level3`);
-                    if (level3Select) level3Select.value = level3Account.id;
-                }
+                editSimpleEntryTableBody.innerHTML += rowHtml;
             });
         }
         
-        // تابع به‌روزرسانی حساب‌های سطح ۴ برای ردیف ویرایش سند
-        function updateEditEntryRowLevel4(rowId) {
-            const rowIndex = editDocumentEntries.findIndex(entry => entry.id === rowId);
-            if (rowIndex === -1) return;
-            
-            const select = document.querySelector(`#edit-entry-row-${rowId} .edit-entry-level3`);
-            const level3Id = select.value;
-            
-            // به‌روزرسانی اطلاعات ردیف
-            editDocumentEntries[rowIndex].level3Id = level3Id;
-            editDocumentEntries[rowIndex].level4Id = null;
-            
-            // پیدا کردن حساب‌های سطح ۴ مربوط به این سطح ۳
-            const level4Accounts = accounts.filter(account => account.parentId == level3Id && account.level === '4');
-            
-            const level4Select = document.querySelector(`#edit-entry-level4-${rowId}`);
-            let level4Options = '<option value="">انتخاب کنید</option>';
-            level4Accounts.forEach(account => {
-                level4Options += `<option value="${account.id}">${account.code} - ${account.name}</option>`;
-            });
-            
-            level4Select.innerHTML = level4Options;
-        }
-        
-        // تابع حذف ردیف ویرایش سند
-        function removeEditEntryRow(rowId) {
+        // تابع حذف ردیف ویرایش سند ساده
+        function removeEditSimpleEntryRow(rowId) {
             const rowIndex = editDocumentEntries.findIndex(entry => entry.id === rowId);
             if (rowIndex !== -1) {
                 editDocumentEntries.splice(rowIndex, 1);
-                updateEditDocumentTable();
-                calculateEditDocumentTotals();
+                updateEditSimpleDocumentTable();
+                calculateEditSimpleDocumentTotals();
             }
         }
         
-        // تابع افزودن ردیف به سند ویرایش
-        function addEditEntryRow() {
+        // تابع افزودن ردیف به سند ویرایش ساده
+        function addEditSimpleEntryRow() {
             const rowId = Date.now();
             
             editDocumentEntries.push({
                 id: rowId,
-                level3Id: null,
-                level4Id: null,
+                accountId: null,
                 description: '',
                 debit: 0,
                 credit: 0
             });
             
-            updateEditDocumentTable();
+            updateEditSimpleDocumentTable();
         }
         
-        // تابع محاسبه جمع سند ویرایش
-        function calculateEditDocumentTotals() {
+        // تابع محاسبه جمع سند ویرایش ساده
+        function calculateEditSimpleDocumentTotals() {
             let totalDebit = 0;
             let totalCredit = 0;
             
             // به‌روزرسانی مقادیر در آرایه editDocumentEntries
             editDocumentEntries.forEach((entry, index) => {
-                const row = document.querySelector(`#edit-entry-row-${entry.id}`);
+                const row = document.querySelector(`#edit-simple-entry-row-${entry.id}`);
                 if (row) {
-                    const debitInput = row.querySelector('.edit-entry-debit');
-                    const creditInput = row.querySelector('.edit-entry-credit');
-                    const descriptionInput = row.querySelector('.edit-entry-description');
-                    const level3Select = row.querySelector('.edit-entry-level3');
-                    const level4Select = row.querySelector(`#edit-entry-level4-${entry.id}`);
+                    const debitInput = row.querySelector('.edit-simple-entry-debit');
+                    const creditInput = row.querySelector('.edit-simple-entry-credit');
+                    const descriptionInput = row.querySelector('.edit-simple-entry-description');
+                    const accountSelect = row.querySelector('.edit-simple-entry-account');
                     
                     if (debitInput) {
                         entry.debit = parseAmount(debitInput.value);
@@ -2807,11 +2751,8 @@
                     if (descriptionInput) {
                         entry.description = descriptionInput.value;
                     }
-                    if (level3Select) {
-                        entry.level3Id = level3Select.value;
-                    }
-                    if (level4Select) {
-                        entry.level4Id = level4Select.value;
+                    if (accountSelect) {
+                        entry.accountId = accountSelect.value;
                     }
                 }
             });
@@ -2919,10 +2860,10 @@
             
             const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
             
-            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید
+            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید و فاصله‌های کمتر
             let sellerDetails = '';
             if (companyInfo.name) {
-                // نام و کد اقتصادی در یک ردیف
+                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
                 let nameRow = '';
                 if (companyInfo.name) {
                     nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
@@ -2932,7 +2873,7 @@
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف
+                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
                 let nationalRow = '';
                 if (companyInfo.nationalId || companyInfo.registrationNumber) {
                     nationalRow = '<div class="invoice-connected-info-pair">';
@@ -2945,7 +2886,7 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف
+                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
                 let phoneRow = '';
                 if (companyInfo.phone || companyInfo.mobile) {
                     phoneRow = '<div class="invoice-connected-info-pair">';
@@ -2958,7 +2899,7 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف
+                // کد پستی و آدرس در یک ردیف با فاصله کمتر
                 let addressRow = '';
                 if (companyInfo.postalCode || companyInfo.address) {
                     addressRow = '<div class="invoice-connected-info-pair">';
@@ -2976,7 +2917,7 @@
             
             let buyerDetails = '';
             if (invoice.partyName) {
-                // نام و کد اقتصادی در یک ردیف
+                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
                 let nameRow = '';
                 if (invoice.partyName) {
                     nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div>`;
@@ -2986,7 +2927,7 @@
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف
+                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
                 let nationalRow = '';
                 if (invoice.partyNationalId || invoice.partyRegistrationNumber) {
                     nationalRow = '<div class="invoice-connected-info-pair">';
@@ -2999,7 +2940,7 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف
+                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
                 let phoneRow = '';
                 if (invoice.partyPhone || invoice.partyMobile) {
                     phoneRow = '<div class="invoice-connected-info-pair">';
@@ -3012,7 +2953,7 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف
+                // کد پستی و آدرس در یک ردیف با فاصله کمتر
                 let addressRow = '';
                 if (invoice.partyPostalCode || invoice.partyAddress) {
                     addressRow = '<div class="invoice-connected-info-pair">';
@@ -3031,7 +2972,7 @@
             const invoiceHtml = `
                 <div class="invoice-connected-container">
                     <div class="invoice-connected-header">
-                        <div class="invoice-connected-number">شماره: ${toPersianNumbers(invoice.number)}</div>
+                        <div class="invoice-connected-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div>
                         <div class="invoice-connected-title">فاکتور فروش</div>
                         <div class="invoice-connected-date">تاریخ: ${invoice.date}</div>
                     </div>
@@ -3159,10 +3100,10 @@
             
             const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
             
-            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید
+            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید و فاصله‌های کمتر
             let sellerDetails = '';
             if (companyInfo.name) {
-                // نام و کد اقتصادی در یک ردیف
+                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
                 let nameRow = '';
                 if (companyInfo.name) {
                     nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
@@ -3172,7 +3113,7 @@
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف
+                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
                 let nationalRow = '';
                 if (companyInfo.nationalId || companyInfo.registrationNumber) {
                     nationalRow = '<div class="invoice-connected-info-pair">';
@@ -3185,7 +3126,7 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف
+                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
                 let phoneRow = '';
                 if (companyInfo.phone || companyInfo.mobile) {
                     phoneRow = '<div class="invoice-connected-info-pair">';
@@ -3198,7 +3139,7 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف
+                // کد پستی و آدرس در یک ردیف با فاصله کمتر
                 let addressRow = '';
                 if (companyInfo.postalCode || companyInfo.address) {
                     addressRow = '<div class="invoice-connected-info-pair">';
@@ -3216,7 +3157,7 @@
             
             let buyerDetails = '';
             if (invoice.partyName) {
-                // نام و کد اقتصادی در یک ردیف
+                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
                 let nameRow = '';
                 if (invoice.partyName) {
                     nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div>`;
@@ -3226,7 +3167,7 @@
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف
+                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
                 let nationalRow = '';
                 if (invoice.partyNationalId || invoice.partyRegistrationNumber) {
                     nationalRow = '<div class="invoice-connected-info-pair">';
@@ -3239,7 +3180,7 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف
+                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
                 let phoneRow = '';
                 if (invoice.partyPhone || invoice.partyMobile) {
                     phoneRow = '<div class="invoice-connected-info-pair">';
@@ -3252,7 +3193,7 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف
+                // کد پستی و آدرس در یک ردیف با فاصله کمتر
                 let addressRow = '';
                 if (invoice.partyPostalCode || invoice.partyAddress) {
                     addressRow = '<div class="invoice-connected-info-pair">';
@@ -3271,7 +3212,7 @@
             const printContent = `
                 <div class="invoice-connected-container">
                     <div class="invoice-connected-header">
-                        <div class="invoice-connected-number">شماره: ${toPersianNumbers(invoice.number)}</div>
+                        <div class="invoice-connected-number">شماره فاکتور: ${toPersianNumbers(invoice.number)}</div>
                         <div class="invoice-connected-title">فاکتور فروش</div>
                         <div class="invoice-connected-date">تاریخ: ${invoice.date}</div>
                     </div>
@@ -3338,7 +3279,7 @@
             `;
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور شماره ${toPersianNumbers(invoice.number)}</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:1rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:1rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:40px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:40px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:5px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:100px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:10px;margin-bottom:5px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${printContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور شماره ${toPersianNumbers(invoice.number)}</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:0.8rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:0.8rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:15px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:20px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:2px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:80px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:5px;margin-bottom:3px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto;font-size:0.65rem}.invoice-connected-info-pair .invoice-connected-info-value{font-size:0.65rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${printContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
