@@ -331,6 +331,26 @@
         .simple-entry-table td { padding: 6px; border: 1px solid var(--border); text-align: center; font-size: 0.85rem; }
         .simple-entry-table input { font-size: 0.85rem; padding: 6px 8px; }
         .simple-entry-table select { font-size: 0.85rem; padding: 6px 8px; }
+        
+        /* استایل‌های جدید برای تب اشخاص */
+        .parties-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .party-tab { padding: 8px 16px; background: var(--light); border: 1px solid var(--border); border-radius: var(--border-radius); cursor: pointer; font-weight: 600; }
+        .party-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        /* استایل‌های جدید برای مشاهده شخص */
+        .party-details { background: white; border-radius: var(--border-radius); padding: 20px; border: 1px solid var(--border); margin-top: 15px; }
+        .party-details-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border); }
+        .party-details-content { margin-top: 15px; }
+        .party-details-row { display: flex; margin-bottom: 12px; align-items: flex-start; }
+        .party-details-label { font-weight: 700; min-width: 120px; color: var(--primary); }
+        .party-details-value { flex: 1; color: var(--dark); }
+        
+        /* استایل‌های جدید برای چاپ فاکتور */
+        .invoice-signature-small { font-size: 0.65rem !important; }
+        .invoice-info-compact { font-size: 0.75rem !important; }
+        .invoice-connected-info-pair-compact { margin-bottom: 2px; }
+        .invoice-connected-info-pair-compact .invoice-connected-info-label { font-size: 0.7rem; }
+        .invoice-connected-info-pair-compact .invoice-connected-info-value { font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -368,20 +388,20 @@
                     </div>
                 </div>
                 <div class="sidebar-nav">
-                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-info-circle"></i><span class="nav-item-text">اطلاعات</span></div>
+                    <div class="nav-item active" data-tab="dashboard"><i class="fas fa-building"></i><span class="nav-item-text">اطلاعات</span></div>
                     <div class="nav-item" data-tab="parties"><i class="fas fa-users"></i><span class="nav-item-text">اشخاص</span></div>
                     <div class="nav-item" data-tab="products"><i class="fas fa-cubes"></i><span class="nav-item-text">کالا/خدمات</span></div>
                     <div class="nav-item" data-tab="accounts"><i class="fas fa-sitemap"></i><span class="nav-item-text">جداول حساب</span></div>
                     <div class="nav-item" data-tab="invoice"><i class="fas fa-receipt"></i><span class="nav-item-text">فاکتور</span></div>
                     <div class="nav-item" data-tab="register"><i class="fas fa-file-signature"></i><span class="nav-item-text">ثبت سند</span></div>
-                    <div class="nav-item" data-tab="documents"><i class="fas fa-file-invoice"></i><span class="nav-item-text">اسناد</span></div>
+                    <div class="nav-item" data-tab="documents"><i class="fas fa-folder-open"></i><span class="nav-item-text">اسناد</span></div>
                 </div>
             </div>
             
             <!-- محتوای اصلی -->
             <div class="main-content">
                 <div class="content-header">
-                    <h1 class="page-title" id="page-title"><i class="fas fa-info-circle"></i> اطلاعات سیستم</h1>
+                    <h1 class="page-title" id="page-title"><i class="fas fa-building"></i> اطلاعات سیستم</h1>
                     <p class="page-description" id="page-description">تنظیمات پایه و اطلاعات سیستم حسابداری</p>
                 </div>
                 
@@ -490,118 +510,238 @@
                             <div class="card-header">
                                 <h2 class="card-title"><i class="fas fa-users"></i> مدیریت اشخاص</h2>
                             </div>
-                            <div class="parties-section">
-                                <div class="form-grid-row">
-                                    <div class="form-group">
-                                        <label class="form-label">نوع شخص</label>
-                                        <select id="party-type" class="form-control">
-                                            <option value="legal">حقوقی</option>
-                                            <option value="individual">حقیقی</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">نام طرف حساب</label>
-                                        <input type="text" id="party-name" class="form-control" placeholder="نام طرف حساب">
-                                    </div>
-                                </div>
-                                <div class="three-fields-row">
-                                    <div class="form-group">
-                                        <label class="form-label">کد اقتصادی</label>
-                                        <input type="text" id="party-economic-code" class="form-control" placeholder="کد اقتصادی">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">شناسه ملی</label>
-                                        <input type="text" id="party-national-id" class="form-control" placeholder="شناسه ملی">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">شماره ثبت</label>
-                                        <input type="text" id="party-registration-number" class="form-control" placeholder="شماره ثبت">
-                                    </div>
-                                </div>
-                                <div class="form-grid-row">
-                                    <div class="form-group">
-                                        <label class="form-label">تلفن</label>
-                                        <input type="text" id="party-phone" class="form-control" placeholder="تلفن">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">شماره تماس</label>
-                                        <input type="text" id="party-mobile" class="form-control" placeholder="شماره تماس">
-                                    </div>
-                                </div>
-                                <div class="form-grid-row">
-                                    <div class="form-group">
-                                        <label class="form-label">کد پستی</label>
-                                        <input type="text" id="party-postal-code" class="form-control" placeholder="کد پستی">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">آدرس</label>
-                                        <textarea id="party-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group add-party-button">
-                                    <button type="button" id="add-party" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن شخص</button>
-                                </div>
-                                
-                                <!-- فرم ویرایش شخص -->
-                                <div id="edit-party-form" class="edit-form-container hidden">
-                                    <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش شخص</div>
+                            
+                            <div class="parties-tabs">
+                                <div class="party-tab active" data-type="customers">مشتریان</div>
+                                <div class="party-tab" data-type="suppliers">تامین کنندگان</div>
+                            </div>
+                            
+                            <!-- لیست مشتریان -->
+                            <div id="customers-list-container">
+                                <div class="parties-section">
                                     <div class="form-grid-row">
                                         <div class="form-group">
                                             <label class="form-label">نوع شخص</label>
-                                            <select id="edit-party-type" class="form-control">
+                                            <select id="party-type" class="form-control">
                                                 <option value="legal">حقوقی</option>
                                                 <option value="individual">حقیقی</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">نام طرف حساب</label>
-                                            <input type="text" id="edit-party-name" class="form-control" placeholder="نام طرف حساب">
+                                            <input type="text" id="party-name" class="form-control" placeholder="نام طرف حساب">
                                         </div>
                                     </div>
                                     <div class="three-fields-row">
                                         <div class="form-group">
                                             <label class="form-label">کد اقتصادی</label>
-                                            <input type="text" id="edit-party-economic-code" class="form-control" placeholder="کد اقتصادی">
+                                            <input type="text" id="party-economic-code" class="form-control" placeholder="کد اقتصادی">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">شناسه ملی</label>
-                                            <input type="text" id="edit-party-national-id" class="form-control" placeholder="شناسه ملی">
+                                            <input type="text" id="party-national-id" class="form-control" placeholder="شناسه ملی">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">شماره ثبت</label>
-                                            <input type="text" id="edit-party-registration-number" class="form-control" placeholder="شماره ثبت">
+                                            <input type="text" id="party-registration-number" class="form-control" placeholder="شماره ثبت">
                                         </div>
                                     </div>
                                     <div class="form-grid-row">
                                         <div class="form-group">
                                             <label class="form-label">تلفن</label>
-                                            <input type="text" id="edit-party-phone" class="form-control" placeholder="تلفن">
+                                            <input type="text" id="party-phone" class="form-control" placeholder="تلفن">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">شماره تماس</label>
-                                            <input type="text" id="edit-party-mobile" class="form-control" placeholder="شماره تماس">
+                                            <input type="text" id="party-mobile" class="form-control" placeholder="شماره تماس">
                                         </div>
                                     </div>
                                     <div class="form-grid-row">
                                         <div class="form-group">
                                             <label class="form-label">کد پستی</label>
-                                            <input type="text" id="edit-party-postal-code" class="form-control" placeholder="کد پستی">
+                                            <input type="text" id="party-postal-code" class="form-control" placeholder="کد پستی">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">آدرس</label>
-                                            <textarea id="edit-party-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
+                                            <textarea id="party-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
                                         </div>
                                     </div>
-                                    <div class="edit-form-actions">
-                                        <button type="button" id="update-party" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
-                                        <button type="button" id="cancel-edit-party" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
+                                    <div class="form-group add-party-button">
+                                        <button type="button" id="add-party" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن مشتری</button>
+                                    </div>
+                                    
+                                    <!-- فرم ویرایش شخص -->
+                                    <div id="edit-party-form" class="edit-form-container hidden">
+                                        <div class="edit-form-title"><i class="fas fa-edit"></i> ویرایش شخص</div>
+                                        <div class="form-grid-row">
+                                            <div class="form-group">
+                                                <label class="form-label">نوع شخص</label>
+                                                <select id="edit-party-type" class="form-control">
+                                                    <option value="legal">حقوقی</option>
+                                                    <option value="individual">حقیقی</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">نام طرف حساب</label>
+                                                <input type="text" id="edit-party-name" class="form-control" placeholder="نام طرف حساب">
+                                            </div>
+                                        </div>
+                                        <div class="three-fields-row">
+                                            <div class="form-group">
+                                                <label class="form-label">کد اقتصادی</label>
+                                                <input type="text" id="edit-party-economic-code" class="form-control" placeholder="کد اقتصادی">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">شناسه ملی</label>
+                                                <input type="text" id="edit-party-national-id" class="form-control" placeholder="شناسه ملی">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">شماره ثبت</label>
+                                                <input type="text" id="edit-party-registration-number" class="form-control" placeholder="شماره ثبت">
+                                            </div>
+                                        </div>
+                                        <div class="form-grid-row">
+                                            <div class="form-group">
+                                                <label class="form-label">تلفن</label>
+                                                <input type="text" id="edit-party-phone" class="form-control" placeholder="تلفن">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">شماره تماس</label>
+                                                <input type="text" id="edit-party-mobile" class="form-control" placeholder="شماره تماس">
+                                            </div>
+                                        </div>
+                                        <div class="form-grid-row">
+                                            <div class="form-group">
+                                                <label class="form-label">کد پستی</label>
+                                                <input type="text" id="edit-party-postal-code" class="form-control" placeholder="کد پستی">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">آدرس</label>
+                                                <textarea id="edit-party-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="edit-form-actions">
+                                            <button type="button" id="update-party" class="simple-btn simple-btn-success"><i class="fas fa-save"></i> به‌روزرسانی</button>
+                                            <button type="button" id="cancel-edit-party" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> انصراف</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-list-divider"></div>
+                                    
+                                    <div class="parties-list" id="parties-list">
+                                        <div class="empty-state"><i class="fas fa-users"></i><p>هیچ مشتری ثبت نشده است</p></div>
                                     </div>
                                 </div>
-                                
-                                <div class="form-list-divider"></div>
-                                
-                                <div class="parties-list" id="parties-list">
-                                    <div class="empty-state"><i class="fas fa-users"></i><p>هیچ شخصی ثبت نشده است</p></div>
+                            </div>
+                            
+                            <!-- لیست تامین کنندگان -->
+                            <div id="suppliers-list-container" class="hidden">
+                                <div class="parties-section">
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">نوع شخص</label>
+                                            <select id="supplier-type" class="form-control">
+                                                <option value="legal">حقوقی</option>
+                                                <option value="individual">حقیقی</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">نام تامین کننده</label>
+                                            <input type="text" id="supplier-name" class="form-control" placeholder="نام تامین کننده">
+                                        </div>
+                                    </div>
+                                    <div class="three-fields-row">
+                                        <div class="form-group">
+                                            <label class="form-label">کد اقتصادی</label>
+                                            <input type="text" id="supplier-economic-code" class="form-control" placeholder="کد اقتصادی">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">شناسه ملی</label>
+                                            <input type="text" id="supplier-national-id" class="form-control" placeholder="شناسه ملی">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">شماره ثبت</label>
+                                            <input type="text" id="supplier-registration-number" class="form-control" placeholder="شماره ثبت">
+                                        </div>
+                                    </div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">تلفن</label>
+                                            <input type="text" id="supplier-phone" class="form-control" placeholder="تلفن">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">شماره تماس</label>
+                                            <input type="text" id="supplier-mobile" class="form-control" placeholder="شماره تماس">
+                                        </div>
+                                    </div>
+                                    <div class="form-grid-row">
+                                        <div class="form-group">
+                                            <label class="form-label">کد پستی</label>
+                                            <input type="text" id="supplier-postal-code" class="form-control" placeholder="کد پستی">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">آدرس</label>
+                                            <textarea id="supplier-address" class="form-control" rows="2" placeholder="آدرس"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group add-party-button">
+                                        <button type="button" id="add-supplier" class="simple-btn simple-btn-success"><i class="fas fa-plus"></i> افزودن تامین کننده</button>
+                                    </div>
+                                    
+                                    <div class="form-list-divider"></div>
+                                    
+                                    <div class="parties-list" id="suppliers-list">
+                                        <div class="empty-state"><i class="fas fa-users"></i><p>هیچ تامین کننده‌ای ثبت نشده است</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- نمایش جزئیات شخص -->
+                            <div id="party-details" class="party-details hidden">
+                                <div class="party-details-header">
+                                    <h3>مشاهده اطلاعات شخص</h3>
+                                    <div class="party-actions">
+                                        <button id="edit-party-view-btn" class="simple-btn simple-btn-info"><i class="fas fa-edit"></i> ویرایش</button>
+                                        <button id="close-party-view" class="simple-btn simple-btn-warning"><i class="fas fa-times"></i> بستن</button>
+                                    </div>
+                                </div>
+                                <div class="party-details-content">
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">نام:</div>
+                                        <div class="party-details-value" id="view-party-name"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">نوع شخص:</div>
+                                        <div class="party-details-value" id="view-party-type"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">کد اقتصادی:</div>
+                                        <div class="party-details-value" id="view-party-economic-code"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">شناسه ملی:</div>
+                                        <div class="party-details-value" id="view-party-national-id"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">شماره ثبت:</div>
+                                        <div class="party-details-value" id="view-party-registration-number"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">تلفن:</div>
+                                        <div class="party-details-value" id="view-party-phone"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">شماره تماس:</div>
+                                        <div class="party-details-value" id="view-party-mobile"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">کد پستی:</div>
+                                        <div class="party-details-value" id="view-party-postal-code"></div>
+                                    </div>
+                                    <div class="party-details-row">
+                                        <div class="party-details-label">آدرس:</div>
+                                        <div class="party-details-value" id="view-party-address"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -823,7 +963,7 @@
                     <div id="documents-tab" class="tab-content hidden">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title"><i class="fas fa-file-invoice"></i> مدیریت اسناد و فاکتورها</h2>
+                                <h2 class="card-title"><i class="fas fa-folder-open"></i> مدیریت اسناد و فاکتورها</h2>
                             </div>
                             
                             <div class="documents-tabs">
@@ -951,20 +1091,29 @@
         
         // نام و نسخه پایگاه داده
         const DB_NAME = 'MahrazSystem';
-        const DB_VERSION = 21;
+        const DB_VERSION = 22;
         
         // نام جداول
         const STORE_NAMES = {
-            ACCOUNTS: 'accounts', PARTIES: 'parties', INVENTORY: 'inventory', INVOICES: 'invoices', 
-            INVOICE_COUNTER: 'invoice_counter', FISCAL_PERIOD: 'fiscal_period', SETTINGS: 'settings',
-            COMPANY_INFO: 'company_info', DOCUMENTS: 'documents', DOCUMENT_COUNTER: 'document_counter'
+            ACCOUNTS: 'accounts', 
+            PARTIES: 'parties', 
+            SUPPLIERS: 'suppliers',
+            INVENTORY: 'inventory', 
+            INVOICES: 'invoices', 
+            INVOICE_COUNTER: 'invoice_counter', 
+            FISCAL_PERIOD: 'fiscal_period', 
+            SETTINGS: 'settings',
+            COMPANY_INFO: 'company_info', 
+            DOCUMENTS: 'documents', 
+            DOCUMENT_COUNTER: 'document_counter'
         };
         
         // آرایه برای ذخیره حساب‌ها
         let accounts = [];
         
         // آرایه برای ذخیره طرف‌های حساب
-        let parties = [];
+        let customers = [];
+        let suppliers = [];
         
         // آرایه برای ذخیره کالاها
         let inventory = [];
@@ -1004,6 +1153,7 @@
         let editingDocumentId = null;
         let viewingInvoiceId = null;
         let currentDocumentType = 'documents';
+        let currentPartyType = 'customers';
         
         // عناصر DOM
         const loginPage = document.getElementById('login-page');
@@ -1132,6 +1282,38 @@
         const updateProductBtn = document.getElementById('update-product');
         const cancelEditProductBtn = document.getElementById('cancel-edit-product');
         
+        // عناصر جدید برای تب اشخاص
+        const partyTabs = document.querySelectorAll('.party-tab');
+        const customersListContainer = document.getElementById('customers-list-container');
+        const suppliersListContainer = document.getElementById('suppliers-list-container');
+        const suppliersList = document.getElementById('suppliers-list');
+        const partyDetails = document.getElementById('party-details');
+        const editPartyViewBtn = document.getElementById('edit-party-view-btn');
+        const closePartyViewBtn = document.getElementById('close-party-view');
+        
+        // عناصر مشاهده شخص
+        const viewPartyName = document.getElementById('view-party-name');
+        const viewPartyType = document.getElementById('view-party-type');
+        const viewPartyEconomicCode = document.getElementById('view-party-economic-code');
+        const viewPartyNationalId = document.getElementById('view-party-national-id');
+        const viewPartyRegistrationNumber = document.getElementById('view-party-registration-number');
+        const viewPartyPhone = document.getElementById('view-party-phone');
+        const viewPartyMobile = document.getElementById('view-party-mobile');
+        const viewPartyPostalCode = document.getElementById('view-party-postal-code');
+        const viewPartyAddress = document.getElementById('view-party-address');
+        
+        // عناصر تامین کنندگان
+        const addSupplierBtn = document.getElementById('add-supplier');
+        const supplierNameInput = document.getElementById('supplier-name');
+        const supplierEconomicCodeInput = document.getElementById('supplier-economic-code');
+        const supplierNationalIdInput = document.getElementById('supplier-national-id');
+        const supplierRegistrationNumberInput = document.getElementById('supplier-registration-number');
+        const supplierPhoneInput = document.getElementById('supplier-phone');
+        const supplierMobileInput = document.getElementById('supplier-mobile');
+        const supplierPostalCodeInput = document.getElementById('supplier-postal-code');
+        const supplierAddressInput = document.getElementById('supplier-address');
+        const supplierTypeSelect = document.getElementById('supplier-type');
+        
         // مدیریت ورود به سیستم
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1164,7 +1346,8 @@
                 document.getElementById(`${tabId}-tab`).classList.remove('hidden');
                 updatePageTitle(tabId);
                 if (tabId === 'parties') {
-                    updatePartiesList();
+                    updateCustomersList();
+                    updateSuppliersList();
                 }
                 if (tabId === 'products') {
                     updateInventoryList();
@@ -1205,8 +1388,28 @@
             });
         });
         
+        // مدیریت تب‌های مشتریان و تامین کنندگان
+        partyTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                partyTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentPartyType = this.getAttribute('data-type');
+                
+                if (currentPartyType === 'customers') {
+                    customersListContainer.classList.remove('hidden');
+                    suppliersListContainer.classList.add('hidden');
+                } else {
+                    customersListContainer.classList.add('hidden');
+                    suppliersListContainer.classList.remove('hidden');
+                }
+            });
+        });
+        
         // مدیریت افزودن طرف حساب
         addPartyBtn.addEventListener('click', addParty);
+        
+        // مدیریت افزودن تامین کننده
+        addSupplierBtn.addEventListener('click', addSupplier);
         
         // مدیریت ذخیره اطلاعات شرکت
         saveCompanyInfoBtn.addEventListener('click', saveCompanyInfo);
@@ -1255,11 +1458,17 @@
         });
         closeInvoiceBtn.addEventListener('click', closeInvoiceDetails);
         
+        // مدیریت تب اشخاص
+        closePartyViewBtn.addEventListener('click', closePartyDetails);
+        editPartyViewBtn.addEventListener('click', function() {
+            if (editingPartyId) editParty(editingPartyId);
+        });
+        
         // مقداردهی اولیه برنامه پس از ورود
         function initializeApp() {
             openDatabase().then(() => {
                 return Promise.all([
-                    loadAccounts(), loadParties(), loadInventory(), loadInvoices(), loadInvoiceCounter(),
+                    loadAccounts(), loadCustomers(), loadSuppliers(), loadInventory(), loadInvoices(), loadInvoiceCounter(),
                     loadFiscalPeriod(), loadSettings(), loadCompanyInfo(), loadDocuments(), loadDocumentCounter()
                 ]);
             }).then(() => {
@@ -1267,7 +1476,8 @@
                 document.getElementById('invoice-date').value = today;
                 document.getElementById('entry-date').value = today;
                 
-                updatePartiesList();
+                updateCustomersList();
+                updateSuppliersList();
                 updateCompanyInfo();
                 updateInventoryList();
                 updateInvoicePartySelect();
@@ -1295,6 +1505,7 @@
                         accountsStore.createIndex('level', 'level', { unique: false });
                     }
                     if (!db.objectStoreNames.contains(STORE_NAMES.PARTIES)) db.createObjectStore(STORE_NAMES.PARTIES, { keyPath: 'id' });
+                    if (!db.objectStoreNames.contains(STORE_NAMES.SUPPLIERS)) db.createObjectStore(STORE_NAMES.SUPPLIERS, { keyPath: 'id' });
                     if (!db.objectStoreNames.contains(STORE_NAMES.INVENTORY)) db.createObjectStore(STORE_NAMES.INVENTORY, { keyPath: 'id' });
                     if (!db.objectStoreNames.contains(STORE_NAMES.INVOICES)) {
                         const invoicesStore = db.createObjectStore(STORE_NAMES.INVOICES, { keyPath: 'id' });
@@ -1330,14 +1541,25 @@
             });
         }
         
-        // بارگذاری طرف‌های حساب از IndexedDB
-        function loadParties() {
+        // بارگذاری مشتریان از IndexedDB
+        function loadCustomers() {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([STORE_NAMES.PARTIES], 'readonly');
                 const store = transaction.objectStore(STORE_NAMES.PARTIES);
                 const request = store.getAll();
-                request.onsuccess = () => { parties = request.result; resolve(); };
-                request.onerror = () => reject(new Error('خطا در بارگذاری طرف‌های حساب'));
+                request.onsuccess = () => { customers = request.result; resolve(); };
+                request.onerror = () => reject(new Error('خطا در بارگذاری مشتریان'));
+            });
+        }
+        
+        // بارگذاری تامین کنندگان از IndexedDB
+        function loadSuppliers() {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAMES.SUPPLIERS], 'readonly');
+                const store = transaction.objectStore(STORE_NAMES.SUPPLIERS);
+                const request = store.getAll();
+                request.onsuccess = () => { suppliers = request.result; resolve(); };
+                request.onerror = () => reject(new Error('خطا در بارگذاری تامین کنندگان'));
             });
         }
         
@@ -1450,11 +1672,18 @@
             });
         }
         
-        // ذخیره طرف حساب در IndexedDB
-        function saveParty(party) {
+        // ذخیره مشتری در IndexedDB
+        function saveCustomer(customer) {
             const transaction = db.transaction([STORE_NAMES.PARTIES], 'readwrite');
             const store = transaction.objectStore(STORE_NAMES.PARTIES);
-            store.put(party);
+            store.put(customer);
+        }
+        
+        // ذخیره تامین کننده در IndexedDB
+        function saveSupplier(supplier) {
+            const transaction = db.transaction([STORE_NAMES.SUPPLIERS], 'readwrite');
+            const store = transaction.objectStore(STORE_NAMES.SUPPLIERS);
+            store.put(supplier);
         }
         
         // ذخیره کالا در IndexedDB
@@ -1520,11 +1749,18 @@
             store.put(account);
         }
         
-        // حذف طرف حساب از IndexedDB
-        function deletePartyFromDB(partyId) {
+        // حذف مشتری از IndexedDB
+        function deleteCustomerFromDB(customerId) {
             const transaction = db.transaction([STORE_NAMES.PARTIES], 'readwrite');
             const store = transaction.objectStore(STORE_NAMES.PARTIES);
-            store.delete(partyId);
+            store.delete(customerId);
+        }
+        
+        // حذف تامین کننده از IndexedDB
+        function deleteSupplierFromDB(supplierId) {
+            const transaction = db.transaction([STORE_NAMES.SUPPLIERS], 'readwrite');
+            const store = transaction.objectStore(STORE_NAMES.SUPPLIERS);
+            store.delete(supplierId);
         }
         
         // حذف کالا از IndexedDB
@@ -1571,7 +1807,7 @@
         function updatePageTitle(tabId) {
             const titles = {
                 'dashboard': { title: 'اطلاعات سیستم', description: 'تنظیمات پایه و اطلاعات سیستم حسابداری' },
-                'parties': { title: 'مدیریت اشخاص', description: 'در این بخش می‌توانید اشخاص و مشتریان خود را مدیریت کنید' },
+                'parties': { title: 'مدیریت اشخاص', description: 'در این بخش می‌توانید مشتریان و تامین کنندگان خود را مدیریت کنید' },
                 'products': { title: 'مدیریت کالا/خدمات', description: 'در این بخش می‌توانید کالاها و خدمات خود را مدیریت کنید' },
                 'accounts': { title: 'جداول حساب', description: 'در این بخش می‌توانید ساختار حساب‌های مالی خود را مشاهده کنید' },
                 'invoice': { title: 'فاکتور فروش', description: 'در این بخش می‌توانید فاکتور صادر کنید' },
@@ -1581,8 +1817,8 @@
             
             const titleInfo = titles[tabId];
             const icons = {
-                'dashboard': 'info-circle', 'parties': 'users', 'products': 'cubes', 
-                'accounts': 'sitemap', 'invoice': 'receipt', 'register': 'file-signature', 'documents': 'file-invoice'
+                'dashboard': 'building', 'parties': 'users', 'products': 'cubes', 
+                'accounts': 'sitemap', 'invoice': 'receipt', 'register': 'file-signature', 'documents': 'folder-open'
             };
             
             pageTitle.innerHTML = `<i class="fas fa-${icons[tabId]}"></i> ${titleInfo.title}`;
@@ -1604,32 +1840,60 @@
             setTimeout(() => { document.body.removeChild(notification); }, 3000);
         }
         
-        // تابع به‌روزرسانی لیست طرف‌های حساب
-        function updatePartiesList() {
-            if (parties.length === 0) {
-                partiesList.innerHTML = `<div class="empty-state"><i class="fas fa-users"></i><p>هیچ شخصی ثبت نشده است</p></div>`;
+        // تابع به‌روزرسانی لیست مشتریان
+        function updateCustomersList() {
+            if (customers.length === 0) {
+                partiesList.innerHTML = `<div class="empty-state"><i class="fas fa-users"></i><p>هیچ مشتری ثبت نشده است</p></div>`;
                 return;
             }
             
             let html = '';
-            parties.forEach(party => {
-                html += `<div class="party-item" data-id="${party.id}">
+            customers.forEach(customer => {
+                html += `<div class="party-item" data-id="${customer.id}">
                     <div class="party-info">
-                        <div class="party-title">${party.name} (${party.type === 'legal' ? 'حقوقی' : 'حقیقی'})</div>
+                        <div class="party-title">${customer.name}</div>
                         <div class="party-meta">
-                            <div class="party-meta-item"><i class="fas fa-hashtag"></i><span>کد اقتصادی: ${party.economicCode || '---'}</span></div>
-                            <div class="party-meta-item"><i class="fas fa-id-card"></i><span>شناسه ملی: ${party.nationalId || '---'}</span></div>
-                            <div class="party-meta-item"><i class="fas fa-phone"></i><span>تلفن: ${party.phone || '---'}</span></div>
-                            <div class="party-meta-item"><i class="fas fa-mobile-alt"></i><span>شماره تماس: ${party.mobile || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-hashtag"></i><span>کد اقتصادی: ${customer.economicCode || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-id-card"></i><span>شناسه ملی: ${customer.nationalId || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-phone"></i><span>تلفن: ${customer.phone || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-mobile-alt"></i><span>شماره تماس: ${customer.mobile || '---'}</span></div>
                         </div>
                     </div>
                     <div class="party-actions">
-                        <button class="simple-btn simple-btn-info" onclick="editParty(${party.id})"><i class="fas fa-edit"></i> ویرایش</button>
-                        <button class="simple-btn simple-btn-danger" onclick="deleteParty(${party.id})"><i class="fas fa-trash"></i> حذف</button>
+                        <button class="simple-btn simple-btn-info" onclick="viewParty(${customer.id}, 'customer')"><i class="fas fa-eye"></i> مشاهده</button>
+                        <button class="simple-btn simple-btn-danger" onclick="deleteParty(${customer.id}, 'customer')"><i class="fas fa-trash"></i> حذف</button>
                     </div>
                 </div>`;
             });
             partiesList.innerHTML = html;
+        }
+        
+        // تابع به‌روزرسانی لیست تامین کنندگان
+        function updateSuppliersList() {
+            if (suppliers.length === 0) {
+                suppliersList.innerHTML = `<div class="empty-state"><i class="fas fa-users"></i><p>هیچ تامین کننده‌ای ثبت نشده است</p></div>`;
+                return;
+            }
+            
+            let html = '';
+            suppliers.forEach(supplier => {
+                html += `<div class="party-item" data-id="${supplier.id}">
+                    <div class="party-info">
+                        <div class="party-title">${supplier.name}</div>
+                        <div class="party-meta">
+                            <div class="party-meta-item"><i class="fas fa-hashtag"></i><span>کد اقتصادی: ${supplier.economicCode || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-id-card"></i><span>شناسه ملی: ${supplier.nationalId || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-phone"></i><span>تلفن: ${supplier.phone || '---'}</span></div>
+                            <div class="party-meta-item"><i class="fas fa-mobile-alt"></i><span>شماره تماس: ${supplier.mobile || '---'}</span></div>
+                        </div>
+                    </div>
+                    <div class="party-actions">
+                        <button class="simple-btn simple-btn-info" onclick="viewParty(${supplier.id}, 'supplier')"><i class="fas fa-eye"></i> مشاهده</button>
+                        <button class="simple-btn simple-btn-danger" onclick="deleteParty(${supplier.id}, 'supplier')"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                </div>`;
+            });
+            suppliersList.innerHTML = html;
         }
         
         // تابع به‌روزرسانی اطلاعات شرکت
@@ -1675,7 +1939,7 @@
         // تابع به‌روزرسانی dropdown طرف‌های حساب در فاکتور
         function updateInvoicePartySelect() {
             let html = '<option value="">انتخاب کنید</option>';
-            parties.forEach(party => html += `<option value="${party.id}">${party.name} (${party.type === 'legal' ? 'حقوقی' : 'حقیقی'})</option>`);
+            customers.forEach(customer => html += `<option value="${customer.id}">${customer.name}</option>`);
             invoicePartySelect.innerHTML = html;
         }
         
@@ -1710,7 +1974,7 @@
             return leafAccounts;
         }
         
-        // تابع افزودن طرف حساب
+        // تابع افزودن مشتری
         function addParty() {
             const name = partyNameInput.value.trim();
             const economicCode = partyEconomicCodeInput.value.trim();
@@ -1727,7 +1991,7 @@
                 return;
             }
             
-            const newParty = {
+            const newCustomer = {
                 id: Date.now(), 
                 type: type, 
                 name: name, 
@@ -1740,9 +2004,9 @@
                 address: address
             };
             
-            parties.push(newParty);
-            saveParty(newParty);
-            updatePartiesList();
+            customers.push(newCustomer);
+            saveCustomer(newCustomer);
+            updateCustomersList();
             updateInvoicePartySelect();
             partyNameInput.value = '';
             partyEconomicCodeInput.value = '';
@@ -1753,12 +2017,100 @@
             partyPostalCodeInput.value = '';
             partyAddressInput.value = '';
             partyTypeSelect.value = 'legal';
-            showNotification('شخص جدید با موفقیت افزوده شد!', 'success');
+            showNotification('مشتری جدید با موفقیت افزوده شد!', 'success');
         }
         
-        // تابع ویرایش طرف حساب
+        // تابع افزودن تامین کننده
+        function addSupplier() {
+            const name = supplierNameInput.value.trim();
+            const economicCode = supplierEconomicCodeInput.value.trim();
+            const nationalId = supplierNationalIdInput.value.trim();
+            const registrationNumber = supplierRegistrationNumberInput.value.trim();
+            const phone = supplierPhoneInput.value.trim();
+            const mobile = supplierMobileInput.value.trim();
+            const postalCode = supplierPostalCodeInput.value.trim();
+            const address = supplierAddressInput.value.trim();
+            const type = supplierTypeSelect.value;
+            
+            if (!name) {
+                showNotification('لطفاً نام تامین کننده را وارد کنید!', 'error');
+                return;
+            }
+            
+            const newSupplier = {
+                id: Date.now(), 
+                type: type, 
+                name: name, 
+                economicCode: economicCode,
+                nationalId: nationalId,
+                registrationNumber: registrationNumber,
+                phone: phone, 
+                mobile: mobile,
+                postalCode: postalCode,
+                address: address
+            };
+            
+            suppliers.push(newSupplier);
+            saveSupplier(newSupplier);
+            updateSuppliersList();
+            supplierNameInput.value = '';
+            supplierEconomicCodeInput.value = '';
+            supplierNationalIdInput.value = '';
+            supplierRegistrationNumberInput.value = '';
+            supplierPhoneInput.value = '';
+            supplierMobileInput.value = '';
+            supplierPostalCodeInput.value = '';
+            supplierAddressInput.value = '';
+            supplierTypeSelect.value = 'legal';
+            showNotification('تامین کننده جدید با موفقیت افزوده شد!', 'success');
+        }
+        
+        // تابع مشاهده شخص
+        function viewParty(partyId, type) {
+            let party;
+            if (type === 'customer') {
+                party = customers.find(p => p.id === partyId);
+            } else {
+                party = suppliers.find(p => p.id === partyId);
+            }
+            
+            if (!party) {
+                showNotification('شخص مورد نظر یافت نشد!', 'error');
+                return;
+            }
+            
+            editingPartyId = partyId;
+            editingPartyType = type;
+            
+            viewPartyName.textContent = party.name;
+            viewPartyType.textContent = party.type === 'legal' ? 'حقوقی' : 'حقیقی';
+            viewPartyEconomicCode.textContent = party.economicCode || '---';
+            viewPartyNationalId.textContent = party.nationalId || '---';
+            viewPartyRegistrationNumber.textContent = party.registrationNumber || '---';
+            viewPartyPhone.textContent = party.phone || '---';
+            viewPartyMobile.textContent = party.mobile || '---';
+            viewPartyPostalCode.textContent = party.postalCode || '---';
+            viewPartyAddress.textContent = party.address || '---';
+            
+            // نمایش بخش جزئیات
+            if (type === 'customer') {
+                partiesList.classList.add('hidden');
+            } else {
+                suppliersList.classList.add('hidden');
+            }
+            partyDetails.classList.remove('hidden');
+            editPartyForm.classList.add('hidden');
+        }
+        
+        // تابع ویرایش شخص
         function editParty(partyId) {
-            const party = parties.find(p => p.id === partyId);
+            let party;
+            if (editingPartyType === 'customer') {
+                party = customers.find(p => p.id === partyId);
+            } else {
+                party = suppliers.find(p => p.id === partyId);
+            }
+            
             if (!party) {
                 showNotification('شخص مورد نظر یافت نشد!', 'error');
                 return;
@@ -1779,12 +2131,13 @@
             editingPartyId = partyId;
             
             // نمایش فرم ویرایش
+            partyDetails.classList.add('hidden');
             editPartyForm.classList.remove('hidden');
             
             showNotification('اطلاعات شخص برای ویرایش بارگذاری شد!', 'info');
         }
         
-        // تابع به‌روزرسانی طرف حساب
+        // تابع به‌روزرسانی شخص
         function updateParty() {
             if (!editingPartyId) return;
             
@@ -1816,35 +2169,66 @@
                 address: address
             };
             
-            const index = parties.findIndex(p => p.id === editingPartyId);
-            if (index !== -1) {
-                parties[index] = updatedParty;
-                saveParty(updatedParty);
-                updatePartiesList();
-                updateInvoicePartySelect();
-                
-                // پنهان کردن فرم ویرایش
-                editPartyForm.classList.add('hidden');
-                editingPartyId = null;
-                
-                showNotification('اطلاعات شخص با موفقیت به‌روزرسانی شد!', 'success');
+            if (editingPartyType === 'customer') {
+                const index = customers.findIndex(p => p.id === editingPartyId);
+                if (index !== -1) {
+                    customers[index] = updatedParty;
+                    saveCustomer(updatedParty);
+                    updateCustomersList();
+                    updateInvoicePartySelect();
+                }
+            } else {
+                const index = suppliers.findIndex(p => p.id === editingPartyId);
+                if (index !== -1) {
+                    suppliers[index] = updatedParty;
+                    saveSupplier(updatedParty);
+                    updateSuppliersList();
+                }
             }
+            
+            // پنهان کردن فرم ویرایش
+            editPartyForm.classList.add('hidden');
+            editingPartyId = null;
+            editingPartyType = null;
+            
+            showNotification('اطلاعات شخص با موفقیت به‌روزرسانی شد!', 'success');
         }
         
         // تابع انصراف از ویرایش شخص
         function cancelEditParty() {
             editPartyForm.classList.add('hidden');
-            editingPartyId = null;
+            if (editingPartyId) {
+                viewParty(editingPartyId, editingPartyType);
+            }
             showNotification('ویرایش لغو شد!', 'info');
         }
         
-        // تابع حذف طرف حساب
-        function deleteParty(partyId) {
+        // تابع بستن جزئیات شخص
+        function closePartyDetails() {
+            partyDetails.classList.add('hidden');
+            editPartyForm.classList.add('hidden');
+            if (currentPartyType === 'customers') {
+                partiesList.classList.remove('hidden');
+            } else {
+                suppliersList.classList.remove('hidden');
+            }
+            editingPartyId = null;
+            editingPartyType = null;
+        }
+        
+        // تابع حذف شخص
+        function deleteParty(partyId, type) {
             if (confirm('آیا از حذف این شخص اطمینان دارید؟')) {
-                parties = parties.filter(party => party.id !== partyId);
-                deletePartyFromDB(partyId);
-                updatePartiesList();
-                updateInvoicePartySelect();
+                if (type === 'customer') {
+                    customers = customers.filter(party => party.id !== partyId);
+                    deleteCustomerFromDB(partyId);
+                    updateCustomersList();
+                    updateInvoicePartySelect();
+                } else {
+                    suppliers = suppliers.filter(party => party.id !== partyId);
+                    deleteSupplierFromDB(partyId);
+                    updateSuppliersList();
+                }
                 showNotification('شخص با موفقیت حذف شد!', 'success');
             }
         }
@@ -2055,7 +2439,7 @@
                 return;
             }
             
-            const party = parties.find(p => p.id == partyId);
+            const party = customers.find(p => p.id == partyId);
             if (!party) {
                 showNotification('طرف حساب انتخاب شده معتبر نیست!', 'error');
                 return;
@@ -2081,23 +2465,23 @@
                 itemsHtml += `<tr><td>${index + 1}</td><td>${item.productCode || '---'}</td><td>${item.productName}</td><td>${toPersianNumbers(item.quantity)}</td><td>${item.unit}</td><td>${formatCurrency(item.unitPrice)}</td><td>${formatCurrency(item.totalPrice)}</td><td>${formatCurrency(item.discountAmount)}</td><td>${formatCurrency(item.totalPrice - item.discountAmount)}</td><td>${formatCurrency(item.taxAmount)}</td><td>${formatCurrency(item.finalPrice)}</td></tr>`;
             });
             
-            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید و فاصله‌های کمتر
+            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید - متن‌ها بزرگتر و بدون فاصله
             let sellerDetails = '';
             if (companyInfo.name) {
-                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
+                // نام و کد اقتصادی در یک ردیف بدون فاصله
                 let nameRow = '';
                 if (companyInfo.name) {
-                    nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
+                    nameRow += `<div class="invoice-connected-info-pair invoice-connected-info-pair-compact"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
                     if (companyInfo.economicCode) {
                         nameRow += `<div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div>`;
                     }
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
+                // شناسه ملی و شماره ثبت در یک ردیف بدون فاصله
                 let nationalRow = '';
                 if (companyInfo.nationalId || companyInfo.registrationNumber) {
-                    nationalRow = '<div class="invoice-connected-info-pair">';
+                    nationalRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.nationalId) {
                         nationalRow += `<div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div>`;
                     }
@@ -2107,10 +2491,10 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
+                // تلفن و شماره تماس در یک ردیف بدون فاصله
                 let phoneRow = '';
                 if (companyInfo.phone || companyInfo.mobile) {
-                    phoneRow = '<div class="invoice-connected-info-pair">';
+                    phoneRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.phone) {
                         phoneRow += `<div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div>`;
                     }
@@ -2120,10 +2504,10 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف با فاصله کمتر
+                // کد پستی و آدرس در یک ردیف بدون فاصله
                 let addressRow = '';
                 if (companyInfo.postalCode || companyInfo.address) {
-                    addressRow = '<div class="invoice-connected-info-pair">';
+                    addressRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.postalCode) {
                         addressRow += `<div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${companyInfo.postalCode}</div>`;
                     }
@@ -2138,20 +2522,20 @@
             
             let buyerDetails = '';
             if (party) {
-                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
+                // نام و کد اقتصادی در یک ردیف بدون فاصله
                 let nameRow = '';
                 if (party.name) {
-                    nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${party.name}</div>`;
+                    nameRow += `<div class="invoice-connected-info-pair invoice-connected-info-pair-compact"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${party.name}</div>`;
                     if (party.economicCode) {
                         nameRow += `<div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${party.economicCode}</div>`;
                     }
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
+                // شناسه ملی و شماره ثبت در یک ردیف بدون فاصله
                 let nationalRow = '';
                 if (party.nationalId || party.registrationNumber) {
-                    nationalRow = '<div class="invoice-connected-info-pair">';
+                    nationalRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (party.nationalId) {
                         nationalRow += `<div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${party.nationalId}</div>`;
                     }
@@ -2161,10 +2545,10 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
+                // تلفن و شماره تماس در یک ردیف بدون فاصله
                 let phoneRow = '';
                 if (party.phone || party.mobile) {
-                    phoneRow = '<div class="invoice-connected-info-pair">';
+                    phoneRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (party.phone) {
                         phoneRow += `<div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${party.phone}</div>`;
                     }
@@ -2174,10 +2558,10 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف با فاصله کمتر
+                // کد پستی و آدرس در یک ردیف بدون فاصله
                 let addressRow = '';
                 if (party.postalCode || party.address) {
-                    addressRow = '<div class="invoice-connected-info-pair">';
+                    addressRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (party.postalCode) {
                         addressRow += `<div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${party.postalCode}</div>`;
                     }
@@ -2247,11 +2631,11 @@
                         </div>` : ''}
                     </div>
                     <div class="invoice-connected-signatures">
-                        <div class="invoice-connected-signature">
+                        <div class="invoice-connected-signature invoice-signature-small">
                             <div>مهر و امضای فروشنده</div>
                             <div class="invoice-connected-signature-line"></div>
                         </div>
-                        <div class="invoice-connected-signature">
+                        <div class="invoice-connected-signature invoice-signature-small">
                             <div>مهر و امضای خریدار</div>
                             <div class="invoice-connected-signature-line"></div>
                         </div>
@@ -2315,7 +2699,7 @@
                 return;
             }
             
-            const party = parties.find(p => p.id == partyId);
+            const party = customers.find(p => p.id == partyId);
             if (!party) {
                 showNotification('طرف حساب انتخاب شده معتبر نیست!', 'error');
                 return;
@@ -2366,7 +2750,7 @@
             }
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:0.8rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:0.8rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:15px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:20px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:2px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:80px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:5px;margin-bottom:3px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto;font-size:0.65rem}.invoice-connected-info-pair .invoice-connected-info-value{font-size:0.65rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${invoiceContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:0.8rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:0.8rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:15px}.invoice-connected-signature{font-size:0.65rem}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:10px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:2px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:80px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:2px;margin-bottom:2px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto;font-size:0.7rem}.invoice-connected-info-pair .invoice-connected-info-value{font-size:0.7rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${invoiceContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -2860,23 +3244,23 @@
             
             const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
             
-            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید و فاصله‌های کمتر
+            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید - متن‌ها بزرگتر و بدون فاصله
             let sellerDetails = '';
             if (companyInfo.name) {
-                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
+                // نام و کد اقتصادی در یک ردیف بدون فاصله
                 let nameRow = '';
                 if (companyInfo.name) {
-                    nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
+                    nameRow += `<div class="invoice-connected-info-pair invoice-connected-info-pair-compact"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
                     if (companyInfo.economicCode) {
                         nameRow += `<div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div>`;
                     }
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
+                // شناسه ملی و شماره ثبت در یک ردیف بدون فاصله
                 let nationalRow = '';
                 if (companyInfo.nationalId || companyInfo.registrationNumber) {
-                    nationalRow = '<div class="invoice-connected-info-pair">';
+                    nationalRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.nationalId) {
                         nationalRow += `<div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div>`;
                     }
@@ -2886,10 +3270,10 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
+                // تلفن و شماره تماس در یک ردیف بدون فاصله
                 let phoneRow = '';
                 if (companyInfo.phone || companyInfo.mobile) {
-                    phoneRow = '<div class="invoice-connected-info-pair">';
+                    phoneRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.phone) {
                         phoneRow += `<div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div>`;
                     }
@@ -2899,10 +3283,10 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف با فاصله کمتر
+                // کد پستی و آدرس در یک ردیف بدون فاصله
                 let addressRow = '';
                 if (companyInfo.postalCode || companyInfo.address) {
-                    addressRow = '<div class="invoice-connected-info-pair">';
+                    addressRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.postalCode) {
                         addressRow += `<div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${companyInfo.postalCode}</div>`;
                     }
@@ -2917,20 +3301,20 @@
             
             let buyerDetails = '';
             if (invoice.partyName) {
-                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
+                // نام و کد اقتصادی در یک ردیف بدون فاصله
                 let nameRow = '';
                 if (invoice.partyName) {
-                    nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div>`;
+                    nameRow += `<div class="invoice-connected-info-pair invoice-connected-info-pair-compact"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div>`;
                     if (invoice.partyEconomicCode) {
                         nameRow += `<div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${invoice.partyEconomicCode}</div>`;
                     }
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
+                // شناسه ملی و شماره ثبت در یک ردیف بدون فاصله
                 let nationalRow = '';
                 if (invoice.partyNationalId || invoice.partyRegistrationNumber) {
-                    nationalRow = '<div class="invoice-connected-info-pair">';
+                    nationalRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (invoice.partyNationalId) {
                         nationalRow += `<div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${invoice.partyNationalId}</div>`;
                     }
@@ -2940,10 +3324,10 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
+                // تلفن و شماره تماس در یک ردیف بدون فاصله
                 let phoneRow = '';
                 if (invoice.partyPhone || invoice.partyMobile) {
-                    phoneRow = '<div class="invoice-connected-info-pair">';
+                    phoneRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (invoice.partyPhone) {
                         phoneRow += `<div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${invoice.partyPhone}</div>`;
                     }
@@ -2953,10 +3337,10 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف با فاصله کمتر
+                // کد پستی و آدرس در یک ردیف بدون فاصله
                 let addressRow = '';
                 if (invoice.partyPostalCode || invoice.partyAddress) {
-                    addressRow = '<div class="invoice-connected-info-pair">';
+                    addressRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (invoice.partyPostalCode) {
                         addressRow += `<div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${invoice.partyPostalCode}</div>`;
                     }
@@ -3026,11 +3410,11 @@
                         </div>` : ''}
                     </div>
                     <div class="invoice-connected-signatures">
-                        <div class="invoice-connected-signature">
+                        <div class="invoice-connected-signature invoice-signature-small">
                             <div>مهر و امضای فروشنده</div>
                             <div class="invoice-connected-signature-line"></div>
                         </div>
-                        <div class="invoice-connected-signature">
+                        <div class="invoice-connected-signature invoice-signature-small">
                             <div>مهر و امضای خریدار</div>
                             <div class="invoice-connected-signature-line"></div>
                         </div>
@@ -3100,23 +3484,23 @@
             
             const paymentMethodText = invoice.paymentMethod === 'cash' ? 'نقدی' : 'غیر نقدی';
             
-            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید و فاصله‌های کمتر
+            // تولید HTML برای مشخصات فروشنده و خریدار با چیدمان جدید - متن‌ها بزرگتر و بدون فاصله
             let sellerDetails = '';
             if (companyInfo.name) {
-                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
+                // نام و کد اقتصادی در یک ردیف بدون فاصله
                 let nameRow = '';
                 if (companyInfo.name) {
-                    nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
+                    nameRow += `<div class="invoice-connected-info-pair invoice-connected-info-pair-compact"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${companyInfo.name}</div>`;
                     if (companyInfo.economicCode) {
                         nameRow += `<div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${companyInfo.economicCode}</div>`;
                     }
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
+                // شناسه ملی و شماره ثبت در یک ردیف بدون فاصله
                 let nationalRow = '';
                 if (companyInfo.nationalId || companyInfo.registrationNumber) {
-                    nationalRow = '<div class="invoice-connected-info-pair">';
+                    nationalRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.nationalId) {
                         nationalRow += `<div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${companyInfo.nationalId}</div>`;
                     }
@@ -3126,10 +3510,10 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
+                // تلفن و شماره تماس در یک ردیف بدون فاصله
                 let phoneRow = '';
                 if (companyInfo.phone || companyInfo.mobile) {
-                    phoneRow = '<div class="invoice-connected-info-pair">';
+                    phoneRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.phone) {
                         phoneRow += `<div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${companyInfo.phone}</div>`;
                     }
@@ -3139,10 +3523,10 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف با فاصله کمتر
+                // کد پستی و آدرس در یک ردیف بدون فاصله
                 let addressRow = '';
                 if (companyInfo.postalCode || companyInfo.address) {
-                    addressRow = '<div class="invoice-connected-info-pair">';
+                    addressRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (companyInfo.postalCode) {
                         addressRow += `<div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${companyInfo.postalCode}</div>`;
                     }
@@ -3157,20 +3541,20 @@
             
             let buyerDetails = '';
             if (invoice.partyName) {
-                // نام و کد اقتصادی در یک ردیف با فاصله کمتر
+                // نام و کد اقتصادی در یک ردیف بدون فاصله
                 let nameRow = '';
                 if (invoice.partyName) {
-                    nameRow += `<div class="invoice-connected-info-pair"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div>`;
+                    nameRow += `<div class="invoice-connected-info-pair invoice-connected-info-pair-compact"><div class="invoice-connected-info-label">نام:</div><div class="invoice-connected-info-value">${invoice.partyName}</div>`;
                     if (invoice.partyEconomicCode) {
                         nameRow += `<div class="invoice-connected-info-label">کد اقتصادی:</div><div class="invoice-connected-info-value">${invoice.partyEconomicCode}</div>`;
                     }
                     nameRow += '</div>';
                 }
                 
-                // شناسه ملی و شماره ثبت در یک ردیف با فاصله کمتر
+                // شناسه ملی و شماره ثبت در یک ردیف بدون فاصله
                 let nationalRow = '';
                 if (invoice.partyNationalId || invoice.partyRegistrationNumber) {
-                    nationalRow = '<div class="invoice-connected-info-pair">';
+                    nationalRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (invoice.partyNationalId) {
                         nationalRow += `<div class="invoice-connected-info-label">شناسه ملی:</div><div class="invoice-connected-info-value">${invoice.partyNationalId}</div>`;
                     }
@@ -3180,10 +3564,10 @@
                     nationalRow += '</div>';
                 }
                 
-                // تلفن و شماره تماس در یک ردیف با فاصله کمتر
+                // تلفن و شماره تماس در یک ردیف بدون فاصله
                 let phoneRow = '';
                 if (invoice.partyPhone || invoice.partyMobile) {
-                    phoneRow = '<div class="invoice-connected-info-pair">';
+                    phoneRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (invoice.partyPhone) {
                         phoneRow += `<div class="invoice-connected-info-label">تلفن:</div><div class="invoice-connected-info-value">${invoice.partyPhone}</div>`;
                     }
@@ -3193,10 +3577,10 @@
                     phoneRow += '</div>';
                 }
                 
-                // کد پستی و آدرس در یک ردیف با فاصله کمتر
+                // کد پستی و آدرس در یک ردیف بدون فاصله
                 let addressRow = '';
                 if (invoice.partyPostalCode || invoice.partyAddress) {
-                    addressRow = '<div class="invoice-connected-info-pair">';
+                    addressRow = '<div class="invoice-connected-info-pair invoice-connected-info-pair-compact">';
                     if (invoice.partyPostalCode) {
                         addressRow += `<div class="invoice-connected-info-label">کد پستی:</div><div class="invoice-connected-info-value">${invoice.partyPostalCode}</div>`;
                     }
@@ -3266,11 +3650,11 @@
                         </div>` : ''}
                     </div>
                     <div class="invoice-connected-signatures">
-                        <div class="invoice-connected-signature">
+                        <div class="invoice-connected-signature invoice-signature-small">
                             <div>مهر و امضای فروشنده</div>
                             <div class="invoice-connected-signature-line"></div>
                         </div>
-                        <div class="invoice-connected-signature">
+                        <div class="invoice-connected-signature invoice-signature-small">
                             <div>مهر و امضای خریدار</div>
                             <div class="invoice-connected-signature-line"></div>
                         </div>
@@ -3279,7 +3663,7 @@
             `;
             
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور شماره ${toPersianNumbers(invoice.number)}</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:0.8rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:0.8rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:15px}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:20px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:2px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:80px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:5px;margin-bottom:3px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto;font-size:0.65rem}.invoice-connected-info-pair .invoice-connected-info-value{font-size:0.65rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${printContent}</body></html>`);
+            printWindow.document.write(`<!DOCTYPE html><html dir="rtl"><head><title>چاپ فاکتور شماره ${toPersianNumbers(invoice.number)}</title><style>body{font-family:'Vazirmatn','Vazir',Tahoma,sans-serif;direction:rtl;margin:20px;line-height:1.6}.invoice-connected-container{border:1px solid #000;padding:20px}.invoice-connected-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #000}.invoice-connected-number{font-size:0.8rem;font-weight:700}.invoice-connected-title{font-size:1.5rem;font-weight:700;text-align:center;flex:1}.invoice-connected-date{font-size:0.8rem;font-weight:700}.invoice-connected-table{width:100%;border-collapse:collapse;margin:0;font-size:0.7rem}.invoice-connected-table th,.invoice-connected-table td{border:1px solid #000;padding:6px;text-align:center}.invoice-connected-table th{background-color:#f0f0f0}.invoice-connected-summary{margin-top:0;background:rgba(0,0,0,0.05);border-radius:0 0 10px 10px;padding:15px;border:1px solid #000;border-top:none}.invoice-connected-summary-row{display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #000}.invoice-connected-summary-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.invoice-connected-summary-label{font-weight:600;font-size:0.65rem}.invoice-connected-summary-value{font-weight:700;font-size:0.65rem}.invoice-connected-signatures{display:flex;justify-content:space-between;margin-top:15px}.invoice-connected-signature{font-size:0.65rem}.invoice-connected-signature-line{border-top:1px solid #000;margin-top:10px;padding-top:5px}.invoice-connected-details{display:flex;justify-content:space-between;margin-bottom:0}.invoice-connected-seller,.invoice-connected-buyer{flex:1;padding:15px}.invoice-connected-seller{margin-left:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-buyer{margin-right:0;border-bottom:none;border-radius:0 0 0 0}.invoice-connected-info-row{display:flex;margin-bottom:2px;align-items:center}.invoice-connected-info-label{font-weight:600;min-width:80px;font-size:0.7rem}.invoice-connected-info-value{flex:1;font-size:0.7rem;margin-right:5px}.invoice-connected-info-pair{display:flex;align-items:center;gap:2px;margin-bottom:2px}.invoice-connected-info-pair .invoice-connected-info-label{min-width:auto;font-size:0.7rem}.invoice-connected-info-pair .invoice-connected-info-value{font-size:0.7rem}@media print{body{margin:0}.invoice-connected-container{border:none}}</style></head><body>${printContent}</body></html>`);
             printWindow.document.close();
             printWindow.print();
         }
@@ -3302,7 +3686,7 @@
         // تابع صادر کردن داده‌ها به JSON
         function exportData() {
             const data = { 
-                accounts, parties, inventory, invoices: savedInvoices, invoiceCounter, 
+                accounts, customers, suppliers, inventory, invoices: savedInvoices, invoiceCounter, 
                 documents: savedDocuments, documentCounter,
                 fiscalPeriod, settings, companyInfo 
             };
@@ -3331,7 +3715,8 @@
                     const data = JSON.parse(e.target.result);
                     if (confirm('آیا از وارد کردن داده‌های جدید اطمینان دارید؟ داده‌های فعلی جایگزین خواهند شد.')) {
                         accounts = data.accounts || [];
-                        parties = data.parties || [];
+                        customers = data.customers || [];
+                        suppliers = data.suppliers || [];
                         inventory = data.inventory || [];
                         savedInvoices = data.invoices || [];
                         invoiceCounter = data.invoiceCounter || 1;
@@ -3344,6 +3729,7 @@
                         const promises = [];
                         promises.push(clearStore(STORE_NAMES.ACCOUNTS));
                         promises.push(clearStore(STORE_NAMES.PARTIES));
+                        promises.push(clearStore(STORE_NAMES.SUPPLIERS));
                         promises.push(clearStore(STORE_NAMES.INVENTORY));
                         promises.push(clearStore(STORE_NAMES.INVOICES));
                         promises.push(clearStore(STORE_NAMES.INVOICE_COUNTER));
@@ -3356,7 +3742,8 @@
                         Promise.all(promises).then(() => {
                             const savePromises = [];
                             accounts.forEach(account => savePromises.push(saveAccount(account)));
-                            parties.forEach(party => savePromises.push(saveParty(party)));
+                            customers.forEach(customer => savePromises.push(saveCustomer(customer)));
+                            suppliers.forEach(supplier => savePromises.push(saveSupplier(supplier)));
                             inventory.forEach(product => savePromises.push(saveProduct(product)));
                             savedInvoices.forEach(invoice => savePromises.push(saveInvoiceToDB(invoice)));
                             savePromises.push(saveInvoiceCounter());
@@ -3367,7 +3754,8 @@
                             savePromises.push(saveCompanyInfoToDB());
                             
                             Promise.all(savePromises).then(() => {
-                                updatePartiesList();
+                                updateCustomersList();
+                                updateSuppliersList();
                                 updateCompanyInfo();
                                 updateInventoryList();
                                 updateInvoicePartySelect();
@@ -3405,7 +3793,8 @@
         function resetData() {
             if (confirm('آیا از بازنشانی تمام داده‌ها اطمینان دارید؟ این عمل غیرقابل بازگشت است!')) {
                 accounts = [];
-                parties = [];
+                customers = [];
+                suppliers = [];
                 inventory = [];
                 savedInvoices = [];
                 invoiceCounter = 1;
@@ -3416,7 +3805,7 @@
                 companyInfo = { type: 'legal', name: '', economicCode: '', nationalId: '', registrationNumber: '', phone: '', mobile: '', address: '', postalCode: '' };
                 
                 const promises = [
-                    clearStore(STORE_NAMES.ACCOUNTS), clearStore(STORE_NAMES.PARTIES), clearStore(STORE_NAMES.INVENTORY),
+                    clearStore(STORE_NAMES.ACCOUNTS), clearStore(STORE_NAMES.PARTIES), clearStore(STORE_NAMES.SUPPLIERS), clearStore(STORE_NAMES.INVENTORY),
                     clearStore(STORE_NAMES.INVOICES), clearStore(STORE_NAMES.INVOICE_COUNTER), clearStore(STORE_NAMES.DOCUMENTS),
                     clearStore(STORE_NAMES.DOCUMENT_COUNTER), clearStore(STORE_NAMES.FISCAL_PERIOD),
                     clearStore(STORE_NAMES.SETTINGS), clearStore(STORE_NAMES.COMPANY_INFO)
@@ -3424,7 +3813,8 @@
                 
                 Promise.all(promises).then(() => {
                     createStandardAccountingStructure().then(() => {
-                        updatePartiesList();
+                        updateCustomersList();
+                        updateSuppliersList();
                         updateCompanyInfo();
                         updateInventoryList();
                         updateInvoicePartySelect();
